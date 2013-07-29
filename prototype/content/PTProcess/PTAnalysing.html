@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>New PT-Summary Info</title>
+</head>
+<style type="text/css">
+	
+
+</style>
+<script language="JavaScript">
+	var date = new Date();
+	document.getElementById('appDate').value=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();	
+</script>
+<body>
+<form action="#">
+	<div style="padding:5px;">
+  <h4 class="title">New PT-Summary Info</h4>
+  
+  <table class="modify">
+    <tr>
+      <th>Application Date:</th>
+      <td><input id="appDate" type="text" /></td>
+      <th>Depot:</th>
+      <td>SHA</td>
+    </tr>
+    <tr>
+      <th>A new PT Customer?</th>
+      <td>YES	</td>
+      <th>Territory:</th>
+      <td>XXX</td>
+    </tr>
+    <tr>
+	  <th>PT Application Reference #: </th>
+      <td>PT-SHA-20081027-TSM-010</td>
+      <th>Account #:</th>
+      <td>8E+08</td>
+    </tr>
+    <tr>
+      <th>Customer Name</th>
+      <td>XXXXXXXXX</td>
+      <th>Channel:</th>
+      <td>TSM</td>
+    </tr>
+    <tr>
+      <th>Industry</th>
+      <td colspan="3">ServiceIndustry(Advertising,Media,Agency,Laws)</td>
+        
+    </tr>
+    <tr>
+      <th>Current Service Provider</th>
+      <td colspan="3">XXXXXXXXXXXXXXXXXX</td>
+    </tr>
+   
+  </table>
+  <table class="modify">
+    <tr>
+      <th width="45%">Is the customer on fuel surcharge exemption or deduction now?</th>
+      <td>NO</td>
+      <th width="20%">the Current fuel surcharge</th>
+      <td>Per FS Index</td>
+    </tr>
+    <tr>
+      <th width="45%">Are you requesting for fuel surcharge exemption or deduction now?</th>
+      <td>NO</td>
+      <th width="20%">the fuel surcharge requested</th>
+      <td>Per FS Index</td>
+    </tr>
+    </tr>
+    
+  </table>
+  <table class="modify">
+    <tr>
+      <th>Term of Payment:</th>
+      <td colspan="3">Sender Pays</td>
+    </tr>
+    <tr>
+      <th>Is customer a mainly document sender?</th>
+      <td>YES</td>
+      <th width="15%">Cons/Stop</th>
+      <td>10</td>
+    </tr>
+     <tr>
+      <th width="30%">Prdouct Description(eg:digital cameral)</th>
+      <td colspan="3">Test DC</td>
+      
+    </tr>
+     <tr>
+      <th width="20%">Reason for the PT:</th>
+      <td colspan="3"></td>
+    </tr>
+  </table>
+  </div>
+ <br />
+ <div style="padding:5px;height:165px;">
+ 	<div style="padding:2px 2px 2px 2px">
+		<span style="background-color:#F5C07B;">Commercial - Dynamic Analysis Matrix &nbsp;&nbsp;</span>
+	</div>
+	<div style="padding:2px 2px 2px 2px">
+		<div style="float:left;width:35%; text-align:left;">Analysis Fields &nbsp;&nbsp;</div>
+		<div style="float:left;width:15%;text-align:center;"></div>
+		<div style="float:left;width:30%;text-align:right;">Selected Analysis Fields </div>
+		<div style="float:right;width:20%;text-align:left;">&nbsp;&nbsp;</div>
+	</div>
+	<div style="padding:2px 2px 2px 2px">
+		<div style="float:left;width:35%; text-align:left;">
+		<textarea style="width:48%;height:130px;text-align:left;">
+Country
+Product
+Product Type
+GEO Zone
+PT Zone
+WeightBand
+TOP
+		</textarea>
+		<br /><br />
+		<input type="radio" />M(%)-HW(excl Fuel)&nbsp;&nbsp;&nbsp;
+ 	<input type="radio" />GM(%)-HW(incl Fuel)
+		</div>
+		<div style="float:left;width:15%;text-align:left;">
+		<br /><br />
+		<input type="button" value="  > " class="cls-button"/><br /><br />
+		<input type="button" value="  < " class="cls-button"/>
+		</div>
+		<div style="float:left;width:30%;text-align:left;">
+		<textarea style="width:48%;height:130px;text-align:left;">
+
+		</textarea>
+		<br /><br />
+		<input type="radio" />GM(%)(excl Fuel)&nbsp;&nbsp;&nbsp;
+	<input type="radio" />GM(%)(incl Fuel)
+		</div>
+		<div style="float:right;width:20%;text-align:left;">
+		<br />
+			<input type="button" value="Caculate" class="cls-button"/>&nbsp;&nbsp;&nbsp;
+			<input type="button" value="Export" class="cls-button"/><br /><br />
+			<input type="button" value="Adjust Cost" class="cls-button" id="content/PTProcess/PTAdjust.html" onclick="addContent(this)"/><br /><br />
+			<input type="button" value="Review" class="cls-button" onclick="document.getElementById('hide').style.display='block';"/>
+		</div>
+	</div>
+ </div>
+ <br />
+ <BR />
+ <div style="padding:0 5px 5px 5px;">
+ 	
+	<BR />
+	include subtotal &nbsp;&nbsp;<input type="checkbox" checked="checked"/>
+ </div>
+ <br />
+<div style="padding:0 5px 5px 5px;">
+<div class="clearboth"> </div>
+<div id="hide" style="display:none;">
+<table class="table_B" width="100%">
+        <thead>
+			
+			<tr align="center" >
+                <th style="text-align:center;">Analysis Fields you selected (multichoised)</th>
+				<th style="text-align:center;">Rev</th>
+				<th style="text-align:center;">Cons</th>
+				<th style="text-align:center;">Kilos</th>
+				<th style="text-align:center;">RPC</th>
+				<th style="text-align:center;">RPK</th>
+				<th style="text-align:center;">WPC</th>
+				<th style="text-align:center;">GM(%)</th>
+            </tr>
+            
+        </thead>
+        <tbody>
+            <tr>
+                <td>Country、Depot、Product......</td>
+                <td>6696.8</td>
+                <td>49</td>
+                <td>24.5</td>
+                <td>136.7</td>
+                <td>273.3</td>
+                <td>0.5</td>
+				<td>19.50%</td>
+            </tr>
+			<tr>
+                <td>Total</td>
+                <td>6696.8</td>
+                <td>49</td>
+                <td>24.5</td>
+                <td>136.7</td>
+                <td>273.3</td>
+                <td>0.5</td>
+				<td>19.50%</td>
+            </tr>
+          </tbody>
+</table>
+<div style="text-align:right">
+<span style="background-color:#EEEEEE;">Total (After Cost Adjustment)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19.50%</span>
+</div>
+<br>
+</div>
+
+<div>
+	<span style="width:30%;height:50px; background-color:#EEEEEE;">
+		Commercial's Comment :
+	</span>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<textarea style="width:70%;height:50px;">
+		
+	</textarea>
+</div>
+<br />
+<div>
+	<span style="width:30%;height:30px; background-color:#EEEEEE;">
+		Evidence for Approval
+	    or Rejection :
+	</span>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<textarea style="width:70%;height:30px;">
+ok.txt
+	</textarea>
+</div>
+<br />
+<div>
+	<input type="text" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="button" value="Browser" class="cls-button" /> 
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="button" value="Upload" class="cls-button" />
+</div>
+<hr />
+<br />
+  <div style="text-align: center">
+  <input type="button" value="Confirm" class="cls-button" id="content/PTProcess/lastConfirmPT.html"  onclick="addContent(this);" /> 
+   	&nbsp;&nbsp;&nbsp;<input type="button" value="Reject" class="cls-button" onclick="alert('拒绝成功！');"/>
+   	 &nbsp;&nbsp;&nbsp;<input type="button" value="Adjust" class="cls-button" id="content/PTProcess/PTAdjust.html" onclick="addContent(this)"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 &nbsp;&nbsp;&nbsp;<input type="button" value="Return to PT List" class="cls-button" id="content/PTProcess/PTAnalyseList.html" onclick="addContent(this)"/>
+	 &nbsp;&nbsp;&nbsp;<input type="button" value="Close" class="cls-button" onclick="window.location.href='./index.html';"/>
+   </div>
+</form>
+</div>
+</body>
+</html>

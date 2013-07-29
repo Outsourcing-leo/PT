@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> Product Create</TITLE>
+ <link href="../../css/main.css" rel="stylesheet" type="text/css" />
+ <script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>
+ </HEAD>
+  <BODY>
+<div style="padding:10px;">
+	<h4 class="title">Product Create</h4>
+    <table class="modify">
+        <thead>
+        	
+             <tr>
+                <th style="text-align:right;">Product&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <td>
+                	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text">
+                </td>
+                 <th style="text-align:right;">ProductType*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <td>
+                	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="1">
+                		<option value="D">
+                			15D
+                			</option>
+                			<option value="N">
+                			15N
+                			</option>
+                			<option value="48N">
+                			48N
+                			</option>
+                		</select>
+                </td>
+            </tr>
+            <tr>
+            	<th style="text-align:right;">Name*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </th>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"></td>
+                <th style="text-align:right;">Remark&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <td>
+                	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text">
+                </td>
+            </tr>
+			 <tr>
+            	<th style="text-align:right;">Is Available*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </th>
+                <td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox"></td>
+				<th style="text-align:right;">Is HighWeight*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </th>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" class="hw" onclick="isHW()"></td>
+            </tr>
+            <tr>
+            	<th style="text-align:right;">HighWeghtband&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <td colspan="3"><input type="text" id="hwb" disabled=true value="20/300"></td>
+                
+            </tr>
+            <tr>
+            	<td align="right" colspan="4">
+            		<input type="button" value="save" class="cls-button"/>
+            		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            		<input type="button" value="close" class="cls-button"  id="index.html"  onclick="window.close()"/>
+            		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            	</td>
+            </tr>
+
+        </thead>
+    </table>
+	<script>
+		function isHW(){ 
+		   if($(".hw").attr("checked")=="checked"){
+				$('#hwb').attr("disabled",false);
+			}else{
+				$('#hwb').attr("disabled",true);
+
+			}
+		}
+	</script>
+</div>
+  
+ </BODY>
+</HTML>

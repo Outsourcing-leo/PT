@@ -1,0 +1,70 @@
+
+<div style="padding:5px;">
+    <table class="table_A">
+        <thead>
+
+             <tr>
+                <td>Country Code</td>
+                <td>
+                	<input type="text"/>
+                </td>
+				 <td>Depot No.</td>
+                <td>
+                	<select name="1" style="WIDTH:80px">
+                		<option value="">
+                			
+                			</option>
+                		<option value="HKG">
+                			HKG
+                			</option>
+                			<option value="JXO">
+                			JXO
+                			</option>
+                		</select>
+                </td>
+              
+                <td>
+                	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Query" class="cls-button"  id="content/CountryMantenance/countryQuery.html"  onclick="addContent(this)"/>
+               </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<div style="padding:0 5px 5px 5px;">
+<h4 style="float:left">Country List</h4>
+<span style="float:right"><input type="button" value="Add" class="cls-button"  id="content/CountryMantenance/countryAdd.html"  onclick="javascript:jQuery.dialog.open('content/CountryMantenance/countryAdd.html',{id:'memdiv',width :740,height :350,title:'countryAdd'})"/></span>
+<div class="clearboth"></div>
+<table class="table_B">
+        <thead>
+            <tr>
+                <th width="40"></th>
+                <th>Country Code</th>
+                <th>Country Name</th>
+                <th>Depot No.</th>
+                <th>Is Available</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+           
+            <tr id="content/CountryMantenance/countryModify.html" ondblclick="addContent(this)">
+            	
+                <td></td>
+                <td>HK</td>
+                <td>HONGKONG</td>
+                <td>HKG</td>
+                <td><input name="" type="checkbox" checked="true" /></td>
+            </tr>
+            <tr id="content/CountryMantenance/countryModify.html" ondblclick="addContent(this)">
+            		<td></td>
+                <td>JP</td>
+                <td>JAPAN</td>
+                <td>JXO</td>
+                <td><input name="" type="checkbox" /></td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+

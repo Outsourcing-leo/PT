@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>New PT-Customer Description</title>
+</head>
+<script language="JavaScript">
+	
+	var date = new Date();
+	document.getElementById('appDate').value=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();	
+</script>
+<body>
+<form action="#">
+	<div style="padding:5px;">
+  <h4 class="title">New PT-Customer Description</h4>
+  <table class="modify">
+    <tr>
+      <th>Application Date:</th>
+      <td><input id="appDate" type="text" /></td>
+      <th>Depot:</th>
+      <td>CAN</td>
+    </tr>
+    <tr>
+      <th>A new PT Customer?</th>
+      <td><select name="11" id="11" >
+      	<option value="1">YES</option>
+      	<option value="2">NO</option>
+      	</select>	
+      </td>
+      <th>Territory:</th>
+      <td><input type="text" /></td>
+    </tr>
+    <tr>
+      <th>Account #:</th>
+      <td><input type="text" /></td>
+      <td colspan="2" style="color:#FF9900">("7777777"refer to new customer)</td>
+    </tr>
+    <tr>
+      <th>Customer Name</th>
+      <td><input type="text" /></td>
+      <th>Channel:</th>
+      <td><select >
+          <option value="">TSM</option>
+        </select></td>
+    </tr>
+    <tr>
+      <th>Industry</th>
+      <td colspan="1"><select >
+          <option value="">ServiceIndustry(Advertising,Media,Agency,Laws)</option>
+        </select></td>
+    </tr>
+    <tr>
+      <th>Current Service Provider</th>
+      <td colspan="3"><input type="text" size="100"/></td>
+    </tr>
+   
+  </table>
+  <table class="modify">
+    <tr>
+      <th rowspan="2">Is the customer on fuel surcharge exemption or deduction now?</th>
+      <td rowspan="2"><select >
+         <option value="1">YES</option>
+      	<option value="2">NO</option>
+        </select></td>
+      <th>the Current fuel surcharge</th>
+      <td>Per FS Index</td>
+    </tr>
+    <tr>
+     
+      <th>the fuel surcharge requested</th>
+      <td>Per FS Index</td>
+    </tr>
+    </tr>
+    
+  </table>
+  <table class="modify">
+    <tr>
+      <th>Term of Payment:</th>
+      <td colspan="3">
+	  <select >
+           <option value="">Sender Pays</option>
+		   <option value="">both</option>
+       </select></td>
+    </tr>
+    <tr>
+      <th>Is customer a mainly document sender?</th>
+      <td><select >
+          <option value="">No</option>
+          <option value="1">YES</option>
+        </select></td>
+      <th>Cons/Stop</th>
+      <td>232</td>
+    </tr>
+     <tr>
+      <th>Prdouct Description(eg:digital cameral)</th>
+      <td colspan="1"><input type="text" value="Test DC"></td>
+      <th>Weight Range</th>
+      <td ><select >
+      	<option value="1">0.5-5kg</option>
+      	<option value="2">5-10kg</option>
+      	</select></td>
+    </tr>
+     <tr>
+      <th>Reason for the PT:</th>
+      <td colspan="3">
+      	<textarea style="width:700px; height:100px">test only</textarea>
+      </td>
+    </tr>
+  </table>
+  <span style="color:blue">*Frames highlighted by yellow must be filled in</span>
+  <hr />
+  <br>
+  <div style="text-align: center">
+  <input type="button" value="Submit" class="cls-button" id="content/NewPT/disConfirm.html"  onclick="addContent(this)" /> 
+   	&nbsp;&nbsp;&nbsp;<input type="button" value="Copy" class="cls-button"  id="content/NewPT/ptQueryCopy.html"  onclick="addContent(this)"/>
+   	 &nbsp;&nbsp;&nbsp;<input type="button" value="Close" class="cls-button" onclick="window.location.href='index.html';"/>
+   	
+   </div>
+</form>
+</div>
+</body>
+</html>

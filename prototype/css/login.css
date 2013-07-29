@@ -1,0 +1,72 @@
+@charset "utf-8";
+body{margin:o;border:0;}
+html{margin:o;border:0;}
+.clearboth{clear:both;}
+.container {
+	width: 960px;
+	margin: 0px auto;
+}
+.top {
+	width: 960px;
+	margin: 0px auto;
+	height: 70px;
+	background-image: url(../images/logo.png);
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+.container .content .left {
+	background-image: url(../images/map.png);
+	background-repeat: no-repeat;
+	background-position: left center;
+	height: 300px;
+	width: 450px;
+	float: left;
+}
+.container .content .right {
+	background-image: url(../images/20080916_315515_03.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	float: right;
+	height: 300px;
+	width: 510px;
+}
+.container .bottom h4 {
+	background-color: #CECECE;
+	height: 3px;
+}
+.container .bottom h4 span {
+	background-color: #FF860D;
+	float: left;
+	height: 3px;
+	width: 25px;
+}
+.container .bottom .copyright {
+	font-size: 12px;
+	color: #553F55;
+}
+.container .welcome {
+	color: #FF6600;
+}
+.container .content .right form {
+	margin-top: 90px;
+}
+
+.container .content .right form table td {
+	height: 50px;
+}
+#sub {
+	background-image: url(../images/20080916_315515_06_03.png);
+	background-repeat: no-repeat;
+	height: 27px;
+	width: 120px;
+	border:0 none;
+	cursor:pointer;
+}
+#reset {
+	background-image: url(../images/20080916_315515_09.png);
+	background-repeat: no-repeat;
+	height: 27px;
+	width: 120px;
+	border:0 none;
+	cursor:pointer;
+}

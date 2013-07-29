@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>PT - TNT个性化报价系统</title>
+
+
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script  type="text/javascript" src="artDialog/jquery.artDialog.js"></script>
+<script type="text/javascript" src="artDialog/plugins/iframeTools.js"></script>
+<link href="artDialog/skins/default.css" rel="stylesheet" /> 
+<link href="css/main.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/fun.js"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="js/ie9.js"></script>
+<![endif]-->
+<script>
+(function (config) {
+    config['lock'] = true;
+    config['fixed'] = true;
+    config['okVal'] = 'Ok';
+    config['cancelVal'] = 'Cancel';
+    // [more..]
+})(art.dialog.defaults);
+</script>
+</head>
+<body>
+<div class="north">
+    <div class="north_inner">
+    	<h1 id="logo" style="text-indent:-9999px;text-align:center; ">PT - TNT Personalized Tariff System</h1>
+        <div id="login_bar">Hello，Welcome<strong>Adam</strong>Logon<a href="login.html" >Log out</a></div>
+        <div class="show_hide">
+        	<a href="#" class="btn_show_hide">Hide</a>
+            <a href="#" class="btn_all_show">Open</a>
+            <a href="#" class="btn_all_hide">Close</a>
+        </div>
+    </div>
+</div><!--end layout north-->
+<div class="west">
+    <div class="west_inner">
+    	<div class="menu_sub">
+        	<dl>
+            	<dt onclick="addMenuSub(this);">Base info</dt>
+				<dd><a id="content/Product/product.html" href="#" onclick="addContent_bc(this)">Product</a></dd>
+                <dd><a id="content/ChargeableWeightBand/weightBandCreate.html" href="#" onclick="addContent_bc(this)">Chargeable Weight Band</a></dd>
+				<dd><a id="content/HighChargeableWeightband/hw.html" href="#" onclick="addContent_bc(this)">High Weight Band</a></dd>
+                <dd><a id="content/CountryMantenance/countryQuery.html" href="#" onclick="addContent_bc(this)">Country Maintenance</a></dd>
+				<dd><a id="content/ZoneGroup/ZoneGroup.html" href="#" onclick="addContent_bc(this)">ZoneGroup</a></dd>
+				<dd><a id="content/ZoneType/ZoneType.html" href="#" onclick="addContent_bc(this)">ZoneType</a></dd>
+                <dd><a id="content/CountryMantenance/countryContinentMant.html" href="#" onclick="addContent_bc(this)">Country-GEO Zone</a></dd>
+                <dd><a id="content/CountryMantenance/countryZoneMant.html" href="#" onclick="addContent_bc(this)">Country-Zone</a></dd>
+                <dd><a id="content/DepotBSM/depotBSMaintenance.html" href="#" onclick="addContent_bc(this)" >Depot-BGM/BSM</a></dd>
+                <dd><a id="content/DepotRGN/depotRGNMaintenance.html" href="#" onclick="addContent_bc(this)" >Depot-RGM</a></dd>
+                <dd><a id="content/DiscountRate/discountRateMaintenance.html" href="#" onclick="addContent_bc(this)" >Discount Rate</a></dd>
+                <dd><a id="content/DiscountRate/fullTariffMaintenance.html" href="#" onclick="addContent_bc(this)" >Full Tariff</a></dd>
+            </dl>
+           <dl>
+            	<dt onclick="addMenuSub(this);">PT Process</dt>
+                <dd><a id="content/NewPT/addPTCustomer.html" href="#" onclick="addContent_bc(this)">Apply a New PT</a></dd>
+                <dd><a id="content/NewPT/ptQueryModify.html" href="#" onclick="addContent_bc(this)">Modify a PT</a></dd>
+                <dd><a id="content/PTProcess/approvePT.html" href="#" onclick="addContent_bc(this)">Approve a PT</a></dd>
+                <dd><a id="content/PTProcess/confirmRate.html" href="#" onclick="addContent_bc(this)">Confirm Rates</a></dd>
+				<dd><a id="content/PTProcess/confirmPT.html" href="#" onclick="addContent_bc(this)">Confirm  a  PT ( to  Billing )</a></dd>
+                <dd><a id="content/PTProcess/PTAnalyse.html" href="#" onclick="addContent_bc(this)">Analyse a PT</a></dd>
+                <dd><a id="content/PTProcess/PTSLoad.html" href="#" onclick="addContent_bc(this)">New PTs Load application</a></dd>
+                <dd><a id="content/Query/queryPT.html" href="#" onclick="addContent_bc(this)">PT Query</a></dd>
+				<dd><a id="content/Query/queryHisPT.html" href="#" onclick="addContent_bc(this)">History PT Query</a></dd>
+				<dd><a id="content/Query/zoneTableQuery.html" href="#" onclick="addContent_bc(this)">Zone Table</a></dd>
+				<!--<dd><a id="content/Query/filePlace.html" href="#" onclick="addContent_bc(this)">File Place</a></dd>-->
+            </dl>
+        </div>
+    </div>
+</div><!--end layout west-->
+<div class="breadcrumbs" >
+    <div class="breadcrumbs_inner">
+    	<ul class="menu_breadcrumbs">
+        	<li><a href="index.html">首页</a></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</div><!--end layout east-->
+<div class="east">
+    <div class="east_inner" >
+    </div>
+</div><!--end layout east-->
+<div class="south">
+    <div class="south_inner">
+        <p class="copyright">Intellectual and other property rights to the information contained in this site are held by TNT Holdings B.V. with all rights reserved © 2011</p>
+    </div>
+</div><!--end layout south-->
+</body>
+</html>

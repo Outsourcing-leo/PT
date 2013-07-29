@@ -1,0 +1,107 @@
+<script language="JavaScript">
+	var date = new Date();
+	document.getElementById('appDate').value=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();	
+</script>
+
+<div style="padding:5px;">
+<h4 class="title">Confirm a PT</h4>
+  <table class="modify">
+    <tr>
+      <th>Application Date:</th>
+      <td><input id="appDate" type="text" /></td>
+      <th>Depot:</th>
+      <td>SHA</td>
+    </tr>
+    <tr>
+      <th>A new PT Customer?</th>
+      <td>YES	</td>
+      <th>Territory:</th>
+      <td>XXX</td>
+    </tr>
+    <tr>
+	  <th>PT Application Reference #: </th>
+      <td>PT-SHA-20081027-TSM-010</td>
+      <th>Account #:</th>
+      <td>8E+08</td>
+    </tr>
+    <tr>
+      <th>Customer Name</th>
+      <td>XXXXXXXXX</td>
+      <th>Channel:</th>
+      <td>TSM</td>
+    </tr>
+    <tr>
+      <th>Industry</th>
+      <td colspan="3">ServiceIndustry(Advertising,Media,Agency,Laws)</td>
+        
+    </tr>
+    <tr>
+      <th>Current Service Provider</th>
+      <td colspan="3">XXXXXXXXXXXXXXXXXX</td>
+    </tr>
+  </table>
+  <table class="modify">
+    <tr>
+      <th width="45%">Is the customer on fuel surcharge exemption or deduction now?</th>
+      <td>NO</td>
+      <th width="20%">the Current fuel surcharge</th>
+      <td>Per FS Index</td>
+    </tr>
+    <tr>
+      <th width="45%">Are you requesting for fuel surcharge exemption or deduction now?</th>
+      <td>NO</td>
+      <th width="20%">the fuel surcharge requested</th>
+      <td>Per FS Index</td>
+    </tr>
+    </tr>
+    
+  </table>
+  <table class="modify">
+    <tr>
+      <th>Term of Payment:</th>
+      <td colspan="3">Sender Pays</td>
+    </tr>
+    <tr>
+      <th>Is customer a mainly document sender?</th>
+      <td>YES</td>
+      <th width="15%">Cons/Stop</th>
+      <td>10</td>
+    </tr>
+     <tr>
+      <th width="30%">Prdouct Description(eg:digital cameral)</th>
+      <td colspan="3">Test DC</td>
+      
+    </tr>
+    <tr>
+      <th width="20%">Reason for the PT:</th>
+      <td colspan="3">XXXXXXXXXXXXXXXXXXX</td>
+    </tr>
+	<tr>
+      <th>Divison</th>
+      <td><input type="text" value="G"/></td>
+      <th width="15%">Rate Category</th>
+      <td><input type="text" value="07PTO"/></td>
+    </tr>
+	<tr>
+      <th>Effective Date: </th>
+      <td colspan="3"><input type="text" value="to be confirmed "/></td>
+      
+    </tr>
+	<tr>
+      <th>End Date: </th>
+      <td><input type="text" value="Open"/></td>
+      <th width="15%">Review Date: </th>
+      <td><input type="text" value="Open"/></td>
+    </tr>
+  </table>
+  
+  <div style="text-align:center">
+  	<input type="button" value="Confirm" class="cls-button" onclick="alert('提交成功！');"/> 
+   	&nbsp;&nbsp;&nbsp;
+	<input type="button" value="Export" class="cls-button" />
+   	&nbsp;&nbsp;&nbsp;
+	<input type="button" value="Previous" class="cls-button" id="content/PTProcess/PTAnalyseDetail.html"/>
+	&nbsp;&nbsp;&nbsp;
+	<input type="button" value="Close" class="cls-button" onclick="window.location.href='./index.html';"/>
+   </div>
+</div>
