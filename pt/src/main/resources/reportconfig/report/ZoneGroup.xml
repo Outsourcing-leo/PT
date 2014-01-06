@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<applications xmlns="http://www.wabacus.com"
+			   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			   xsi:schemaLocation="http://www.wabacus.com ../xsd/wabacus.applications.xsd">
+	<page id="ZoneGrouplistpage">
+		<report id="ZoneGroup" title="ZoneGroup list" rowselect="multiple-checkbox|true" pagesize="10" scrollstyle="image" height="300px" width="100%" type="editablelist">
+			<display>
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="{sequence:1}" label="sequence"/>
+				<col column="ZONETYPE" label="zoneType" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="ZONE" label="zone" />
+				<col column="REMARK" label="remark"/>
+			</display>
+			<sql>
+				<select>
+				<value>
+					<![CDATA[SELECT ID,ZONETYPE,ZONE,REMARK  FROM PT_ZONEGROUP order by id]]>
+				</value>
+				</select>
+				 <insert pageurl="report{ZoneGroupformpage.report1}"  popupparams="{title:'create ZoneGroup',width:650,height:400}"></insert>
+				 <update pageurl="report{ZoneGroupformpage.report1}" urlparams="txtid=@{id}"  popupparams="{title:'update ZoneGroup',width:650,height:400}"></update>
+				 <delete>
+				  	delete from PT_ZONEGROUP where id=@{id__old};
+				</delete>
+				<!-- <condition name="txtsex" label="性别">
+					<value>
+						<![CDATA[(sex =#data#)]]>
+					</value>
+					<inputbox type="selectbox">
+						<option value="" label="性别"/>
+						<option value="1" label="男"/> 
+						<option value="0" label="女" />
+					</inputbox>
+				</condition> -->
+			</sql>
+			<format>
+			  <value>
+				<!-- 	sex=sex==null?"1":sex.trim();
+					if(sex.equals("0")) sex="女";
+					else sex="男";
+					birthday=birthday==null?"":birthday.trim();
+					int idx=birthday.indexOf(" ");//判断是否有时间，有的话就去掉时间，只显示日期
+					if(idx>0) birthday=birthday.substring(0,idx); -->
+			  </value>
+			</format>
+		</report>
+	</page>
+	
+		<!-- 表单篇报表类型 -->
+	<page id="ZoneGroupformpage" js="/webresources/script/validate.js">
+		<report id="report1" title="ZoneGroup Detail" type="form" >
+			<display valuetdwidth="150px" labeltdwidth="100px" labelbgcolor="#f0f0f0" labelalign="right" valuealign="left">
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="ZONETYPE" label="zoneType">
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty})" afterdescription="*"/>
+				</col>
+				<col column="ZONE" label="zone" br="true">
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty})" afterdescription="*"/>
+				</col>
+				<col column="REMARK" label="remark" valuestyleproperty="colspan='3'"/>
+			</display>
+			<sql>
+			  <select>
+				<value>
+					<![CDATA[SELECT ID,ZONETYPE,ZONE,REMARK  FROM PT_ZONEGROUP where {#condition#}]]>
+				</value>
+				<condition name="txtid" hidden="true">
+					<value>
+						<![CDATA[(id = '#data#' )]]>
+					</value>
+				</condition>
+			  </select>
+			  <insert>
+			  	  <params>
+				  	 	<param name="id" value="sequence{SEQ_PRODUCT}"></param>
+				  </params>
+				  <value>
+			  	         insert into PT_ZONEGROUP(id=#{id},@{ZONETYPE},@{ZONE},@{REMARK});
+			  	 </value>
+			  </insert>
+			  <update>
+			 	 update PT_ZONEGROUP(@{ZONETYPE},@{ZONE},@{REMARK}) where id=@{id__old};
+			  </update>
+			</sql>
+			<format>
+			
+			</format>
+		</report>
+	</page>
+</applications>

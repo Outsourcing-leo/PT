@@ -1,0 +1,82 @@
+
+<div style="padding:5px;">
+    <table class="table_A">
+        <thead>
+             <tr>
+                <td>Product</td>
+                <td>
+                	<select name="1" disabled="true">
+                		<option value="D">
+                			15D/12D/10D/09D
+                			</option>
+                			<option value="N">
+                			15N/12N/10N/09N
+                			</option>
+                			<option value="48N">
+                			48N
+                			</option>
+                		</select>
+                </td>
+                <td colspan="2"><input type="button" value="query" class="cls-button" /></td>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<div style="padding:0 5px 5px 5px;">
+<h4 style="float:left">chargeable Weightband List</h4>
+<span style="float:right"><input type="button" value="Add Weight Band" class="cls-button" onclick="javascript:jQuery.dialog.open('content/ChargeableWeightBand/weightBandAdd.html',{id:'memdiv',width :740,height :350,title:'weightBandAdd'})"/>
+	&nbsp;&nbsp;&nbsp;
+	<input type="button" value="upload" class="cls-button" onclick="javascript:jQuery.dialog.open('content/ChargeableWeightBand/weightBandUpload.html',{id:'memdiv2',width :940,height :350,title:'weightBandUpload'})"/></span>
+
+</span>
+<div class="clearboth"></div>
+<table class="table_B">
+        <thead>
+            <tr>
+                
+                <th>Product</th>
+                <th>Name</th>
+                <th>Chargeable Weight</th>
+                <th>From</th>
+				<th>To</th>
+				<th>Is Need Add On</th>
+				<th>Is Base</th>
+				<th>Is High Weight</th>
+				<th>Add On Weight Int</th>
+            </tr>
+        </thead>
+        <tbody id="tb">
+            <tr id="content/ChargeableWeightBand/weightBandAdd.html" ondblclick="addContent(this)">
+                <td>15D/12D/10D/09D</td>
+                <td>13Zone/15D</td>
+                <td>5kg</td>
+                <td>0.5kg</td>
+                <td>300kg</td>
+                <td><input name="" type="checkbox" checked="true" /></td>
+                <td><input name="" type="checkbox" checked="true" /></td>
+                <td><input name="" type="checkbox" checked="true" /></td>
+                <td>5kg</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <div style="text-align:center">
+    	<!--<input type="button" value="Delete Last Row" class="cls-button"  id="content/ChargeableWeightBand/weightBandAdd.html"  onclick="deleteCell();"/>
+    	<input type="button" value="Close" class="cls-button"  id="index.html" onclick="window.location.href='index.html';"/>-->
+    	</div>
+</div>
+<script type="text/javascript">
+	function weightBandAdd(){
+		 window.showModalDialog("content/ChargeableWeightBand/weightBandAdd.html","123","dialogWidth=500px;dialogHeight=400px");
+	}
+	
+  function deleteCell(){
+  var mailbody = document.getElementById("tb");
+  var cell = document.getElementById("content/ChargeableWeightBand/weightBandCreate.html");
+  if(cell!=undefined){
+     mainbody.removeChild(cell);
+  } 
+ }
+</script>
+

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.RateDao">
+	<select id="get" parameterType="int" resultType="Rate">
+		select * from pt_rate where id=#{id}
+	</select>
+	
+	
+	<select id="findAll" parameterType="map" resultType="Rate">
+		select * from pt_rate
+	</select>
+	
+	
+	<select id="findAllByBusId" parameterType="map" resultType="Rate">
+		select * from pt_rate 
+		<where>
+			1=1
+			<if test="businessId != null">
+				and businessId=#{businessId}
+			</if>
+			<if test="payment != null">
+				and payment=#{payment}
+			</if>
+		</where>
+	</select>
+	
+	
+	<insert id="save" parameterType="Rate" keyProperty="id">
+		insert into pt_rate (rate, businessId, weightBandId, zoneGroupId)
+		values (#{rate},#{businessId}, #{weightBandId}, #{zoneGroupId})
+	</insert>
+	
+	<delete id="delete" parameterType="Long">
+		delete from  pt_rate where businessid=#{ids}
+	</delete>
+
+</mapper> 

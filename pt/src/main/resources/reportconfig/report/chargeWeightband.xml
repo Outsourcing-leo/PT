@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<applications xmlns="http://www.wabacus.com"
+			   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			   xsi:schemaLocation="http://www.wabacus.com ../xsd/wabacus.applications.xsd">
+	<page id="chargeWeightbandlistpage">
+		<report id="chargeWeightband" title="chargeWeightband list" rowselect="multiple-checkbox|true" pagesize="10" scrollstyle="image" height="300px" width="100%" type="editablelist">
+			<display>
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="{sequence:1}" label="sequence"/>
+				<col column="PRODUCT" label="product" clickorderby="true" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="NAME" label="name"/>
+				<col column="CHARGEABLEWEIGHT" label="Chargeable Weight" />
+				<col column="BEGIN" label="from" />
+				<col column="END" label="to" />
+				<col column="ADDONWEIGHTINT" label="Add On Weight Int"/>
+				<col column="TYPE" label="type"/>
+				<col column="ISHIGHWEIGHT" label="is heavy"/>
+				<col column="weightbandgroup" label="weightbandgroup"/>
+				<col column="ISCOMMERCIALVISIBLE" label="commercial visible"/>
+			</display>
+			<sql>
+				<select>
+				<value>
+					<![CDATA[SELECT a.*,b.product,c.name as weightbandgroup  FROM PT_WEIGHTBAND a left join pt_PRODUCT b on a.PRODUCTID = b.id left join PT_WEIGHTBANDGroup c on 
+					  c.id = a.weightbandgroupId where {#condition#} order by id]]>
+				</value>
+				<condition name="txtproduct" label="product" labelposition="left">
+					<value>
+						<![CDATA[(PRODUCT like '%#data#%' )]]>
+					</value>
+					     <inputbox>
+					        <typeprompt count="15">
+						       <promptcol label="product" title="product" value="product" matchmode="anywhere" ></promptcol>
+						       <datasource><option source="@{select product from pt_PRODUCT where {#matchcondition#}}"></option></datasource>
+					        </typeprompt>
+					     </inputbox>
+				</condition>
+				</select>
+				 <insert pageurl="report{chargeWeightbandformpage.report1}" popupparams="{title:'create chargeableWeightBand',width:650,height:400}"></insert>
+				 <update pageurl="report{chargeWeightbandformpage.report1}" urlparams="txtid=@{id}" popupparams="{title:'update chargeableWeightBand',width:650,height:400}"></update>
+				 <delete>
+				  	delete from PT_WEIGHTBAND where id=@{id__old};
+				</delete>
+				<!-- <condition name="txtsex" label="性别">
+					<value>
+						<![CDATA[(sex =#data#)]]>
+					</value>
+					<inputbox type="selectbox">
+						<option value="" label="性别"/>
+						<option value="1" label="男"/> 
+						<option value="0" label="女" />
+					</inputbox>
+				</condition> -->
+			</sql>
+			<format>
+			  <value>
+					
+					ISHIGHWEIGHT=ISHIGHWEIGHT==null?"1":ISHIGHWEIGHT.trim();
+					if(ISHIGHWEIGHT.equals("0")) ISHIGHWEIGHT="yes";
+					else ISHIGHWEIGHT="no";
+					
+					ISCOMMERCIALVISIBLE=ISCOMMERCIALVISIBLE==null?"1":ISCOMMERCIALVISIBLE.trim();
+					if(ISCOMMERCIALVISIBLE.equals("0")) ISCOMMERCIALVISIBLE="yes";
+					else ISCOMMERCIALVISIBLE="no";
+			  </value>
+			</format>
+		</report>
+	</page>
+	
+		<!-- 表单篇报表类型 -->
+	<page id="chargeWeightbandformpage" js="/webresources/script/validate.js">
+		<report id="report1" title="product Detail" type="form" >
+			<display valuetdwidth="150px" labeltdwidth="100px" labelbgcolor="#f0f0f0" labelalign="right" valuealign="left">
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="PRODUCTID" displaytype="hidden"/>
+				<col column="PRODUCT" label="product" updatecol="@{PRODUCTID}" >
+					<inputbox type="selectbox" servervalidate="isNotEmpty(${invalid.isnotempty})">
+						<option source="@{select id,product from PT_PRODUCT}" label="product" value="id"/>
+					</inputbox>
+				</col>
+				<col column="NAME" label="name" br="true"/>
+				<col column="CHARGEABLEWEIGHT" label="Chargeable Weight" valuestyleproperty="colspan='3'" br="true" >
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty});isNumeric(${invalid.number})" afterdescription="*"/>
+				</col>
+				<col column="BEGIN" label="from" >
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty});isNumeric(${invalid.number})" afterdescription="*"/>
+				</col>
+				<col column="END" label="to"  br="true" />
+				<col column="ADDONWEIGHTINT" label="Add On Weight Int" />
+				<col column="TYPE" label="type" br="true">
+					<inputbox type="selectbox">
+						<option value="add" label="add"/> 
+						<option value="base" label="base"/>
+					</inputbox>
+				</col>  
+				<col column="ISHIGHWEIGHT" label="is heavy" >
+					<inputbox type="selectbox">
+						<option value="1" label="no"/>
+						<option value="0" label="yes"/> 
+					</inputbox>
+				</col>  
+				<col column="weightbandgroupId" displaytype="hidden"/>
+				<col column="name" label="weightbandgroup" updatecol="@{weightbandgroupId}" br="true">
+					<inputbox type="selectbox" >
+						<option label="---select---" value=""/>
+						<option source="@{select id,name from PT_WEIGHTBANDGroup}" label="name" value="id"/>
+					</inputbox>
+				</col>
+				<col column="ISCOMMERCIALVISIBLE" label="commercial visible">
+					<inputbox type="selectbox">
+						<option value="0" label="yes"/> 
+						<option value="1" label="no"/>
+					</inputbox>
+				</col>  
+				
+			</display>
+			<sql>
+			  <select>
+				<value>
+					<![CDATA[SELECT  a.id,PRODUCTID,a.NAME,BEGIN,END,CHARGEABLEWEIGHT,ADDONWEIGHTINT,TYPE,a.ISHIGHWEIGHT,weightbandgroupId,c.name as weightbandgroup,ISCOMMERCIALVISIBLE,b.product FROM PT_WEIGHTBAND a left join pt_PRODUCT b on a.PRODUCTID = b.id 
+					left join PT_WEIGHTBANDGroup c on 
+					  c.id = a.weightbandgroupId where {#condition#}]]>
+				</value>
+				<condition name="txtid" hidden="true">
+					<value>
+						<![CDATA[(a.id = '#data#' )]]>
+					</value>
+				</condition>
+			  </select>
+			  <insert>
+			  	  <params>
+				  	 	<param name="id" value="sequence{SEQ_PRODUCT}"></param>
+				  </params>
+				  <value>
+			  	         insert into PT_WEIGHTBAND(id=#{id},@{PRODUCTID},@{NAME},@{CHARGEABLEWEIGHT},@{BEGIN},@{END},@{ADDONWEIGHTINT},@{TYPE},@{weightbandgroupId},@{ISCOMMERCIALVISIBLE},@{ISHIGHWEIGHT});
+			  	 </value>
+			  </insert>
+			  <update>
+			 	 update PT_WEIGHTBAND(@{PRODUCTID},@{NAME},@{CHARGEABLEWEIGHT},@{BEGIN},@{END},@{ADDONWEIGHTINT},@{TYPE},@{weightbandgroupId},@{ISCOMMERCIALVISIBLE},@{ISHIGHWEIGHT}) where id=@{id__old};
+			  </update>
+			</sql>
+			<format>
+			
+			</format>
+		</report>
+	</page>
+</applications>

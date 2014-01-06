@@ -1,0 +1,43 @@
+
+.tabTitlesContainer {
+	text-align: center;
+	font-size: small;
+	cursor: hand;
+	width: 300px;
+	border-width: thin;
+}
+
+.tabTitleUnSelected {
+	background-color: Silver;
+	width: 100px;
+}
+
+.tabTitleUnSelected:hover {
+	background-color: Orange;
+}
+
+.tabTitleSelected {
+	background-color: Gray;
+	width: 100px;
+}
+
+#tabPagesContainer {
+	text-align: left;
+	font-size: small;
+	font-size: small;
+	width: 100%;
+}
+
+.tabPageUnSelected {
+	display: none;
+	width: 100%;
+}
+
+.tabPageSelected {
+	display: block;
+	width: 100%;
+}
+
+.tabPage {
+	height: 80px;
+}

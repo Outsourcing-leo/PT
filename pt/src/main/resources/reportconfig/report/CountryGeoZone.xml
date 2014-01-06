@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<applications xmlns="http://www.wabacus.com"
+			   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			   xsi:schemaLocation="http://www.wabacus.com ../xsd/wabacus.applications.xsd">
+	<page id="CountryGeoZonelistpage">
+		<report id="CountryGeoZone" title="CountryGeoZone list"  rowselect="multiple-checkbox|true" pagesize="10" scrollstyle="image" height="300px" width="100%" type="editablelist">
+			<display>
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="{sequence:1}" label="sequence"/>
+				<col column="COUNTRYID" label="COUNTRYID" displaytype="hidden"/>
+				<col column="COUNTRYCODE" label="country Code" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="GEOZONETYPE" label="GEOZone Type" />
+				<col column="RATIO" label="ratio"/>
+			</display>
+			<sql>
+				<select>
+				<value>
+					<![CDATA[SELECT PT_COUNTRY_GEO.ID,COUNTRYID,COUNTRYCODE,GEOZONETYPE,RATIO FROM PT_COUNTRY_GEO left join PT_COUNTRY on PT_COUNTRY.id=PT_COUNTRY_GEO.COUNTRYID where {#condition#} order by id]]>
+				</value>
+				<condition name="txtgeoZoneType" label="GEOZONE Type" labelposition="left">
+					<value>
+						<![CDATA[(GEOZONETYPE  like  '%#data#%' )]]>
+					</value>
+				</condition>
+				</select>
+				 <insert pageurl="report{CountryGeoZoneformpage.report1}"  popupparams="{title:'create countryGeoZone',width:650,height:400}"></insert>
+				 <update pageurl="report{CountryGeoZoneformpage.report1}" urlparams="txtid=@{id}"  popupparams="{title:'update countryGeoZone',width:650,height:400}"></update>
+				 <delete>
+				  	delete from PT_COUNTRY_GEO where id=@{id__old};
+				</delete>
+				<!-- <condition name="txtsex" label="性别">
+					<value>
+						<![CDATA[(sex =#data#)]]>
+					</value>
+					<inputbox type="selectbox">
+						<option value="" label="性别"/>
+						<option value="1" label="男"/> 
+						<option value="0" label="女" />
+					</inputbox>
+				</condition> -->
+			</sql>
+			<format>
+			  <value>
+				<!-- 	sex=sex==null?"1":sex.trim();
+					if(sex.equals("0")) sex="女";
+					else sex="男";
+					birthday=birthday==null?"":birthday.trim();
+					int idx=birthday.indexOf(" ");//判断是否有时间，有的话就去掉时间，只显示日期
+					if(idx>0) birthday=birthday.substring(0,idx); -->
+			  </value>
+			</format>
+		</report>
+	</page>
+	
+		<!-- 表单篇报表类型 -->
+	<page id="CountryGeoZoneformpage" js="/webresources/script/validate.js">
+		<report id="report1" title="CountryGeoZone Detail" type="form" >
+			<display valuetdwidth="150px" labeltdwidth="100px" labelbgcolor="#f0f0f0" labelalign="right" valuealign="left">
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="COUNTRYID" displaytype="hidden"/>
+				<col column="countryCode" label="countryCode" updatecol="@{COUNTRYID}" >
+					<inputbox type="selectbox" servervalidate="isNotEmpty(${invalid.isnotempty})">
+						<option source="@{select id,countryCode from PT_COUNTRY}" label="countryCode" value="id"/>
+					</inputbox>
+				</col>
+				<col column="GEOZONETYPE" label="GEOZone Type" br="true">
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty})" afterdescription="*"/>
+				</col>
+				<col column="RATIO" label="ratio" valuestyleproperty="colspan='3'">
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty});isNumeric(${invalid.number})" afterdescription="*"/>
+				</col>
+			</display>
+			<sql>
+			  <select>
+				<value>
+					<![CDATA[SELECT PT_COUNTRY_GEO.ID,COUNTRYID,COUNTRYCODE,GEOZONETYPE,RATIO FROM PT_COUNTRY_GEO left join PT_COUNTRY on PT_COUNTRY.id=PT_COUNTRY_GEO.COUNTRYID where {#condition#}]]>
+				</value>
+				<condition name="txtid" hidden="true">
+					<value>
+						<![CDATA[(PT_COUNTRY_GEO.id = '#data#' )]]>
+					</value>
+				</condition>
+			  </select>
+			  <insert>
+			  	  <params>
+				  	 	<param name="id" value="sequence{SEQ_PRODUCT}"></param>
+				  </params>
+				  <value>
+			  	         insert into PT_COUNTRY_GEO(id=#{id},@{COUNTRYID},@{GEOZONETYPE},@{RATIO});
+			  	 </value>
+			  </insert>
+			  <update>
+			 	 update PT_COUNTRY_GEO(@{COUNTRYID},@{GEOZONETYPE},@{RATIO}) where id=@{id__old};
+			  </update>
+			</sql>
+			<format>
+			
+			</format>
+		</report>
+	</page>
+</applications>

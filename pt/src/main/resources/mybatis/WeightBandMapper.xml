@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.WeightBandDao">
+	<!--
+		获取用户: 输出直接映射到对象, login_name列要"as loginName"以方便映射 ,team_id as "team.id"创建team对象并赋值
+	-->
+	<select id="get" parameterType="int" resultType="WeightBand">
+		select * from pt_weightband where id=#{id}
+	</select>
+	
+	<!-- 查询用户,演示: 1.输入用map传入多个参数 2.<where>语句, 智能添加where和and关键字 3.输出直接映射对象 -->
+	<select id="findAll" parameterType="map" resultType="WeightBand">
+		select * from pt_weightband 
+	</select>
+	
+	
+	<select id="findAllByProductId" parameterType="Long" resultType="WeightBand">
+		select a.*,b.name as weightbandGroup from pt_weightband a left join PT_WEIGHTBANDGROUP b on a.WEIGHTBANDGROUPID =b.id where productId=#{productId}  order by a.id
+	</select>
+	
+	<select id="getAllWeightBandByProductIdAndGroupId" parameterType="map" resultType="WeightBand">
+		select a.*,b.name as weightbandGroup from pt_weightband a left join PT_WEIGHTBANDGROUP b on a.WEIGHTBANDGROUPID =b.id where productId=#{productId} and WEIGHTBANDGROUPID = #{groupId}  order by a.id
+	</select>
+	
+	<select id="findAllByProductIdWithCommerical" parameterType="Long" resultType="WeightBand">
+		select a.*,b.name as weightbandGroup from pt_weightband a left join PT_WEIGHTBANDGROUP b on a.WEIGHTBANDGROUPID =b.id where productId=#{productId} and ISCOMMERCIALVISIBLE = 0 order by a.id
+	</select>
+	
+	<select id="findAllHighWeightBandByProductId" parameterType="Long" resultType="WeightBand">
+		select a.*,b.name as weightbandGroup from pt_weightband a left join PT_WEIGHTBANDGROUP b on a.WEIGHTBANDGROUPID =b.id  where productId=#{productId} and ISHIGHWEIGHT = 0 order by a.id
+	</select>
+	
+</mapper> 

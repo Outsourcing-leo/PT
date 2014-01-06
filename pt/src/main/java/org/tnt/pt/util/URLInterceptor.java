@@ -1,0 +1,36 @@
+package org.tnt.pt.util;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+import org.tnt.pt.dmsentity.User;
+
+
+public class URLInterceptor implements HandlerInterceptor {
+
+//	private static final String LOGIN_URL = "/login";
+
+	@Override
+	public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception {
+		User user = (User) req.getSession().getAttribute("user");
+		System.out.println(req.getRequestURL()+"  "+req.getRequestURI() );
+		// 判断如果没有取到用户信息，就跳转到登陆页面，提示用户进行登陆
+		if (user == null) {
+			res.sendRedirect("/pt/login");
+		}
+		return true;
+	}
+
+	@Override
+	public void postHandle(HttpServletRequest req, HttpServletResponse res, Object arg2, ModelAndView arg3) throws Exception {
+	
+	
+	}
+
+	@Override
+	public void afterCompletion(HttpServletRequest req, HttpServletResponse res, Object arg2, Exception arg3) throws Exception {
+	}
+
+}

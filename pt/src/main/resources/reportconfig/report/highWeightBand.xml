@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<applications xmlns="http://www.wabacus.com"
+			   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			   xsi:schemaLocation="http://www.wabacus.com ../xsd/wabacus.applications.xsd">
+	<page id="highWeightBandlistpage">
+		<report id="product" title="highWeightBand list" rowselect="multiple-checkbox|true" pagesize="10" scrollstyle="image" height="300px" width="100%" type="editablelist">
+			<display>
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="{sequence:1}" label="sequence"/>
+				<col column="NAME" label="name" clickorderby="true" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="CHARGEABLEWEIGHT" label="chargeable weight" />
+				<col column="BEGIN" label="from"/>
+				<col column="END" label="to" />
+				<col column="ADDONWEIGHTINT" label="add on weight int" />
+			</display>
+			<sql>
+				<select>
+				<value>
+					<![CDATA[SELECT * FROM PT_HIGHWEIGHTBAND where {#condition#} order by id]]>
+				</value>
+				<condition name="txtname" label="name" labelposition="left">
+					<value>
+						<![CDATA[(name like  '%#data#%' )]]>
+					</value>
+				</condition>
+				</select>
+				 <insert pageurl="report{highWeightBandformpage.report1}" popupparams="{title:'create HighWeightBand',width:650,height:400}"></insert>
+				 <update pageurl="report{highWeightBandformpage.report1}" urlparams="txtid=@{id}" popupparams="{title:'update HighWeightBand',width:650,height:400}"></update>
+				 <delete>
+				  	delete from PT_HIGHWEIGHTBAND where id=@{id__old};
+				</delete>
+			</sql>
+			<format>
+			  <value>
+			  </value>
+			</format>
+		</report>
+	</page>
+	
+		<!-- 表单篇报表类型 -->
+	<page id="highWeightBandformpage" js="/webresources/script/validate.js"
+		css="/webresources/component/tiny_mce/themes/advanced/skins/o2k7/ui.css">
+		<report id="report1" title="product Detail" type="form" >
+			<display valuetdwidth="150px" labeltdwidth="120px" labelbgcolor="#f0f0f0" labelalign="right" valuealign="left">
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="NAME" label="name" >
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty})" afterdescription="*"/>
+				</col>
+				<col column="CHARGEABLEWEIGHT" label="chargeableweight" br="true" datatype="float">
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty});isNumeric(${invalid.number})" afterdescription="*"/>
+				</col>
+				<col column="BEGIN" label="from" datatype="float">
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty});isNumeric(${invalid.number})" afterdescription="*"/>
+				</col>
+				<col column="END" label="to" br="true" datatype="float">
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty});isNumeric(${invalid.number})" afterdescription="*"/>
+				</col>
+				<col column="ADDONWEIGHTINT" label="add on weight int" valuestyleproperty="colspan='3'">
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty});isNumeric(${invalid.number})" afterdescription="*"/>
+				</col>
+			</display>
+			<sql>
+			  <select>
+				<value>
+					<![CDATA[SELECT ID,NAME,CHARGEABLEWEIGHT,BEGIN,END,ADDONWEIGHTINT FROM PT_HIGHWEIGHTBAND where {#condition#}]]>
+				</value>
+				<condition name="txtid" hidden="true">
+					<value>
+						<![CDATA[(id = '#data#' )]]>
+					</value>
+				</condition>
+			  </select>
+			  <insert>
+			  	  <params>
+				  	 	<param name="id" value="sequence{SEQ_PRODUCT}"></param>
+				  </params>
+				  <value>
+			  	         insert into PT_HIGHWEIGHTBAND(id=#{id},@{NAME},@{CHARGEABLEWEIGHT},@{BEGIN},@{END},@{ADDONWEIGHTINT});
+			  	 </value>
+			  </insert>
+			  <update>
+			 	 update PT_HIGHWEIGHTBAND(@{NAME},@{CHARGEABLEWEIGHT},@{BEGIN},@{END},@{ADDONWEIGHTINT}) where id=@{id__old};
+			  </update>
+			</sql>
+			<format>
+			
+			</format>
+		</report>
+	</page>
+</applications>

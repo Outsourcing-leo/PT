@@ -1,0 +1,91 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Tab页切换</title>
+
+</head>
+<style type="text/css">
+body {
+	text-align: center;
+}
+
+.tabTitlesContainer {
+	text-align: center;
+	font-size: small;
+	cursor: hand;
+	width: 300px;
+	border-width: thin;
+}
+
+.tabTitleUnSelected {
+	background-color: Silver;
+	width: 100px;
+}
+
+.tabTitleUnSelected:hover {
+	background-color: Orange;
+}
+
+.tabTitleSelected {
+	background-color: Gray;
+	width: 100px;
+}
+
+#tabPagesContainer {
+	text-align: left;
+	font-size: small;
+	font-size: small;
+	width: 300px;
+}
+
+.tabPageUnSelected {
+	background-color: Orange;
+	display: none;
+}
+
+.tabPageSelected {
+	background-color: Orange;
+	display: block;
+}
+
+.tabPage {
+	height: 80px;
+}
+</style>
+<script type="text/javascript">
+	function tabPageControl(n) {
+		for ( var i = 0; i < tabTitles.cells.length; i++) {
+			tabTitles.cells[i].className = "tabTitleUnSelected";
+		}
+		tabTitles.cells[n].className = "tabTitleSelected";
+		for ( var i = 0; i < tabPagesContainer.tBodies.length; i++) {
+			tabPagesContainer.tBodies[i].className = "tabPageUnSelected";
+		}
+		tabPagesContainer.tBodies[n].className = "tabPageSelected";
+	}
+</script>
+<body>
+	<table class="tabTitlesContainer">
+		<tr id="tabTitles">
+			<td class="tabTitleSelected" onclick="tabPageControl(0)">DIV</td>
+			<td class="tabTitleUnSelected" onclick="tabPageControl(1)">CSS</td>
+		</tr>
+	</table>
+	<table id="tabPagesContainer">
+		<tbody class="tabPageSelected">
+			<tr class="tabPage">
+				<td>HTML的DIV控件是其他控件的容器。当要以编程方式生成控件、隐藏/显示一组控件或本地化一组控件时，该控件尤其有用。</td>
+			</tr>
+		</tbody>
+		<tbody class="tabPageUnSelected">
+			<tr class="tabPage">
+				<td>级联样式表 (CSS) 包含应用于网页中的元素的样式规则。这些样式定义元素的显示方式以及元素在页面中的放置位置</a>
+				</td>
+			</tr>
+		</tbody>
+		
+	</table>
+</body>
+</html>
+

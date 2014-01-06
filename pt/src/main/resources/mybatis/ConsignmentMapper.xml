@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.ConsignmentDao">
+
+	<select id="get" parameterType="int" resultType="Consignment">
+		select * from pt_consignment where id=#{id}
+	</select>
+	
+	
+	<select id="findAll" parameterType="map" resultType="Consignment">
+		select * from pt_consignment 
+	</select>
+
+	<select id="findAllByBusId" parameterType="map" resultType="Consignment">
+		select * from pt_consignment  	
+		<where>
+			1=1
+			<if test="businessId != null">
+				and businessId=#{businessId}
+			</if>
+			<if test="payment != null">
+				and payment=#{payment}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAllByBusIdandZonegroupId" parameterType="map" resultType="Consignment">
+		select * from pt_consignment  
+		<where>
+			1=1
+			<if test="businessId != null">
+				and businessId=#{businessId}
+			</if>
+			<if test="zoneGroupId != null">
+				and zoneGroupId=#{zoneGroupId}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into pt_consignment (id,consignment,BUSINESSID,WEIGHTBANDID,ZONEGROUPID,payment) select SEQ_consignment.NEXTVAL,A.* from (
+		<foreach collection="list" item="item" index="index" separator="union" >
+			select #{item.consignment},#{item.businessId},#{item.weightBandId},#{item.zoneGroupId},#{item.payment} from dual
+		</foreach>
+		) A
+	</insert>
+
+	<delete id="deleteConsignmentList" parameterType="Consignment">
+		     delete from pt_consignment 
+		     <where>
+				<if test="businessId != null">
+					businessId=#{businessId}
+				</if>
+				<if test="payment != null">
+					and payment=#{payment}
+				</if>
+			</where>
+	</delete>
+	
+	<delete id="delete" parameterType="Long">
+		delete from  pt_consignment where businessid=#{ids}
+	</delete>
+	
+</mapper> 

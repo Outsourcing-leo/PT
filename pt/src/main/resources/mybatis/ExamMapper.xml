@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.ExamDao">
+	
+	<insert id="insert" parameterType="Exam" >
+		<selectKey  resultType="java.lang.Long" keyProperty="id"  order="BEFORE">  
+			<![CDATA[select SEQ_BUSINESS.NEXTVAL AS id FROM DUAL]]>  
+		</selectKey> 
+		insert into pt_exam
+		values (#{id}, #{businessId},#{examOppion},#{examTime},#{userId})
+	</insert>
+	
+	<delete id="delete" parameterType="Long">
+		delete from  pt_exam where businessid=#{ids}
+	</delete>
+	 
+	 <insert id="insertFile" parameterType="org.tnt.pt.entity.BusinessFile" >
+		<selectKey  resultType="java.lang.Long" keyProperty="id"  order="BEFORE">  
+			<![CDATA[select SEQ_BUSINESS.NEXTVAL AS id FROM DUAL]]>  
+		</selectKey> 
+		insert into PT_BUSINESSFILE(id,businessId,fileName,filePath,uploadDate)
+		values (#{id}, #{businessId},#{fileName},#{filePath},#{uploadDate})
+	</insert>
+	
+	<delete id="deleteFile" parameterType="map">
+		delete from  PT_BUSINESSFILE where businessid=#{ids} and fileName =  #{fileName}
+	</delete>
+	
+	<select id="getFilePath" parameterType="map" resultType="String">
+		select filePath from PT_BUSINESSFILE
+		<where>
+			1=1
+			<if test="ids != null  and ids != '' ">
+				and businessId=#{ids}
+			</if>
+			<if test="fileName != null  and fileName != '' ">
+				and fileName =  #{fileName}
+			</if>
+		</where>
+	</select>
+	
+</mapper> 

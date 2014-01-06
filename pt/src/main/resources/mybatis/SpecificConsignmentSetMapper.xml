@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.SpecificConsignmentSetDao">
+
+	<select id="findAllConsignmentSet" parameterType="SpecificConsignmentSet" resultType="SpecificConsignmentSet">
+		select * from pt_specificConsignmentSet
+		<where>
+			<if test="businessId != null">
+				businessId=#{businessId}
+			</if>
+			<if test="productId != null">
+				and productId=#{productId}
+			</if>
+			<if test="zoneGroupId != null">
+				and zoneGroupId=#{zoneGroupId}
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="getAllspecificConsignmentSetByBusId" parameterType="Long" resultType="SpecificConsignmentSet">
+		select * from pt_specificConsignmentSet where businessId=#{businessId}
+	</select>
+		
+	<select id="getALLCountryListinSpec" parameterType="Long" resultType="Country">
+		select distinct(countryid) ,b.*  from pt_specificconsignmentset a left join pt_country b on a.countryid =b.id where businessId=#{businessId} and productId = #{productId} and zonegroupId = #{zonegroupId}
+	</select>
+	
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into pt_specificConsignmentSet (id,COUNTRYID,BUSINESSID,PRODUCTID,ZONEGROUPID,WEIGHTBANDID,CONSIGNMENT,payment) select SEQ_SPECIFICCONSIGNMENTSET.NEXTVAL,A.* from (
+		<foreach collection="list" item="item" index="index" separator="union" >
+			select #{item.countryId},#{item.businessId},#{item.productId},#{item.zoneGroupId},#{item.weightBandId},#{item.consignment},#{item.payment} from dual
+		</foreach>
+		) A
+	</insert>
+	
+	<delete id="deletespecificConsignmentSetList" parameterType="SpecificConsignmentSet">
+	     delete from pt_specificConsignmentSet 
+	     <where>
+			<if test="businessId != null">
+				businessId=#{businessId}
+			</if>
+			<if test="payment != null">
+				and  payment=#{payment}
+			</if>
+		</where>
+	</delete>
+	
+	<delete id="delete" parameterType="Long">
+		delete from  pt_specificConsignmentSet where businessid=#{ids}
+	</delete>
+</mapper> 
+

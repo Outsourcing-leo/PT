@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.CountryGeoDao">
+	<select id="get" parameterType="int" resultType="CountryGeo">
+		select * from pt_country_geo where id=#{id}
+	</select>
+	
+	<select id="findAll" parameterType="map" resultType="CountryGeo">
+		select * from pt_country_geo 
+	</select>
+
+	<select id="getAllGEO" parameterType="map" resultType="String">
+		select distinct(GEOZONETYPE) from pt_country_geo 
+	</select>
+	
+	<select id="getAllCountryByGeo" parameterType="String" resultType="Long">
+		select COUNTRYID from pt_country_geo  where GEOZONETYPE = #{geo}
+	</select>
+	
+</mapper> 

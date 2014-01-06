@@ -1,0 +1,111 @@
+﻿
+<div style="padding:5px;">
+    <table class="table_A">
+        <thead>
+             <tr>
+                <td style="text-align:center;">Zone Type</td>
+                <td>
+                	<select style="WIDTH:100px;">
+                		<option value="13">
+                			13 Zone	
+                		</option>
+                		<option value="13">
+                			8 Zone	
+                		</option>	
+                	</select>
+                </td>
+					<td style="text-align:center;">Zone.</td>
+                <td>
+                	<select style="WIDTH:100px;">
+                		<option value="1">
+                			Zone	1
+                		</option>
+                		<option value="2">
+                			Zone	2
+                		</option>
+                		<option value="3">
+                			Zone	3
+                		</option>
+                		<option value="4">
+                			Zone	4
+                		</option>
+                		<option value="5">
+                			Zone	5
+                		</option>
+                		<option value="6">
+                			Zone	6
+                		</option>
+                		<option value="7">
+                			Zone	7
+                		</option>
+                		<option value="8">
+                			Zone	8
+                		</option>
+                		<option value="9">
+                			Zone	9
+                		</option>
+                		<option value="10">
+                			Zone	10
+                		</option>
+                		<option value="11">
+                			Zone	11
+                		</option>
+                		<option value="12">
+                			Zone	12
+                		</option>
+                		<option value="13">
+                			Zone	13
+                		</option>
+                	</select>
+                </td>
+				<td>
+                	<input type="button" value="Query" class="cls-button" />
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+<div style="padding:0 5px 5px 5px;">
+<h4 style="float:left">Country-Zone List</h4>
+<span style="float:right">
+<input type="button" value="Add" class="cls-button" onclick="javascript:jQuery.dialog.open('content/CountryMantenance/countryZoneAdd.html',{id:'memdiv',width :740,height :350,title:'countryZoneAdd'})"/>
+&nbsp;&nbsp;<input type="button" value="Save" class="cls-button" />&nbsp;&nbsp;<input type="button" value="Delete" class="cls-button" />
+<input type="button" value="upload" class="cls-button" onclick="javascript:jQuery.dialog.open('content/CountryMantenance/countryUpload.html',{id:'memdiv2',width :740,height :350,title:'countryZoneUpload'})"/>
+</span>
+<div class="clearboth"></div>
+<table class="table_B">
+        <thead>
+            <tr>
+                <th width="7%"></th>
+                <th width="20%">Country Code</th>
+                <th width="20%">Zone Type</th>
+                <th width="20%">Zone</th>
+                <th width="13%">Ratio</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            <tr>
+            	
+                <td></td>
+                <td><input type="text" value="CHINA" /></td>
+                <td>13 Zone</td>
+		<td>Zone 1 </td>
+                <td><input type="text" value="56" /></td>
+            </tr>
+            <tr>
+            	<td></td>
+                <td><input type="text" value="MO" /></td>
+                <td>13 Zone</td>
+				<td>Zone 1 </td>
+                <td><input type="text" value="44" /></td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+	
+
+</script>
+

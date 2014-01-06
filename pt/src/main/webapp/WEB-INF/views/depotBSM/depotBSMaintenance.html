@@ -1,0 +1,74 @@
+﻿
+<div style="padding:5px;">
+    <table class="table_A">
+        <thead>
+             <tr>
+                <td style="text-align:center;">Depot.</td>
+                <td>
+                	<select style="WIDTH:100px;">
+                		<option value="13">
+                			
+                		</option>
+                		<option value="13">
+                			SHA	
+                		</option>	
+                		<option value="13">
+                			CGO	
+                		</option>
+                	</select>
+                </td>
+								<td style="text-align:center;">User  Name</td>
+                <td>
+                	<input type="text" />
+                </td>                
+                <td>
+					<input type="button" value="Query" class="cls-button"  id="content/DepotBSM/depotBSMaintenance.html" />
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+<div style="padding:0 5px 5px 5px;">
+<h4 style="float:left">Depot-BSM List</h4>
+<span style="float:right">
+<input type="button" value="Add" class="cls-button"  onclick="javascript:jQuery.dialog.open('content/DepotBSM/depotBSMAdd.html',{id:'memdiv',width :740,height :350,title:'Depot-BSM Add'})"/>
+&nbsp;&nbsp;&nbsp;
+	<input type="button" value="upload" class="cls-button" onclick="javascript:jQuery.dialog.open('content/DepotBSM/depotBSMUpload.html',{id:'memdiv2',width :740,height :350,title:'depotBSMUpload'})"/>
+</span>
+<div class="clearboth"></div>
+<table class="table_B">
+        <thead>
+            <tr>
+                <th width="10%"></th>
+                <th width="30%">Depot</th>
+                <th width="30%">User Name</th>
+                <th width="30%">Mail List</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            <tr id="content/DepotBSM/depotBSModify.html"  ondblclick="addContent(this)">
+            	
+                <td></td>
+                <td>SHA</td>
+                <td>SHA_TEST</td>
+                <td>morgan.sum@tnt.com</td>
+                
+            </tr>
+            <tr id="content/DepotBSM/depotBSModify.html" ondblclick="addContent(this)">
+            	<td></td>
+                <td>CGO</td>
+                <td>CGO</td>
+                <td>test@test.com</td>
+                
+            </tr>
+            
+        </tbody>
+    </table>
+    
+</div>
+<script type="text/javascript">
+	
+
+</script>
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.dms.FsiDao">
+	
+	<select id="isFromFsf" parameterType="String" resultType="Integer">
+		select count(*) from dms.t_chr_fsf  where account_no = #{accountNo}
+	</select>
+	
+	<select id="getFromFSF" resultType="FSI" parameterType="String">
+		select fs_rate,fsi_dis_rate,is_fsi from dms.t_chr_fsf  where account_no = #{accountNo} 
+	</select>
+	
+	<select id="getRateFromFSI" resultType="Double">
+		select fs_rate from dms.t_chr_fsi  where create_time =  (SELECT MAX(create_time) FROM dms.t_chr_fsi)
+	</select>
+	
+</mapper> 

@@ -1,0 +1,86 @@
+﻿@charset "utf-8";
+* {
+	margin:0;
+}
+.clearboth{clear:both;}
+img { border:none; }
+
+.north {
+	background:#fff url(../images/bg_north.jpg) no-repeat 25px 5px;
+	z-index:100;
+}
+
+.west { background: #DBEAF9; }
+.east { background: #fff url(../images/map.jpg) no-repeat center center; }
+.south {
+	background:url(../images/bg_south.png) repeat-x;
+	z-index:100;
+}
+.north {
+	height:72px;
+	top:0;
+	left:0;
+	right:0;
+	min-width:1000px;
+}
+.west {
+	width: 220px;
+	min-width:220px;
+	left: 0;
+	bottom: 30px;
+}
+.east {
+	left: 220px;
+	bottom: 30px;
+	right: 0;
+	_padding-bottom: 425px;
+}
+.south {
+	height:30px;
+	left:0;
+	bottom:0;
+	right:0;
+	height:30px;
+}
+.breadcrumbs {
+	position: absolute;
+	left: 220px;
+	right: 0;
+	height: 25px;
+	background: #eee;
+	z-index: 100;
+	display: none;
+}
+.north_inner, .west_inner, .east_inner, .south_inner {
+	height:100%;
+	overflow:auto;
+}
+.copyright {
+	text-align:center;
+	height:30px;
+	line-height:30px;
+	color:#333;
+}
+.north_inner {height:28px;background:url(../images/bg_menu_main.jpg) repeat-x left bottom; }
+.west_inner { border-right:1px solid #999; }
+.east_inner { border-left:1px solid #fff; }
+.south_inner { border-top:1px solid #d4d9dd; }
+#login_bar {
+	position:absolute;
+	top:10px;
+	right:10px;
+	height:18px;
+	line-height:18px;
+	color:#666;
+}
+#login_bar strong {
+	color:red;
+	padding:0 5px;
+}
+#login_bar a {
+	margin-left:20px;
+	color:#000;
+}
+#login_bar a:hover {
+	color:#f90;
+}

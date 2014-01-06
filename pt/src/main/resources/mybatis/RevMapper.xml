@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.RevDao">
+
+	<sql id="Example_Where_Clause">
+		<trim  suffixOverrides="," >
+			<if test="zoneGroupId != null and zoneGroupId != ''">
+				,zoneGroupId,zone
+			</if>
+			<if test="countryId != null and countryId != '' ">
+				,countryId,COUNTRYNAME
+			</if>
+			<if test="weightBandId != null and weightBandId != '' ">
+				,weightBandId,PT_WEIGHTBAND.NAME WEIGHTNAME
+			</if>
+			<if test="productId != null and productId != '' ">
+				,t.productId,PT_PRODUCT.NAME PRODUCTNAME
+			</if>
+		</trim>
+	</sql> 
+	
+	<sql id="left_join_Clause">
+		<trim  suffixOverrides="," >
+			<if test="zoneGroupId != null and zoneGroupId != ''">
+				left join  PT_ZONEGROUP on  pt_zonegroup.id = zonegroupId
+			</if>
+			<if test="countryId != null and countryId != '' ">
+				left join  PT_COUNTRY on  PT_COUNTRY.id = countryId 
+			</if>
+			<if test="weightBandId != null and weightBandId != '' ">
+				left join  PT_WEIGHTBAND on  PT_WEIGHTBAND.id = weightBandId
+			</if>
+			<if test="productId != null and productId != '' ">
+				left join  PT_PRODUCT on  PT_PRODUCT.id = t.productId
+			</if>
+		</trim>
+	</sql> 
+	
+	<sql id="GroupBy_Clause">
+		<trim  suffixOverrides="," >
+			group by 1
+			<if test="zoneGroupId != null and zoneGroupId != ''">
+				 ,zoneGroupId,zone
+			</if>
+			<if test="countryId != null and countryId != '' ">
+				 ,countryId,COUNTRYNAME
+			</if>
+			<if test="weightBandId != null and weightBandId != '' ">
+				,weightBandId,PT_WEIGHTBAND.NAME
+			</if>
+			<if test="productId != null and productId != ''">
+				,t.productId,PT_PRODUCT.NAME
+			</if>
+			
+			<if test="zoneGroupId != null and zoneGroupId != ''">
+				order by zoneGroupId
+			</if>
+			
+		</trim>
+	</sql>
+	
+	<select id="getgroupBy" parameterType="map" resultType="org.tnt.pt.vo.RevVO">
+		select  sum(rev) as rev,sum(kilo) as kilo,sum(cons) as cons,sum(rev)/sum(cons) as rpc,sum(rev)/sum(kilo) as rpk,
+		sum(kilo)/sum(cons) as wpc,17.9 as gm
+		 <include refid="Example_Where_Clause"/>
+		from pt_rev t <include refid="left_join_Clause"/>
+		 where businessId =#{businessId} and payment = #{payment}
+		 <include refid="GroupBy_Clause"/>
+	</select>
+	
+	
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into pt_Rev (id,rev,BUSINESSID,WEIGHTBANDID,ZONEGROUPID,kilo,CONS,COUNTRYID,PRODUCTID,payment) select SEQ_Rev.NEXTVAL,A.* from (
+		<foreach collection="list" item="item" index="index" separator="union" >
+			select #{item.rev},#{item.businessId},#{item.weightBandId},#{item.zoneGroupId},#{item.kilo},#{item.cons} ,#{item.countryId,jdbcType=BIGINT},#{item.productId},#{item.payment} from dual
+		</foreach>
+		) A
+	</insert>
+	
+	<select id="getCountrygroupBy" parameterType="map" resultType="Rev">
+		select countryid,sum(rev) as rev,sum(kilo) as kilo ,sum(cons) as cons from pt_rev t where businessId =#{businessId} and countryid=#{countryId} and payment = #{payment} group by countryid
+	</select>
+	
+
+	<delete id="deleteRevList" parameterType="Rev">
+		     delete from pt_Rev 
+		     <where>
+				<if test="businessId != null">
+					businessId=#{businessId}
+				</if>
+				<if test="payment != null">
+					and payment=#{payment}
+				</if>
+			</where>
+	</delete>
+	
+	<delete id="delete" parameterType="Long">
+		delete from  pt_Rev where businessid=#{ids}
+	</delete>
+</mapper> 

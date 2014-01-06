@@ -1,0 +1,57 @@
+<div style="padding:5px;">
+    <table class="table_A">
+        <thead>
+             <tr>
+                <td>name</td>
+                <td>
+                	<input type="text" value="20/300">
+                </td>
+                <td colspan="2"><input type="button" value="query" class="cls-button" /></td>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<div style="padding:0 5px 5px 5px;">
+<h4 style="float:left">High Weightband List</h4>
+<span style="float:right"><input type="button" value="Add High Weight Band" class="cls-button"  onclick="javascript:jQuery.dialog.open('content/HighChargeableWeightband/hwAdd.html',{id:'memdiv',width :740,height :350,title:'hwAdd'})"/>
+	&nbsp;&nbsp;&nbsp;
+	<input type="button" value="upload" class="cls-button" onclick="javascript:jQuery.dialog.open('content/HighChargeableWeightband/hwUpload.html',{id:'memdiv2',width :740,height :350,title:'hwUpload'})"/></span>
+<div class="clearboth"></div>
+<table class="table_B">
+        <thead>
+            <tr>
+			    <th>name</th>
+                <th>Chargeable Weight</th>
+                <th>From</th>
+				<th>To</th>
+				<th>Add On Weight Int</th>
+				<th>create date</th>
+            </tr>
+        </thead>
+        <tbody id="tb">
+            <tr id="content/HighChargeableWeightBand/hwAdd.html" ondblclick="addContent(this)">
+				<td>20/300</td>
+                <td>5kg</td>
+                <td>0.5kg</td>
+                <td>300kg</td>
+                <td>5kg</td>
+				<td>2013-7-27</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+</div>
+<script type="text/javascript">
+	function weightBandAdd(){
+		 window.showModalDialog("content/ChargeableWeightBand/weightBandAdd.html","123","dialogWidth=500px;dialogHeight=400px");
+	}
+	
+  function deleteCell(){
+  var mailbody = document.getElementById("tb");
+  var cell = document.getElementById("content/ChargeableWeightBand/weightBandCreate.html");
+  if(cell!=undefined){
+     mainbody.removeChild(cell);
+  } 
+ }
+</script>
