@@ -25,4 +25,6 @@ public interface RevDao  extends BaseDao<Rev>{
 	Rev getCountrygroupBy(Map<String,Object> parameter);
 	
 	List<RevVO> getgroupBy(Map<String,Object> parameter);
+	
+	List<RevVO> getgroupBy_(Map<String,Object> parameter);
 }

@@ -28,7 +28,7 @@
 	</select>
 	
 	<select id="getAllCountryByZoneGroup" parameterType="Long" resultType="Long">
-		select COUNTRYID from pt_country_zone  where ZONEGROUPID = #{zonegroupId}
+		select COUNTRYID from pt_country_zone  where ZONEGROUPID = #{zonegroupId} and DEFAULTCOUNTRY = 0
 	</select>
 	
 </mapper> 

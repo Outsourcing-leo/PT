@@ -15,6 +15,9 @@
 		select * from pt_weightband 
 	</select>
 	
+	<select id="findByProductId" parameterType="Long" resultType="WeightBand">
+		select * from pt_weightband where productId=#{productId} order by id
+	</select>
 	
 	<select id="findAllByProductId" parameterType="Long" resultType="WeightBand">
 		select a.*,b.name as weightbandGroup from pt_weightband a left join PT_WEIGHTBANDGROUP b on a.WEIGHTBANDGROUPID =b.id where productId=#{productId}  order by a.id

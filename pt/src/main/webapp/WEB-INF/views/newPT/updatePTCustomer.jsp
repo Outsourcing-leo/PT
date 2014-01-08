@@ -29,6 +29,7 @@
     <tr>
    	 <input  type="hidden" name="business.id" value="${business.id}"/>
    	 <input  type="hidden" name="customer.id" value="${customer.id}"/>
+   	 <input  type="hidden" name="business.zoneType" value="${business.zoneType}"/>
    	
       <th>Application Date:</th>
       <td><span id="appDate"><fmt:formatDate value="${business.applicationDate}" pattern="yyyy-MM-dd" /></span></td>

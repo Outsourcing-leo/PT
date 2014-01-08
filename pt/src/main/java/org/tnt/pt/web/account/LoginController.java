@@ -38,14 +38,14 @@ public class LoginController {
 	public String loginin(Model model,@ModelAttribute LoginVO loginVO,HttpServletRequest request ) {
 		User user = new User();
 		user = accountService.findUserByLoginName(loginVO);
-		if(user!=null){
+//		if(user!=null){
 			request.getSession().setAttribute("user", user);
 			return "index/default";
-		}else{
-			request.setAttribute("error", "登陆失败 请重试");
-			model.addAttribute("model", loginVO);
-			return "index/login";
-		}
+//		}else{
+//			request.setAttribute("error", "登陆失败 请重试");
+//			model.addAttribute("model", loginVO);
+//			return "index/login";
+//		}
 		
 	}
 	

@@ -170,6 +170,7 @@ public class PTQueryController{
 		List<Discount> discountList = new ArrayList<Discount>();
 		List<Discount> recDiscountList = new ArrayList<Discount>();
 		Map<String,Double> rateMap = new HashMap<String,Double>();//形成价格map 方便查询
+		Map<String,Double> recRateMap = new HashMap<String,Double>();//形成价格map 方便查询
 		Map<String,Double> discountMap = new HashMap<String,Double>();//形成折扣map 方便查询
 		Map<String,Double> recDiscountMap = new HashMap<String,Double>();//形成折扣map 方便查询
 		ZoneSummary zoneSummary = new ZoneSummary();
@@ -254,6 +255,12 @@ public class PTQueryController{
 			if(discountMap.get(keyId)!=null){
 				rateMap.put(keyId, tariff.getTariff()*discountMap.get(keyId)/100);
 			}
+			if(recDiscountMap.size()>1){
+				if(recDiscountMap.get(keyId)!=null){
+					recRateMap.put(keyId, tariff.getTariff()*recDiscountMap.get(keyId)/100);
+				}
+			}
+			
 		}
 		model.addAttribute("flag",flag);
 		model.addAttribute("business", business);
@@ -264,6 +271,7 @@ public class PTQueryController{
 		model.addAttribute("ndocumentList", ndocumentList);
 		model.addAttribute("economyList", economyList);
 		model.addAttribute("rateMap", rateMap);
+		model.addAttribute("recRateMap", recRateMap);
 		model.addAttribute("discountMap", discountMap);
 		model.addAttribute("recDiscountMap", recDiscountMap);
 		model.addAttribute("zoneSummary", zoneSummary);

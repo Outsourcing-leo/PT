@@ -157,7 +157,7 @@ value="<c:choose><c:when test="${consignmentMap[key] == null}">0</c:when><c:othe
 </table>
 
 <br />
-<div>total Rev&nbsp;&nbsp; <input type="text" id="totalRev" name="business.totalRev" value="${business.totalRev}" class="required number"/><input type="button" value="refresh" class="cls-button" id="refresh"/> </div>
+<div>total Rev&nbsp;&nbsp; <input type="text" id="totalRev" name="business.totalRev" value="${business.totalRev}" class="required number" disabled/><input type="button" value="refresh" class="cls-button" id="refresh"/> </div>
 <br />
   <hr />
    
@@ -187,6 +187,10 @@ value="<c:choose><c:when test="${consignmentMap[key] == null}">0</c:when><c:othe
 	$(function(){
 		 $("#next").click(function(){
 			 	var _totalRev = $("#totalRev").val();
+			 	if(_totalRev <= 0){
+			 		alert('totalRev can not be zero please check again');
+			 		return ;
+			 	} 
 	            $.ajax({
 	                type:"GET",
 	                url:"${ctx}/ptCreate/addSummary/${payment}",

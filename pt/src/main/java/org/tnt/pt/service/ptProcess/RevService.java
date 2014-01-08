@@ -42,6 +42,19 @@ public class RevService {
 		}
 		return revDao.getgroupBy(parameter);
 	}
+	//new pt使用
+	public List<RevVO> getGroupBy_(Long businessId,String[] groupBy,String payment){
+		Map<String,Object> parameter = new HashMap<String,Object>();
+		parameter.put("businessId", businessId);
+		parameter.put("payment", payment);
+		groupBy = returnGroupBy(groupBy);
+		for (String str : groupBy) {
+			if(!str.equals("")){
+				parameter.put(str, str);
+			}
+		}
+		return revDao.getgroupBy_(parameter);
+	}
 	
 	public Rev getCountryGroupBy(Long businessId,Long countryId,String payment){
 		if(businessId==null || countryId==null){

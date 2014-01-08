@@ -12,6 +12,7 @@ import org.tnt.pt.entity.Customer;
 import org.tnt.pt.entity.Product;
 import org.tnt.pt.entity.WeightBand;
 import org.tnt.pt.entity.ZoneGroup;
+import org.tnt.pt.util.PTPARAMETERS;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
@@ -119,9 +120,9 @@ public class PDFGenerater{
          return table;  
      }
        
-     public ByteArrayOutputStream generatePDF(List<ZoneGroup> zoneGroupList,List<WeightBand> documentList,List<WeightBand> ndocumentList,List<WeightBand> eonomyList,
-    		 Map<String,Double> discountMap,Map<String,Double> traiffMap,List<ZoneGroup> zoneGroupDefaultList,List<Product> productList,Map<String,Double> discountDefaultMap,
-    		 Business business,Customer customer,String logoPath,String oilFee,String pdfPath) throws Exception{  
+     public ByteArrayOutputStream generatePDF(List<ZoneGroup> zoneGroupList,List<WeightBand> documentList,List<WeightBand> ndocumentList,List<WeightBand> eonomyList,Map<String,Double> discountMap,
+    		 Map<String,Double> recDiscountMap,Map<String,Double> traiffMap,List<ZoneGroup> zoneGroupDefaultList,List<Product> productList,Map<String,Double> discountDefaultMap,
+    		 Business business,Customer customer,String logoPath,String oilFee,String zoneImage,String zoneImage2,String zoneImage3,String zoneImage4,String zoneImage5,String zoneImage6,String pdfPath) throws Exception{  
     	 ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
     	 // 定义输出位置并把文档对象装入输出对象中
     	 PdfWriter docWriter = null;
@@ -129,18 +130,22 @@ public class PDFGenerater{
     	 // 打开文档对象
     	 document.open();
 		 Image jpg = Image.getInstance(logoPath);
-		 jpg.setAlignment(Image.ALIGN_RIGHT);
+		 jpg.setAlignment(Image.MIDDLE);
+		 float heigth = jpg.getHeight();
+	     float width = jpg.getWidth();
+	     int percent = this.getPercent2(heigth, width);
+	     jpg.scalePercent(percent + 10);
 		 document.add(jpg);
     	 PdfPTable tableCUS = createTable(3);
     	 tableCUS.addCell(createCell("International Tariff for Express and Economy Express	", keyfont,Element.ALIGN_LEFT,4,false));
-    	 tableCUS.addCell(createCell("Customer Profile", keyfont,Element.ALIGN_LEFT,3,false));
+    	 /*tableCUS.addCell(createCell("Customer Profile", keyfont,Element.ALIGN_LEFT,3,false));
     	 tableCUS.addCell(createCell("Account number:  "+customer.getAccount(), keyfont,Element.ALIGN_LEFT,3,false));
     	 tableCUS.addCell(createCell("Account name:    "+customer.getCusName(), keyfont,Element.ALIGN_LEFT,3,false));
     	 tableCUS.addCell(createCell("Origin Depot:    "+business.getDepotCode(), keyfont,Element.ALIGN_LEFT,3,false));
-    	 tableCUS.addCell(createCell("Porjected Monthly Revenue in CNY:"+business.getTotalRev(), keyfont,Element.ALIGN_LEFT,4,false));
+    	 tableCUS.addCell(createCell("Porjected Monthly Revenue in CNY:"+business.getTotalRev(), keyfont,Element.ALIGN_LEFT,4,false));*/
     	 tableCUS.addCell(createCell("PT Reference No. "+business.getApplicationReference(), keyfont,Element.ALIGN_LEFT,4,false));
     	 
-    	 tableCUS.addCell(createCell("", keyfont,Element.ALIGN_LEFT,4,false));
+    	 /*tableCUS.addCell(createCell("", keyfont,Element.ALIGN_LEFT,4,false));
     	 
     	 tableCUS.addCell(createCell("Loading Request", keyfont,Element.ALIGN_LEFT,3,false));
     	 tableCUS.addCell(createCell("Division:	G", keyfont,Element.ALIGN_LEFT,3,false));
@@ -157,12 +162,17 @@ public class PDFGenerater{
           		tableCUS.addCell(createCell("           "+product.getProduct(), keyfont,Element.ALIGN_LEFT,3,false));
           	}
          }
-    	 tableCUS.addCell(createCell("Terms of Payment:	Both", keyfont,Element.ALIGN_LEFT,3,false));
+    	 
     	 tableCUS.addCell(createCell("Option:	No Discount for Options	", keyfont,Element.ALIGN_LEFT,3,false));
     	 tableCUS.addCell(createCell("Currency:	CNY", keyfont,Element.ALIGN_LEFT,3,false));
     	 tableCUS.addCell(createCell("Zoning:	Set Default	", keyfont,Element.ALIGN_LEFT,3,false));
     	 tableCUS.addCell(createCell("FSI 	Full", keyfont,Element.ALIGN_LEFT,3,false));
-    	 tableCUS.addCell(createCell("ESS	Full", keyfont,Element.ALIGN_LEFT,3,false));
+    	 tableCUS.addCell(createCell("ESS	Full", keyfont,Element.ALIGN_LEFT,3,false));*/
+    	 if(customer.getPayment().equals(PTPARAMETERS.PAYMENT[2])){
+    		 tableCUS.addCell(createCell("Terms of Payment:	SP", keyfont,Element.ALIGN_LEFT,3,false));
+    	 }else{
+    		 tableCUS.addCell(createCell("Terms of Payment:	"+customer.getPayment(), keyfont,Element.ALIGN_LEFT,3,false));
+    	 }
     	 document.add(tableCUS);
     	 
     	 PdfPTable table0 = createTable(zoneGroupDefaultList.size()+1);  
@@ -247,7 +257,11 @@ public class PDFGenerater{
         	table4.addCell(createCell(wd.getName(), textfont));
         	for(ZoneGroup zoneGroup:zoneGroupList){
         		String keyId = wd.getId()+"_"+zoneGroup.getId();
-            	table4.addCell(createCell(discountMap.get(keyId)*traiffMap.get(keyId)/100+"", textfont));  
+        		if(discountMap.get(keyId)!=null){
+        			table4.addCell(createCell(discountMap.get(keyId)*traiffMap.get(keyId)/100+"", textfont));  
+        		}else{
+        			table4.addCell(createCell("", textfont));  
+        		}
             }
         }  
         document.add(table4);
@@ -263,7 +277,11 @@ public class PDFGenerater{
         	table5.addCell(createCell(wd.getName(), textfont));
         	for(ZoneGroup zoneGroup:zoneGroupList){
         		String keyId = wd.getId()+"_"+zoneGroup.getId();
-            	table5.addCell(createCell(discountMap.get(keyId)*traiffMap.get(keyId)/100+"", textfont));  
+        		if(discountMap.get(keyId)!=null){
+        			table5.addCell(createCell(discountMap.get(keyId)*traiffMap.get(keyId)/100+"", textfont));  
+        		}else{
+        			table5.addCell(createCell("", textfont));  
+        		}
             }
         }  
         document.add(table5);
@@ -279,15 +297,175 @@ public class PDFGenerater{
         	table6.addCell(createCell(wd.getName(), textfont));
         	for(ZoneGroup zoneGroup:zoneGroupList){
         		String keyId = wd.getId()+"_"+zoneGroup.getId();
-            	table6.addCell(createCell(discountMap.get(keyId)*traiffMap.get(keyId)/100+"", textfont));  
+        		if(discountMap.get(keyId)!=null){
+        			table6.addCell(createCell(discountMap.get(keyId)*traiffMap.get(keyId)/100+"", textfont));  
+        		}else{
+        			table6.addCell(createCell("", textfont));  
+        		}
             }
         }
         document.add(table6);
         
+        //如果是both  则一个rp  一个sp
+        if(customer.getPayment().equals(PTPARAMETERS.PAYMENT[2])){
+        	 PdfPTable tableRP = createTable(3);
+        	 tableRP.addCell(createCell("Terms of Payment:	RP", keyfont,Element.ALIGN_LEFT,3,false));
+        	 document.add(tableRP);
+        	 PdfPTable table7 = createTable(zoneGroupList.size()+2);  
+        	 table7.addCell(createCell("Discounts Profile-15D/12D/10D/09D", keyfont,Element.ALIGN_LEFT,15,false));
+        	 table7.addCell(createCell("Weightband", keyfont,Element.ALIGN_CENTER));
+        	 table7.addCell(createCell("Add-On", keyfont,Element.ALIGN_CENTER));
+             for(ZoneGroup zoneGroup:zoneGroupList){
+            	 table7.addCell(createCell(zoneGroup.getZone(), keyfont,Element.ALIGN_CENTER));  
+             }
+             for(int i=0;i<documentList.size();i++){  
+             	WeightBand wd = documentList.get(i);
+             	table7.addCell(createCell(wd.getName(), textfont));
+             	table7.addCell(createCell(wd.getType().equals("base")?"N":"Y", textfont));
+             	for(ZoneGroup zoneGroup:zoneGroupList){
+             		String keyId = wd.getId()+"_"+zoneGroup.getId();
+             		table7.addCell(createCell(recDiscountMap.get(keyId)+"", textfont));  
+                 }
+             }  
+             document.add(table7);
+             
+             PdfPTable table8 = createTable(zoneGroupList.size()+2);  
+             table8.addCell(createCell("Discounts Profile-15N/12N/10N/09N", keyfont,Element.ALIGN_LEFT,15,false));
+             table8.addCell(createCell("Weightband", keyfont,Element.ALIGN_CENTER));  
+             table8.addCell(createCell("Add-On", keyfont,Element.ALIGN_CENTER));
+             for(ZoneGroup zoneGroup:zoneGroupList){
+            	 table8.addCell(createCell(zoneGroup.getZone(), keyfont,Element.ALIGN_CENTER));  
+             }
+             for(int i=0;i<ndocumentList.size();i++){  
+             	WeightBand wd = ndocumentList.get(i);
+             	table8.addCell(createCell(wd.getName(), textfont));
+             	table8.addCell(createCell(wd.getType().equals("base")?"N":"Y", textfont));
+             	for(ZoneGroup zoneGroup:zoneGroupList){
+             		String keyId = wd.getId()+"_"+zoneGroup.getId();
+             		table8.addCell(createCell(recDiscountMap.get(keyId)+"", textfont));  
+                 }
+             }  
+             document.add(table8);
+             
+             PdfPTable table9 = createTable(zoneGroupList.size()+2);  
+             table9.addCell(createCell("Discounts Profile-48N", keyfont,Element.ALIGN_LEFT,15,false));
+             table9.addCell(createCell("Weightband", keyfont,Element.ALIGN_CENTER));
+             table9.addCell(createCell("Add-On", keyfont,Element.ALIGN_CENTER));
+             for(ZoneGroup zoneGroup:zoneGroupList){
+            	 table9.addCell(createCell(zoneGroup.getZone(), keyfont,Element.ALIGN_CENTER));  
+             }
+             for(int i=0;i<eonomyList.size();i++){
+             	WeightBand wd = eonomyList.get(i);
+             	table9.addCell(createCell(wd.getName(), textfont));
+             	table9.addCell(createCell(wd.getType().equals("base")?"N":"Y", textfont));
+             	for(ZoneGroup zoneGroup:zoneGroupList){
+             		String keyId = wd.getId()+"_"+zoneGroup.getId();
+             		table9.addCell(createCell(recDiscountMap.get(keyId)+"", textfont));  
+                 }
+             }
+             document.add(table9);
+             
+             //价格卡
+             PdfPTable table10 = createTable(zoneGroupList.size()+1);  
+             table10.addCell(createCell("Discounts Profile-15D/12D/10D/09D", keyfont,Element.ALIGN_LEFT,15,false));
+             table10.addCell(createCell("Weightband", keyfont,Element.ALIGN_CENTER));
+             for(ZoneGroup zoneGroup:zoneGroupList){
+            	 table10.addCell(createCell(zoneGroup.getZone(), keyfont,Element.ALIGN_CENTER));  
+             }
+             for(int i=0;i<documentList.size();i++){  
+             	WeightBand wd = documentList.get(i);
+             	table10.addCell(createCell(wd.getName(), textfont));
+             	for(ZoneGroup zoneGroup:zoneGroupList){
+             		String keyId = wd.getId()+"_"+zoneGroup.getId();
+             		if(recDiscountMap.get(keyId)!=null){
+             			table10.addCell(createCell(recDiscountMap.get(keyId)*traiffMap.get(keyId)/100+"", textfont)); 
+            		}else{
+            			table10.addCell(createCell("", textfont));  
+            		}
+             		 
+                 }
+             }  
+             document.add(table10);
+             
+             PdfPTable table11 = createTable(zoneGroupList.size()+1);  
+             table11.addCell(createCell("Discounts Profile-15N/12N/10N/09N", keyfont,Element.ALIGN_LEFT,15,false));
+             table11.addCell(createCell("Weightband", keyfont,Element.ALIGN_CENTER));  
+             for(ZoneGroup zoneGroup:zoneGroupList){
+            	 table11.addCell(createCell(zoneGroup.getZone(), keyfont,Element.ALIGN_CENTER));  
+             }
+             for(int i=0;i<ndocumentList.size();i++){  
+             	WeightBand wd = ndocumentList.get(i);
+             	table11.addCell(createCell(wd.getName(), textfont));
+             	for(ZoneGroup zoneGroup:zoneGroupList){
+             		String keyId = wd.getId()+"_"+zoneGroup.getId();
+             		if(recDiscountMap.get(keyId)!=null){
+             			table11.addCell(createCell(recDiscountMap.get(keyId)*traiffMap.get(keyId)/100+"", textfont));  
+            		}else{
+            			table11.addCell(createCell("", textfont));  
+            		}
+                 }
+             }  
+             document.add(table11);
+             
+             PdfPTable table12 = createTable(zoneGroupList.size()+1);  
+             table12.addCell(createCell("Discounts Profile-48N", keyfont,Element.ALIGN_LEFT,15,false));
+             table12.addCell(createCell("Add-On", keyfont,Element.ALIGN_CENTER));
+             for(ZoneGroup zoneGroup:zoneGroupList){
+            	 table12.addCell(createCell(zoneGroup.getZone(), keyfont,Element.ALIGN_CENTER));  
+             }
+             for(int i=0;i<eonomyList.size();i++){
+             	WeightBand wd = eonomyList.get(i);
+             	table12.addCell(createCell(wd.getName(), textfont));
+             	for(ZoneGroup zoneGroup:zoneGroupList){
+             		String keyId = wd.getId()+"_"+zoneGroup.getId();
+             		if(recDiscountMap.get(keyId)!=null){
+             			table12.addCell(createCell(recDiscountMap.get(keyId)*traiffMap.get(keyId)/100+"", textfont));  
+            		}else{
+            			table12.addCell(createCell("", textfont));  
+            		}
+                 }
+             }
+             document.add(table12);
+        	 
+        }
+    	document.newPage();
+		Image png1 = Image.getInstance(zoneImage);
+		Image png2 = Image.getInstance(zoneImage2);
+		Image png3 = Image.getInstance(zoneImage3);
+		Image png4 = Image.getInstance(zoneImage4);
+		Image png6 = Image.getInstance(zoneImage6);//附加信息
         Image jpg2 = Image.getInstance(oilFee);
-		jpg2.setAlignment(Image.ALIGN_RIGHT);
-		jpg2.setAbsolutePosition(10, 50);
+	    jpg2.setAlignment(Image.MIDDLE);
+	    jpg2.setAlignment(Image.TEXTWRAP);
+	    jpg2.scalePercent(percent + 10);
 		document.add(jpg2);
+		document.newPage();
+		png6.setAlignment(Image.MIDDLE);
+		png6.setAlignment(Image.TEXTWRAP);
+		png6.scalePercent(percent + 10);
+		document.add(png6);
+		document.newPage();
+        png1.setAlignment(Image.MIDDLE);
+        png1.setAlignment(Image.TEXTWRAP);
+        png1.scalePercent(percent + 10);
+        png2.setAlignment(Image.MIDDLE);
+        png2.setAlignment(Image.TEXTWRAP);
+        png2.scalePercent(percent + 10);
+        png3.setAlignment(Image.MIDDLE);
+        png3.setAlignment(Image.TEXTWRAP);
+        png3.scalePercent(percent + 10);
+        png4.setAlignment(Image.MIDDLE);
+        png4.setAlignment(Image.TEXTWRAP);
+        png4.scalePercent(percent + 10);
+        document.newPage();
+		document.add(png1);
+		document.newPage();
+		document.add(png2);
+		document.newPage();
+		document.add(png3);
+		document.newPage();
+		document.add(png4);
+		document.newPage();
         document.close(); 
         docWriter.close();
 		return baosPDF;
@@ -299,5 +477,11 @@ public class PDFGenerater{
 //        new PDFGenerater(file).generatePDF();        
     }
       
-      
+     private int getPercent2(float h, float w) {
+         int p = 0;
+         float p2 = 0.0f;
+         p2 = 530 / w * 100;
+         p = Math.round(p2);
+         return p;
+     }
 }

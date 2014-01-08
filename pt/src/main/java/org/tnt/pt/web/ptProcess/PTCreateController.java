@@ -1073,7 +1073,7 @@ public class PTCreateController {
 		
 		geoSummaryList = geoSummaryService.getAllGeoSummaryByBusinessId(business.getId(),payment);
 		String[] groupBy = {"zoneGroupId"};
-		revList = revService.getGroupBy(business.getId(),groupBy,payment);
+		revList = revService.getGroupBy_(business.getId(),groupBy,payment);
 		for (RevVO rev : revList) {
 			ZoneSummary zs = new ZoneSummary();
 			zs.setConsM(rev.getCons());
@@ -1090,7 +1090,7 @@ public class PTCreateController {
 		 * 获取汇总信息
 		 */
 		String[] groupBy_1 = {};
-		RevVO revVO = revService.getGroupBy(business.getId(),groupBy_1,payment).get(0);
+		RevVO revVO = revService.getGroupBy_(business.getId(),groupBy_1,payment).get(0);
 		ZoneSummary zoneSummary = new ZoneSummary();
 		zoneSummary.setConsM(revVO.getCons());
 		zoneSummary.setConsY(DoubleUtil.get2Double(revVO.getCons()*12));

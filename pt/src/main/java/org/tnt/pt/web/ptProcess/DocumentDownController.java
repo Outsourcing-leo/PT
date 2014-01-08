@@ -48,8 +48,11 @@ import org.tnt.pt.service.ptProcess.RevService;
 import org.tnt.pt.service.ptProcess.SpecificConsignmentSetService;
 import org.tnt.pt.service.ptProcess.SpecificCountryService;
 import org.tnt.pt.service.ptProcess.ZoneSummaryService;
+import org.tnt.pt.util.DoubleUtil;
 import org.tnt.pt.util.FileUtil;
+import org.tnt.pt.util.PTPARAMETERS;
 import org.tnt.pt.vo.BusinessVO;
+import org.tnt.pt.vo.RevVO;
 
 @Controller
 @RequestMapping(value = "/documentDown")
@@ -122,8 +125,14 @@ public class DocumentDownController {
     	 throw new RuntimeException("下载文档客户端出错！", e);
 	}*/
 	//生成对应pdf价卡
-	String logoPath = request.getSession().getServletContext().getRealPath("/static/images/logoCard.png");
-	String oilFee = request.getSession().getServletContext().getRealPath("/static/images/oilFee.png");
+	String logoPath = request.getSession().getServletContext().getRealPath("/static/images/logoCard.jpg");
+	String oilFee = request.getSession().getServletContext().getRealPath("/static/images/base.jpg");
+	String zoneImage1 = request.getSession().getServletContext().getRealPath("/static/images/zoneDetail.jpg");
+	String zoneImage2 = request.getSession().getServletContext().getRealPath("/static/images/zoneDetail2.jpg");
+	String zoneImage3 = request.getSession().getServletContext().getRealPath("/static/images/zoneDetail3.jpg");
+	String zoneImage4 = request.getSession().getServletContext().getRealPath("/static/images/zoneDetail4.jpg");
+	String zoneImage5 = request.getSession().getServletContext().getRealPath("/static/images/zoneDetail5.jpg");
+	String zoneImage6 = request.getSession().getServletContext().getRealPath("/static/images/serverAdd.jpg");
 	String pdfPathString = request.getSession().getServletContext().getRealPath("/attached/temp/");
 	List<ZoneGroup> zoneGroupDefaultList = new ArrayList<ZoneGroup>();
 	List<Product> productList = new ArrayList<Product>();
@@ -152,19 +161,36 @@ public class DocumentDownController {
 	List<WeightBand> ndocumentList = new ArrayList<WeightBand>();
 	List<WeightBand> eonomyList = new ArrayList<WeightBand>();
 	List<Discount> discountList = new ArrayList<Discount>();
+	List<Discount> recDiscountList = new ArrayList<Discount>();
 	List<Tariff> tariffList = new ArrayList<Tariff>();
 	ZoneType zoneType = new ZoneType();
 	Customer customer = new Customer();
+	Map<String,Double> recDiscountMap = new HashMap<String,Double>();//形成折扣map 方便查询
 	Map<String,Double> discountMap = new HashMap<String,Double>();//形成折扣map 方便查询
 	Map<String,Double> traiffMap = new HashMap<String,Double>();//形成折扣map 方便查询
 	Business business = businessService.getBusiness(businessId);
 	customer = customerService.getCustomer(business.getCustomerId());
 	zoneType = zoneTypeService.getZoneTypeByZoneType(business.getZoneType());//zonetype类型
 	zoneGroupList =  zonegroupService.getAllZoneGroupByZoneType(business.getZoneType());
-	documentList = weightBandService.getAllWeightBandByProductId(zoneType.getDocument());
-	ndocumentList = weightBandService.getAllWeightBandByProductId(zoneType.getNonDocument());
-	eonomyList = weightBandService.getAllWeightBandByProductId(zoneType.getEconomy());
-	discountList = discountService.getAllDiscountByBusId(business.getId(),customer.getPayment());
+	documentList = weightBandService.findByProductId(zoneType.getDocument());
+	ndocumentList = weightBandService.findByProductId(zoneType.getNonDocument());
+	eonomyList = weightBandService.findByProductId(zoneType.getEconomy());
+	if(customer.getPayment().equals(PTPARAMETERS.PAYMENT[2])&&business.getIsFollow().equals("NO")){//如果选择的是both 并且 isfollow为no  此时需要展示两个tab页
+		discountList = discountService.getAllDiscountByBusId(businessId,PTPARAMETERS.PAYMENT[0]);
+		recDiscountList = discountService.getAllDiscountByBusId(businessId,PTPARAMETERS.PAYMENT[1]);
+		for (Discount discount:recDiscountList) {
+			recDiscountMap.put(discount.getWeightBandId()+"_"+discount.getZoneGroupId(), discount.getDiscount());
+		}
+	}else if(customer.getPayment().equals(PTPARAMETERS.PAYMENT[2])&&business.getIsFollow().equals("YES")){//如果选择的是both 并且 isfollow为YES  此时需要展示两个同样的tab页
+		discountList = discountService.getAllDiscountByBusId(businessId,PTPARAMETERS.PAYMENT[2]);//都取both
+		recDiscountList = discountService.getAllDiscountByBusId(businessId,PTPARAMETERS.PAYMENT[2]);
+		for (Discount discount:recDiscountList) {
+			recDiscountMap.put(discount.getWeightBandId()+"_"+discount.getZoneGroupId(), discount.getDiscount());
+		}
+	}else{
+		discountList = discountService.getAllDiscountByBusId(businessId,customer.getPayment());
+	}
+	
 	for (Discount discount:discountList) {
 		discountMap.put(discount.getWeightBandId()+"_"+discount.getZoneGroupId(), discount.getDiscount());
 	}
@@ -179,8 +205,8 @@ public class DocumentDownController {
 		response.setHeader("Content-Disposition", "attachment;filename="
 				+ new String((business.getApplicationReference()+".pdf").getBytes(), "ISO8859-1"));
 		OutputStream out = response.getOutputStream();//返回ServletOutputStream
-		ByteArrayOutputStream baos = new PDFGenerater().generatePDF(zoneGroupList,documentList,ndocumentList,eonomyList,discountMap,
-        			traiffMap,zoneGroupDefaultList,productList,discountDefaultMap,business,customer,logoPath,oilFee,pdfPathString);
+		ByteArrayOutputStream baos = new PDFGenerater().generatePDF(zoneGroupList,documentList,ndocumentList,eonomyList,discountMap,recDiscountMap,traiffMap,zoneGroupDefaultList,productList,
+        			discountDefaultMap,business,customer,logoPath,oilFee,zoneImage1,zoneImage2,zoneImage3,zoneImage4,zoneImage5,zoneImage6,pdfPathString);
 		response.setContentLength(baos.size());
 		baos.writeTo(out);
 		out.flush();

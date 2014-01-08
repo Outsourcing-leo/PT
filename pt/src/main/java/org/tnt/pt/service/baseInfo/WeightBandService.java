@@ -26,6 +26,11 @@ public class WeightBandService {
 		return (List<WeightBand>) weightBandDao.findAll();
 	}
 	
+	public List<WeightBand> findByProductId(Long ProductId) {
+		return (List<WeightBand>) weightBandDao.findByProductId(ProductId);
+	}
+	
+	
 	public List<WeightBand> getAllWeightBandByProductId(Long ProductId) {
 		return (List<WeightBand>) weightBandDao.findAllByProductId(ProductId);
 	}

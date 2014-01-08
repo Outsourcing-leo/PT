@@ -62,8 +62,15 @@
 	</sql>
 	
 	<select id="getgroupBy" parameterType="map" resultType="org.tnt.pt.vo.RevVO">
-		select  sum(rev) as rev,sum(kilo) as kilo,sum(cons) as cons,sum(rev)/sum(cons) as rpc,sum(rev)/sum(kilo) as rpk,
-		sum(kilo)/sum(cons) as wpc,17.9 as gm
+		select  sum(rev) as rev,sum(kilo) as kilo,sum(cons) as cons
+		 <include refid="Example_Where_Clause"/>
+		from pt_rev t <include refid="left_join_Clause"/>
+		 where businessId =#{businessId} and payment = #{payment}
+		 <include refid="GroupBy_Clause"/>
+	</select>
+	<!-- new pt 使用 -->
+	<select id="getgroupBy_" parameterType="map" resultType="org.tnt.pt.vo.RevVO">
+		select  sum(rev) as rev,sum(kilo) as kilo,sum(cons) as cons
 		 <include refid="Example_Where_Clause"/>
 		from pt_rev t <include refid="left_join_Clause"/>
 		 where businessId =#{businessId} and payment = #{payment}
@@ -74,7 +81,7 @@
 	<insert id="batchInsert" parameterType="java.util.List">
 		insert into pt_Rev (id,rev,BUSINESSID,WEIGHTBANDID,ZONEGROUPID,kilo,CONS,COUNTRYID,PRODUCTID,payment) select SEQ_Rev.NEXTVAL,A.* from (
 		<foreach collection="list" item="item" index="index" separator="union" >
-			select #{item.rev},#{item.businessId},#{item.weightBandId},#{item.zoneGroupId},#{item.kilo},#{item.cons} ,#{item.countryId,jdbcType=BIGINT},#{item.productId},#{item.payment} from dual
+			select #{item.rev},#{item.businessId},#{item.weightBandId},#{item.zoneGroupId},#{item.kilo},#{item.cons},#{item.countryId,jdbcType=BIGINT},#{item.productId},#{item.payment} from dual
 		</foreach>
 		) A
 	</insert>

@@ -331,6 +331,7 @@ public class PTApproveController {
 		List<RevVO> recieveReviewList = new ArrayList<RevVO>();
 		List<String> showList = new ArrayList<String>();
 		String flag = "";String payMent = "";
+		String errorMsg = "";
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		DecimalFormat df = new DecimalFormat("#.00");
 		try {
@@ -365,7 +366,16 @@ public class PTApproveController {
 			//新建一个存放total合计的对象
 			RevVO rev = new RevVO();
 			for(RevVO view:sendReviewList){
-				view.setRpk(Double.parseDouble(df.format(view.getRpk())));
+				if(view.getCons()!=0){
+					view.setRpc(view.getRev()/view.getCons());
+					view.setWpc(view.getKilo()/view.getCons());
+					view.setWpc(Double.parseDouble(df.format(view.getWpc())));
+					view.setRpc(Double.parseDouble(df.format(view.getRpc())));
+				}
+				if(view.getKilo()!=0){
+					view.setRpk(view.getRev()/view.getKilo());
+					view.setRpk(Double.parseDouble(df.format(view.getRpk())));
+				}
 				rev.setCons(view.getCons()+rev.getCons());
 				rev.setKilo(view.getKilo()+rev.getKilo());
 				rev.setRev(view.getRev()+rev.getRev());
@@ -389,7 +399,16 @@ public class PTApproveController {
 			//新建一个存放total合计的对象
 			RevVO rev2 = new RevVO();
 			for(RevVO view:recieveReviewList){
-				view.setRpk(Double.parseDouble(df.format(view.getRpk())));
+				if(view.getCons()!=0){
+					view.setRpc(view.getRev()/view.getCons());
+					view.setWpc(view.getKilo()/view.getCons());
+					view.setWpc(Double.parseDouble(df.format(view.getWpc())));
+					view.setRpc(Double.parseDouble(df.format(view.getRpc())));
+				}
+				if(view.getKilo()!=0){
+					view.setRpk(view.getRev()/view.getKilo());
+					view.setRpk(Double.parseDouble(df.format(view.getRpk())));
+				}
 				rev2.setCons(view.getCons()+rev2.getCons());
 				rev2.setKilo(view.getKilo()+rev2.getKilo());
 				rev2.setRev(view.getRev()+rev2.getRev());
@@ -410,6 +429,7 @@ public class PTApproveController {
 			rev2.setMultichoised("Total");
 			recieveReviewList.add(rev2);
 			model.addAttribute("flag",flag);
+			model.addAttribute("errorMsg",errorMsg);
 			model.addAttribute("counter",showList.size());
 			model.addAttribute("customer", cus);
 			model.addAttribute("business", business);
@@ -467,7 +487,16 @@ public class PTApproveController {
 			//新建一个存放total合计的对象
 			RevVO rev = new RevVO();
 			for(RevVO view:sendReviewList){
-				view.setRpk(Double.parseDouble(df.format(view.getRpk())));
+				if(view.getCons()!=0){
+					view.setRpc(view.getRev()/view.getCons());
+					view.setWpc(view.getKilo()/view.getCons());
+					view.setWpc(Double.parseDouble(df.format(view.getWpc())));
+					view.setRpc(Double.parseDouble(df.format(view.getRpc())));
+				}
+				if(view.getKilo()!=0){
+					view.setRpk(view.getRev()/view.getKilo());
+					view.setRpk(Double.parseDouble(df.format(view.getRpk())));
+				}
 				rev.setCons(view.getCons()+rev.getCons());
 				rev.setKilo(view.getKilo()+rev.getKilo());
 				rev.setRev(view.getRev()+rev.getRev());
@@ -491,7 +520,16 @@ public class PTApproveController {
 			//新建一个存放total合计的对象
 			RevVO rev2 = new RevVO();
 			for(RevVO view:recieveReviewList){
-				view.setRpk(Double.parseDouble(df.format(view.getRpk())));
+				if(view.getCons()!=0){
+					view.setRpc(view.getRev()/view.getCons());
+					view.setWpc(view.getKilo()/view.getCons());
+					view.setWpc(Double.parseDouble(df.format(view.getWpc())));
+					view.setRpc(Double.parseDouble(df.format(view.getRpc())));
+				}
+				if(view.getKilo()!=0){
+					view.setRpk(view.getRev()/view.getKilo());
+					view.setRpk(Double.parseDouble(df.format(view.getRpk())));
+				}
 				rev2.setCons(view.getCons()+rev2.getCons());
 				rev2.setKilo(view.getKilo()+rev2.getKilo());
 				rev2.setRev(view.getRev()+rev2.getRev());

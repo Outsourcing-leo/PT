@@ -20,6 +20,8 @@ public interface WeightBandDao {
     WeightBand get(Long id);
 	List<WeightBand> findAll();
 	List<WeightBand> findAllByProductId(Long productId);
+	List<WeightBand> findByProductId(Long productId);
+	
 	List<WeightBand> findAllByProductIdWithCommerical(Long productId);
 	
 	List<WeightBand>  findAllHighWeightBandByProductId(Long productId);

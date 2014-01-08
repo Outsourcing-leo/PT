@@ -18,6 +18,12 @@
 			//为inputForm注册validate函数
 			$("#busCus").validate();
 		});
+		window.confirm = function(str) {   
+			str=str.replace(/\'/g,   "'&chr(39)&'").replace(/\r\n|\n|\r/g,   "'&VBCrLf&'");   
+			execScript("ret=msgbox('"+str+"',52)","vbscript");
+			return (ret); 
+		}
+		
 </script>
 </head>
 <body>
@@ -138,18 +144,24 @@
 
 </body>
 <script type="text/javascript">
+
 function tothenext(obj){
 		if($('#tp').val()=='both'){
-			if(confirm("Term of Payment is BOTH?")){
-				if(confirm("is Receive Pay follow Sender Pay?")){
-				   $("#isFollow").val("YES");
-				   $("#busCus").attr('action','${ctx}/ptCreate/disConfirm');
-				   $("#busCus").submit();
-				}else{
-				   $("#isFollow").val("NO");
-				   $("#busCus").attr('action','${ctx}/ptCreate/disConfirm');
-				   $("#busCus").submit();
-				}
+			   var v = confirm("Term of Payment is BOTH ?");{
+			   if (v=='6') {
+				   var v = confirm("Is Receive Pay follow Sender Pay ?");
+				   if (v=='6') {
+					   $("#isFollow").val("YES");
+					   $("#busCus").attr('action','${ctx}/ptCreate/disConfirm');
+					   $("#busCus").submit();
+				   } else if(v=='7') {
+					   $("#isFollow").val("NO");
+					   $("#busCus").attr('action','${ctx}/ptCreate/disConfirm');
+					   $("#busCus").submit();
+				   }
+			   } else if(v=='7') {
+			   	 return;
+			   }
 			}
 		}else{
 			$("#busCus").attr('action','${ctx}/ptCreate/disConfirm');

@@ -379,7 +379,7 @@
 					<td>${weightBand.name}</td>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td>${rateMap[key]}</td>	
+						<td>${recRateMap[key]}</td>	
 				   </c:forEach>
 			   </tr>
 			</c:forEach>
@@ -404,7 +404,7 @@
 					<td>${weightBand.name}</td>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td>${rateMap[key]}</td>	
+						<td>${recRateMap[key]}</td>	
 				   </c:forEach>
 			   </tr>
 			</c:forEach>
@@ -429,7 +429,7 @@
 					<td>${weightBand.name}</td>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td>${rateMap[key]}</td>	
+						<td>${recRateMap[key]}</td>	
 				   </c:forEach>
 			   </tr>
 			</c:forEach>
