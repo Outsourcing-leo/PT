@@ -67,7 +67,7 @@
       <th>PT Application Reference #: </th>
       <td>${business.applicationReference}<input type="hidden" value="${business.applicationReference}" name="business.applicationReference"></td>
       <th>Terms of payments:</th>
-      <td>${customer.payment}<input type="hidden" value="${customer.payment}" name="customer.payment"></td>
+      <td>${payment}<input type="hidden" value="${customer.payment}" name="customer.payment"></td>
       </tr>
   </table>
   </div>
@@ -157,7 +157,14 @@ value="<c:choose><c:when test="${consignmentMap[key] == null}">0</c:when><c:othe
 </table>
 
 <br />
-<div>total Rev&nbsp;&nbsp; <input type="text" id="totalRev" name="business.totalRev" value="${business.totalRev}" class="required number" disabled/><input type="button" value="refresh" class="cls-button" id="refresh"/> </div>
+<div>total Rev&nbsp;&nbsp; 
+<c:if test="${payment == 'Receive Pay' }">
+<input type="text" id="totalRev" name="business.totalRev_R" value="${business.totalRev_R}" class="required number" disabled/>
+</c:if>
+<c:if test="${payment == 'Sender Pay' }">
+<input type="text" id="totalRev" name="business.totalRev_S" value="${business.totalRev_S}" class="required number" disabled/>
+</c:if>
+<input type="button" value="refresh" class="cls-button" id="refresh"/> </div>
 <br />
   <hr />
    
@@ -178,14 +185,41 @@ value="<c:choose><c:when test="${consignmentMap[key] == null}">0</c:when><c:othe
               	 $("#consignment").attr('action',"${ctx}/ptModify/consProfile");
               	 $("#consignment").submit();
               }else{
-             	 $("#consignment").attr('action',"${ctx}/ptModify/hwRateProfile");
-    			 $("#consignment").submit();
+            	  var ss = '${isHighWight}';
+            	  if(ss=='noHw'){
+            		  $("#consignment").attr('action',"${ctx}/ptModify/disConProfile");
+      			   	  $("#consignment").submit();
+            	  }else{
+            		  $("#consignment").attr('action',"${ctx}/ptModify/hwRateProfile");
+         			  $("#consignment").submit();
+            	  }
+             	 
               }
 		});
 	});
 
 	$(function(){
 		 $("#next").click(function(){
+			 
+				//↓↓↓↓↓↓↓↓需要重新计算一下totalRev↓↓↓↓↓↓↓
+	            var params = $(".table_B").find("input").serializeArray();
+	            var jsonString = O2String(params);
+	            $.ajax({
+	                type:"POST",
+	                async:false,
+	                url:"${ctx}/ptCreate/addConsignment/${payment}",
+	                dataType:"text",      
+	                contentType:"application/json",   
+	                data:jsonString,
+	                success:function(data){
+	                	$("#totalRev").val(data);
+	                },
+	                error:function(e) {
+	                    alert("error："+e);
+	                }
+	            });
+	         	 //↑↑↑↑↑↑↑↑↑需要重新计算一下totalRev↑↑↑↑↑↑↑↑
+	          
 			 	var _totalRev = $("#totalRev").val();
 			 	if(_totalRev <= 0){
 			 		alert('totalRev can not be zero please check again');
@@ -199,7 +233,7 @@ value="<c:choose><c:when test="${consignmentMap[key] == null}">0</c:when><c:othe
 	                data:{businessId:'${business.id}',totalRev:_totalRev,zonetype:'${business.zoneType}'},
 	                success:function(data){
 	                	 if($('#isFollow').val()=='NO'&&$('#payment').val()=='<%=PTPARAMETERS.PAYMENT[0]%>'){
-		                 	$("#consignment").attr('action',"${ctx}/ptCreate/consProfile");
+		                 	$("#consignment").attr('action',"${ctx}/ptCreate/consProfile/${isHighWight}");
 		                 	$("#consignment").submit();
 		                 }else{
 		                	$('#payment').val('');

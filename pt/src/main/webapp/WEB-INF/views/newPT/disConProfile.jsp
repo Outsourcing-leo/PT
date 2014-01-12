@@ -7,6 +7,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<%
+response.setHeader("Pragma","No-cache");    
+response.setHeader("Cache-Control","no-cache");    
+response.setDateHeader("Expires", -10);   
+%> 
 <title>New PT-Discount Profile</title>
 <link href="${ctx}/static/styles/main.css" type="text/css" rel="stylesheet" />
 <script src="${ctx}/static/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
@@ -179,8 +184,13 @@
                 		$("#disConProfile").submit();
                 	}else{
                 		$('#payment').val('');
-                		$("#disConProfile").attr('action',"${ctx}/ptCreate/hwRateProfile");
-        				$("#disConProfile").submit();
+                		if(confirm("need hw profile?")){
+	                		$("#disConProfile").attr('action',"${ctx}/ptCreate/hwRateProfile");
+	        				$("#disConProfile").submit();
+                		}else{
+                			$("#disConProfile").attr('action',"${ctx}/ptCreate/consProfile/noHw");
+        	                $("#disConProfile").submit(); 
+                		}
                 	}
                 },
                 error:function(e) {

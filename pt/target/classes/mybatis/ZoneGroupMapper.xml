@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.ZoneGroupDao">
+
+	<select id="get" parameterType="int" resultType="ZoneGroup">
+		select * from pt_zonegroup where id=#{id}
+	</select>
+	
+	<select id="findAll" resultType="ZoneGroup">
+		select * from pt_zonegroup 
+	</select>
+	
+	
+	<select id="findAllByZoneType" parameterType="String" resultType="ZoneGroup">
+		select * from pt_zonegroup where zonetype = #{zonetype}
+	</select>
+	
+	<select id="selectByVOCount" resultType="java.lang.Integer"  parameterType="map">
+	 	select count(1) from pt_zonegroup,
+		(select countrycode,countryName,depotcode,zonegroupid from pt_country,pt_country_zone where pt_country.id=pt_country_zone.countryid) aa 
+		where aa.zonegroupid(+)=pt_zonegroup.ID and pt_zonegroup.zonetype = #{type}
+	</select>
+	
+	<select id="getZoneTable" parameterType="map" resultType="org.tnt.pt.entity.ZoneTable">
+		${baseVO.navigate.oracleQueryPreCondition}
+		select zone,aa.countrycode countryCode,aa.countryName countryName,aa.depotcode depot from pt_zonegroup,
+		(select countrycode,countryName,depotcode,zonegroupid from pt_country,pt_country_zone where pt_country.id=pt_country_zone.countryid) aa 
+		where aa.zonegroupid(+)=pt_zonegroup.ID and pt_zonegroup.zonetype = #{type}
+		ORDER BY pt_zonegroup.ID
+		${baseVO.navigate.oracleQuerySufCondition}
+	</select>
+	
+	
+</mapper> 

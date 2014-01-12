@@ -22,7 +22,8 @@ public interface CountryDao {
 	
 	List<Country> getAllCountryByZoneGroupId(Long zoneGroupId);
 	
-	List<Country>  findByName(String countryName);
+	List<Country>  findByCode(String countryCode);
 	
-	
+	List<Country> findBy15DCode(String countryCode);
+	List<Country> findBy48NCode(String countryCode);
 }

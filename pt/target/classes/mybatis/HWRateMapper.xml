@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.HWRateDao">
+
+	<sql id="Example_Where_Clause">
+	where 1=1
+	<trim  suffixOverrides="," >
+		<if test="businessId != null and businessId != ''">
+			and businessId=#{businessId}
+		</if>
+		<if test="weightBandId != null and weightBandId != ''">
+			and weightBandId=#{weightBandId}
+		</if>
+		<if test="countryId != null and countryId != ''">
+			and countryId=#{countryId}
+		</if>
+		<if test="productId != null and productId != ''">
+			and productId=#{productId}
+		</if>
+	</trim>
+	</sql> 
+	
+	<select id="get" parameterType="int" resultType="HWRate">
+		select * from PT_HWRATE where id=#{id}
+	</select>
+	
+	<select id="getRate" parameterType="int" resultType="HWRate">
+		select * from PT_HWRATE 
+	<include refid="Example_Where_Clause"/>
+	</select>
+	
+	
+	<select id="getCountryIds" parameterType="int" resultType="long">
+		select distinct(COUNTRYID) from PT_HWRATE 
+	<include refid="Example_Where_Clause"/>
+	</select>
+	
+	<select id="findAll" parameterType="map" resultType="HWRate">
+		select * from PT_HWRATE
+	</select>
+	
+	<select id="findAllByBusId" parameterType="map" resultType="HWRate">
+		select * from PT_HWRATE 
+		<where>
+			1=1
+			<if test="businessId != null">
+				and businessId=#{businessId}
+			</if>
+			<if test="payment != null">
+				and payment=#{payment}
+			</if>
+		</where>
+	</select>
+		
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into PT_HWRATE (id,COUNTRYID,BUSINESSID,WEIGHTBANDID,RATE,PRODUCTID,payment) select SEQ_HWRATE.NEXTVAL,A.* from (
+		<foreach collection="list" item="item" index="index" separator="union" >
+			select #{item.countryId},#{item.businessId},#{item.weightBandId},#{item.rate},#{item.productId},#{item.payment} from dual
+		</foreach>
+		) A
+	</insert>
+	
+	<delete id="deleteHwRateList" parameterType="HWRate">
+	     delete from PT_HWRATE 
+	     <where>
+			<if test="businessId != null">
+				businessId=#{businessId}
+			</if>
+			<if test="payment != null">
+				and payment=#{payment}
+			</if>
+		</where>
+	</delete>
+	
+	<delete id="delete" parameterType="Long">
+		delete from  PT_HWRATE where businessid=#{ids}
+	</delete>
+</mapper> 
+

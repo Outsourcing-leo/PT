@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns="http://www.wabacus.com"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			   xsi:schemaLocation="http://www.wabacus.com ../xsd/wabacus.resources.xsd">
+    <resource key="invalid.isnotempty">#label# can not be empty</resource>
+    <resource key="invalid.number">#data# is not valid number</resource>
+    <resource key="invalid.age">#data# is not valid age</resource>
+    <resource key="invalid.email">#label# must be Email format</resource>
+</resources>

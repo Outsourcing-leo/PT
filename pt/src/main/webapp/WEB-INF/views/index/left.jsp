@@ -48,6 +48,7 @@ $(function(){
             	<dt onclick="addMenuSub(this);">Base info</dt>
 				<dd><a href="${ctx}/ShowReport.wx?PAGEID=productlistpage" target="main">Product</a></dd>
                 <dd><a href="${ctx}/ShowReport.wx?PAGEID=chargeWeightbandlistpage" target="main">Chargeable Weight Band</a></dd>
+                 <dd><a href="${ctx}/ShowReport.wx?PAGEID=WeightbandGrouplistpage" target="main">WeightBand Group</a></dd>
 				<dd><a href="${ctx}/ShowReport.wx?PAGEID=highWeightBandlistpage" target="main">High Weight Band</a></dd>
                 <dd><a href="${ctx}/ShowReport.wx?PAGEID=Countrylistpage" target="main">Country Maintenance</a></dd>
 				<dd><a href="${ctx}/ShowReport.wx?PAGEID=ZoneGrouplistpage" target="main">ZoneGroup</a></dd>

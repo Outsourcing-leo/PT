@@ -24,7 +24,9 @@ public interface BusinessDao extends BaseDao<Business> {
 	
 	List<Business> findAll();
 	
-	void updateTotalRev(Map<String,Object> parameter);
+	void updateTotalRev_R(Map<String,Object> parameter);
+	
+	void updateTotalRev_S(Map<String,Object> parameter);
 	
 	Integer getMaxNum(Map<String,String> hashMap);
 	

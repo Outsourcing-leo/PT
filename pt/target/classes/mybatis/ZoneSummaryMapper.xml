@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.ZoneSummaryDao">
+
+	<select id="getZoneSummaryByBusinessIdandZoneGroupId" parameterType="map" resultType="ZoneSummary">
+		select * from PT_ZONE_SUMMARY  
+		<where>
+			1=1
+			<if test="businessId != null">
+				and businessId=#{businessId}
+			</if>
+			<if test="zoneGroupId != null">
+				and zoneGroupId=#{zoneGroupId}
+			</if>
+		</where>
+	</select>
+		
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into PT_ZONE_SUMMARY (id,BUSINESSID,ZONEGROUPID,CONSM,CONSY,KILOM,KILOY,REVM,REVY) select SEQ_SPECIFICCONSIGNMENTSET.NEXTVAL,A.* from (
+		<foreach collection="list" item="item" index="index" separator="union" >
+			select #{item.businessId},#{item.zonegroupId},#{item.consM},#{item.consY},#{item.kiloM},#{item.kiloY},#{item.revM},#{item.revY} from dual
+		</foreach>
+		) A
+	</insert>
+	
+	<select id="findAllByBusinessId" parameterType="map" resultType="ZoneSummary">
+		select * from PT_ZONE_SUMMARY  where BUSINESSID=#{businessId} and payment=#{payment}
+	</select>
+	
+	
+	<delete id="deleteZoneSummaryList" parameterType="ZoneSummary">
+	     delete from PT_ZONE_SUMMARY 
+	     <where>
+			<if test="businessId != null">
+				businessId=#{businessId}
+			</if>
+			<if test="payment != null">
+				and  payment=#{payment}
+			</if>
+		</where>
+	</delete>
+	
+	<delete id="delete" parameterType="Long">
+		delete from  PT_ZONE_SUMMARY where businessid=#{ids}
+	</delete>
+</mapper> 
+

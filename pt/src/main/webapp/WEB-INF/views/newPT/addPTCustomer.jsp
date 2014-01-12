@@ -49,8 +49,9 @@
     </tr>
     <tr>
       <th>Account #:</th>
-      <td><input type="text"  name="customer.account" class="required" maxlength="9"/></td>
-      <td colspan="2" style="color:#FF9900">("7777777"refer to new customer)</td>
+      <td><input type="text"  name="customer.account" class="required" maxlength="9"/><span style="background-color:yellow">("7777777"refer to new customer)</span></td>
+      <th>Telephone:</th>
+      <td><input type="text"  name="business.telPhone" class="required"/></td>
     </tr>
     <tr>
       <th>Customer Name</th>
@@ -117,11 +118,13 @@
      <tr>
       <th>Prdouct Description(eg:digital cameral)</th>
       <td colspan="1"><input type="text" value="Test DC"  name="business.description" class="required"></td>
-      <th>Weight Range</th>
-      <td ><select name="business.weightRange">
+       
+      <th style="display:none">Weight Range</th>
+      <td style="display:none"><select name="business.weightRange">
       	<option value="1">0.5-5kg</option>
       	<option value="2">5-10kg</option>
       	</select></td>
+      <!---->
     </tr>
      <tr>
       <th>Reason for the PT:</th>
@@ -147,24 +150,19 @@
 
 function tothenext(obj){
 		if($('#tp').val()=='both'){
-			   var v = confirm("Term of Payment is BOTH ?");{
-			   if (v=='6') {
-				   var v = confirm("Is Receive Pay follow Sender Pay ?");
-				   if (v=='6') {
+			if(confirm("Term of Payment is BOTH?")){
+				if(confirm("is Receive Pay follow Sender Pay?")){
 					   $("#isFollow").val("YES");
-					   $("#busCus").attr('action','${ctx}/ptCreate/disConfirm');
+					   $("#busCus").attr('action','${ctx}/ptCreate/disConfirm/add');
 					   $("#busCus").submit();
-				   } else if(v=='7') {
+					}else{
 					   $("#isFollow").val("NO");
-					   $("#busCus").attr('action','${ctx}/ptCreate/disConfirm');
+					   $("#busCus").attr('action','${ctx}/ptCreate/disConfirm/add');
 					   $("#busCus").submit();
-				   }
-			   } else if(v=='7') {
-			   	 return;
-			   }
+				}
 			}
 		}else{
-			$("#busCus").attr('action','${ctx}/ptCreate/disConfirm');
+			$("#busCus").attr('action','${ctx}/ptCreate/disConfirm/add');
 			$("#busCus").submit();
 		}
 }

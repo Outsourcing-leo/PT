@@ -66,11 +66,18 @@ public class BusinessService {
 		return businessDao.get(id);
 	}
 	
-	public void updateTotalRev(Double tolRev,Long businessId){
+	public void updateTotalRev_R(Double tolRev,Long businessId){
 		Map<String,Object> parameter = new HashMap<String,Object>();
 		parameter.put("totalRev", tolRev);
 		parameter.put("businessId", businessId);
-		businessDao.updateTotalRev(parameter);
+		businessDao.updateTotalRev_R(parameter);
+	}
+	
+	public void updateTotalRev_S(Double tolRev,Long businessId){
+		Map<String,Object> parameter = new HashMap<String,Object>();
+		parameter.put("totalRev", tolRev);
+		parameter.put("businessId", businessId);
+		businessDao.updateTotalRev_S(parameter);
 	}
 	
 	public List<Business> getBusinessByBusiness(BusinessVO businessVO){

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.DiscountDefaultDao">
+	<sql id="Example_Where_Clause">
+	where 1=1
+	<trim  suffixOverrides="," >
+		<if test="zoneGroupId != null and zoneGroupId != ''">
+			and zoneGroupId=#{zoneGroupId}
+		</if>
+		<if test="productId != null and productId != ''">
+			and productId=#{productId}
+		</if>
+	</trim>
+	</sql> 
+
+	<select id="get" parameterType="int" resultType="DiscountDefault">
+		select * from pt_discount_default where id=#{id}
+	</select>
+	
+	
+	<select id="findAll" parameterType="map" resultType="DiscountDefault">
+		select * from pt_discount_default
+	</select>
+	
+	<!-- 插入操作记录 -->
+	<insert id="insert" parameterType="DiscountDefault" >
+		insert into PT_DISCOUNT_DEFAULT (DISCOUNT,ZONEGROUPID,PRODUCTID)
+		values (#{discount},#{zoneGroupId},#{productId})
+	</insert>
+	
+	<update id="update" parameterType="DiscountDefault" >
+		update PT_DISCOUNT_DEFAULT set DISCOUNT= #{discount}
+		where ZONEGROUPID = #{zoneGroupId} and PRODUCTID=#{productId}
+	</update>
+	
+	<!-- 机构列表总数-->
+	<select id="find" resultType="java.lang.Integer"  parameterType="DiscountDefault">
+	select count(1) from PT_DISCOUNT_DEFAULT 
+	<include refid="Example_Where_Clause"/>
+	</select>
+</mapper> 

@@ -8,6 +8,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<%
+response.setHeader("Pragma","No-cache");    
+response.setHeader("Cache-Control","no-cache");    
+response.setDateHeader("Expires", -10);   
+%> 
 <title>New PT-Summary Info</title>
 <link href="${ctx}/static/styles/main.css" type="text/css" rel="stylesheet" />
 <script src="${ctx}/static/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
@@ -93,7 +98,7 @@
   <table class="modify">
     <tr>
       <th>Term of Payment:</th>
-      <td colspan="3">${customer.payment}</td>
+      <td colspan="3">${payment}</td>
     </tr>
     <tr>
       <th>Is customer a mainly document sender?</th>
@@ -318,8 +323,8 @@
 	$(function(){
 		 $("#Submit").click(function(){
 			 if($('#isFollow').val()=='NO'&&$('#payment').val()=='<%=PTPARAMETERS.PAYMENT[0]%>'){
-              	$("#consignment").attr('action',"${ctx}/ptCreate/summaryInfo");
-              	$("#consignment").submit();
+              	$("#summaryInfo").attr('action',"${ctx}/ptCreate/summaryInfo");
+              	$("#summaryInfo").submit();
               }else{
             	  $.ajax({
   	                type:"GET",

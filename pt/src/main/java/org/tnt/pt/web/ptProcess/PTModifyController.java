@@ -1,7 +1,10 @@
 package org.tnt.pt.web.ptProcess;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +51,7 @@ import org.tnt.pt.service.ptProcess.ZoneSummaryService;
 import org.tnt.pt.util.PTPARAMETERS;
 import org.tnt.pt.vo.BusCusVO;
 import org.tnt.pt.vo.RevVO;
+import org.tnt.pt.web.ptProcess.PTCreateController.ComparatorWeightBand;
 
 /**
  * ProductController负责产品的请求，
@@ -230,9 +234,9 @@ public class PTModifyController {
 		model.addAttribute("customer", customer);
 		model.addAttribute("zoneType", zoneType);
 		model.addAttribute("zoneGroupList", zoneGroupList);
-		model.addAttribute("documentList", documentList);
-		model.addAttribute("ndocumentList", ndocumentList);
-		model.addAttribute("eonomyList", eonomyList);
+		model.addAttribute("documentList", getWeightBandList(documentList));
+		model.addAttribute("ndocumentList", getWeightBandList(ndocumentList));
+		model.addAttribute("eonomyList", getWeightBandList(eonomyList));
 		model.addAttribute("discountMap", discountMap);
 		
 		model.addAttribute("isFollow", busCus.getIsFollow());
@@ -240,6 +244,39 @@ public class PTModifyController {
 		
 		return "newPT/disConProfile";
 	}
+	
+	
+	/**
+	 * 根据weightbandGroup的值 只保留一个weightband
+	 * @param wbs
+	 * @return
+	 */
+	public List<WeightBand> getWeightBandList(List<WeightBand> wbs){
+		List<WeightBand> wbList = new ArrayList<WeightBand>();
+		Map<Long,WeightBand> wbMap = new HashMap<Long,WeightBand>();
+		for(WeightBand wb : wbs){
+			Long weightBandGroupId = wb.getWeightbandGroupId();
+			wbMap.put(weightBandGroupId, wb);
+		}
+		for (Iterator i = wbMap.values().iterator(); i.hasNext();) {
+			wbList.add((WeightBand)i.next());
+	    }
+		//根据weightbandgroupid值进行排序
+		ComparatorWeightBand comparator=new ComparatorWeightBand();
+		Collections.sort(wbList, comparator);
+		return wbList;
+	}
+	
+	class ComparatorWeightBand implements Comparator{
+		 public int compare(Object arg0, Object arg1) {
+			 WeightBand weightBand0=(WeightBand)arg0;
+			 WeightBand weightBand1=(WeightBand)arg1;
+		     //首先比较年龄，如果年龄相同，则比较名字
+		    int flag=weightBand0.getWeightbandGroupId().compareTo(weightBand1.getWeightbandGroupId());
+		    return flag;
+		 }
+	}
+	
 	
 	/**
 	 * 重货_城市_折扣  详细页

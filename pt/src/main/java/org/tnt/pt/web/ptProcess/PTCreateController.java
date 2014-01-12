@@ -151,8 +151,8 @@ public class PTCreateController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="disConfirm", method = RequestMethod.POST)
-	public String disConfirm(Model model,@ModelAttribute BusCusVO busCus) {
+	@RequestMapping(value="disConfirm/{type}", method = RequestMethod.POST)
+	public String disConfirm(Model model,@ModelAttribute BusCusVO busCus,@PathVariable("type") String type) {
 		Business business = new Business();
 		ZoneType zoneType = new ZoneType();
 		Customer customer = new Customer();
@@ -174,30 +174,35 @@ public class PTCreateController {
 		/**
 		 * 保存business 和 customer
 		 */
-		if(busCus.getBusiness().getId()!=null&&("".equals(busCus.getBusiness().getZoneType())||busCus.getBusiness().getZoneType()==null)){
+		if("add".equals(type)){
+			if(busCus.getBusiness().getId()!=null&&("".equals(busCus.getBusiness().getZoneType())||busCus.getBusiness().getZoneType()==null)){
 				businessService.updateBusAndCus(busCus);
+			}
+			if(busCus.getBusiness().getId()==null&&("".equals(busCus.getBusiness().getZoneType())||busCus.getBusiness().getZoneType()==null)){
+					String date = DateUtil.getStringFromDate(new Date(), "yyyyMMdd");
+					Integer suffix = businessService.getMaxNum("SHA",date,busCus.getCustomer().getChannel())==null?0:businessService.getMaxNum("SHA",date,busCus.getCustomer().getChannel());
+					String suff = new String();
+					int len = String.valueOf(suffix).length();
+					if(len == 1){
+						suff = "00"+suffix.toString();
+					}else if(len == 2){
+						suff = "0"+suffix.toString();
+					}else{
+						suff = suffix.toString();
+					}
+					busCus.getBusiness().setApplicationReference("PT-"+"SHA"+"-"+date+"-"+busCus.getCustomer().getChannel()+"-"+suff);// 编号 需要自动生成
+					busCus.getBusiness().setZoneType("13ZONE");
+					busCus.getBusiness().setState("creating");
+					busCus.getBusiness().setSuffix(suffix);
+					busCus.getBusiness().setIsFollow(busCus.getIsFollow());
+					businessService.insert(busCus);
+			}else if(!"".equals(busCus.getBusiness().getZoneType())&&busCus.getBusiness().getZoneType()!=null){
+				businessService.updateBusAndCus(busCus);
+			}
+		}else if("confirm".equals(type)){
+			businessService.update(busCus.getBusiness());
 		}
-		if(busCus.getBusiness().getId()==null&&("".equals(busCus.getBusiness().getZoneType())||busCus.getBusiness().getZoneType()==null)){
-				String date = DateUtil.getStringFromDate(new Date(), "yyyyMMdd");
-				Integer suffix = businessService.getMaxNum("SHA",date,busCus.getCustomer().getChannel())==null?0:businessService.getMaxNum("SHA",date,busCus.getCustomer().getChannel());
-				String suff = new String();
-				int len = String.valueOf(suffix).length();
-				if(len == 1){
-					suff = "00"+suffix.toString();
-				}else if(len == 2){
-					suff = "0"+suffix.toString();
-				}else{
-					suff = suffix.toString();
-				}
-				busCus.getBusiness().setApplicationReference("PT-"+"SHA"+"-"+date+"-"+busCus.getCustomer().getChannel()+"-"+suff);// 编号 需要自动生成
-				busCus.getBusiness().setZoneType("13ZONE");
-				busCus.getBusiness().setState("creating");
-				busCus.getBusiness().setSuffix(suffix);
-				busCus.getBusiness().setIsFollow(busCus.getIsFollow());
-				businessService.insert(busCus);
-		}else if(!"".equals(busCus.getBusiness().getZoneType())&&busCus.getBusiness().getZoneType()!=null){
-				businessService.update(busCus.getBusiness());
-		}
+		
 		zoneType = zoneTypeService.getZoneTypeByZoneType(business.getZoneType());//zonetype类型
 		/**
 		 * 初始化数据
@@ -225,7 +230,7 @@ public class PTCreateController {
 			discountDefaultMap.put(discountDefault.getProductId()+"_"+discountDefault.getZoneGroupId(), discountDefault.getDiscount());
 		}
 		
-		model.addAttribute("business", business);
+		model.addAttribute("business", businessService.getBusiness(business.getId()));
 		model.addAttribute("customer", customer);
 		model.addAttribute("zoneType_", zoneType.getZoneType());
 		model.addAttribute("zoneGroupList", zoneGroupList);
@@ -652,8 +657,8 @@ public class PTCreateController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="consProfile", method = RequestMethod.POST)
-	public String consProfile(Model model,@ModelAttribute BusCusVO busCus) {
+	@RequestMapping(value="consProfile/{isHighWight}", method = RequestMethod.POST)
+	public String consProfile(Model model,@ModelAttribute BusCusVO busCus,@PathVariable("isHighWight") String isHighWight) {
 		Business business = new Business();
 		ZoneType zoneType = new ZoneType();
 		Customer customer = new Customer();
@@ -701,6 +706,7 @@ public class PTCreateController {
 		
 		model.addAttribute("isFollow", busCus.getIsFollow());
 		model.addAttribute("payment",payment);
+		model.addAttribute("isHighWight",isHighWight);
 		
 		return "newPT/consignmentProfile";
 	}
@@ -992,7 +998,12 @@ public class PTCreateController {
 		Long busId = Long.valueOf(businessId);
 		
 		//修改totalRev
-		businessService.updateTotalRev(Double.valueOf(totalRev),busId);
+		if(payment.equals(PTPARAMETERS.PAYMENT[1])){
+			businessService.updateTotalRev_R(Double.valueOf(totalRev),busId);
+		}else{
+			businessService.updateTotalRev_S(Double.valueOf(totalRev),busId);
+		}
+		
 		
 		geoList =  countryZoneService.getAllGEO();//得到所有的geo
 		for (String  geo : geoList ) {
@@ -1003,24 +1014,24 @@ public class PTCreateController {
 			for (Long countryId:countryIds) {
 				Rev rev = new Rev();
 				rev = revService.getCountryGroupBy(busId,countryId,payment);
-				revs.add(rev);
+				if (rev!=null) revs.add(rev);
 			}
 				
-			Double consM = geo_consSum(revs);
-			Double consY = consM*12;
-			Double kiloM = geo_kiloSum(revs);
-			Double kiloY = kiloM*12;
-			Double revM = geo_revSum(revs);
-			Double revY = kiloM*12;
+			Double consM = DoubleUtil.get2Double(geo_consSum(revs));
+			Double consY = DoubleUtil.get2Double(consM*12);
+			Double kiloM = DoubleUtil.get2Double(geo_kiloSum(revs));
+			Double kiloY = DoubleUtil.get2Double(kiloM*12);
+			Double revM = DoubleUtil.get2Double(geo_revSum(revs));
+			Double revY = DoubleUtil.get2Double(revM*12);
 			
 			geoSummary.setBusinessId(busId);
-			geoSummary.setConsM(DoubleUtil.get2Double(consM));
-			geoSummary.setConsY(DoubleUtil.get2Double(consY));
-			geoSummary.setKiloM(DoubleUtil.get2Double(kiloM));
-			geoSummary.setKiloY(DoubleUtil.get2Double(kiloY));
+			geoSummary.setConsM(consM);
+			geoSummary.setConsY(consY);
+			geoSummary.setKiloM(kiloM);
+			geoSummary.setKiloY(kiloY);
 			geoSummary.setGeoZone(geo);
-			geoSummary.setRevM(DoubleUtil.get2Double(revM));
-			geoSummary.setRevY(DoubleUtil.get2Double(revY));
+			geoSummary.setRevM(revM);
+			geoSummary.setRevY(revY);
 			geoSummary.setPayment(payment);
 			geoSummaryList.add(geoSummary);
 		}
@@ -1138,7 +1149,7 @@ public class PTCreateController {
 			msg = "businessId is empty ，pls check again";
 			return msg;
 		}else{
-			msg = "success!";
+			msg = "this pt save success!";
 		}
 		Long busId = Long.valueOf(businessId);
 		Business business = new Business();
