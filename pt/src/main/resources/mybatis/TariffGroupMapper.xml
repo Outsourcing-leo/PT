@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.TariffGroupDao">
+
+	<select id="get" parameterType="int" resultType="Tariff">
+		select * from pt_tariffGroup where id=#{id}
+	</select>
+	
+	
+	<select id="findAllByWeightBand" parameterType="map" resultType="TariffGroup">
+		select * from  pt_tariffGroup  where productId=#{productId} and type = #{payment} order by id
+	</select>
+
+	<select id="getTariffGroupByWeightAndWbIdAndType" parameterType="map" resultType="TariffGroup">
+		select * from  pt_tariffGroup  where weight = #{weight} and weightBandId=#{weightBandId} and type = #{payment} and rownum = 1 order by id
+	</select>
+	
+	<select id="getTariffGroupByWbIdAndType" parameterType="map" resultType="TariffGroup">
+		select * from  pt_tariffGroup  where weightBandId=#{weightBandId} and type = #{payment} and rownum = 1 order by id
+	</select>
+</mapper> 

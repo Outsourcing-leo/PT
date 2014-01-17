@@ -196,7 +196,7 @@ public class DocumentDownController {
 	}
 	tariffList = tariffService.getAllTariff();
 	for (Tariff tariff:tariffList) {
-		traiffMap.put(tariff.getWeightBandId()+"_"+tariff.getZoneGroupId(), tariff.getTariff());
+		traiffMap.put(tariff.getTariffGroupId()+"_"+tariff.getZoneGroupId(), tariff.getTariff());
 	}
 	try {
 		pdfPathString = pdfPathString+"/"+business.getApplicationReference()+".pdf";

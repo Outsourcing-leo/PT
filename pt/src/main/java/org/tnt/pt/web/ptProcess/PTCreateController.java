@@ -41,6 +41,7 @@ import org.tnt.pt.entity.Rev;
 import org.tnt.pt.entity.SpecificConsignmentSet;
 import org.tnt.pt.entity.SpecificCountry;
 import org.tnt.pt.entity.Tariff;
+import org.tnt.pt.entity.TariffGroup;
 import org.tnt.pt.entity.WeightBand;
 import org.tnt.pt.entity.ZoneGroup;
 import org.tnt.pt.entity.ZoneSummary;
@@ -50,6 +51,7 @@ import org.tnt.pt.service.baseInfo.CountryService;
 import org.tnt.pt.service.baseInfo.CountryZoneService;
 import org.tnt.pt.service.baseInfo.DiscountDefaultService;
 import org.tnt.pt.service.baseInfo.ProductService;
+import org.tnt.pt.service.baseInfo.TariffGroupService;
 import org.tnt.pt.service.baseInfo.TariffService;
 import org.tnt.pt.service.baseInfo.WeightBandService;
 import org.tnt.pt.service.baseInfo.ZoneGroupService;
@@ -126,6 +128,8 @@ public class PTCreateController {
     RevService revService;
     @Autowired
     FsiService fsiService;
+    @Autowired
+    TariffGroupService tariffGroupService;
     
 	@RequestMapping(value="addCustomer", method = RequestMethod.GET)
 	public String addCustomer() {
@@ -860,6 +864,7 @@ public class PTCreateController {
 				  if(countryIds.size() > 0){
 					  zgMap.put(zg.getId(), countryIds);
 				  }else{
+					  //获取zone下面的默认国家
 					  countryIds = countryZoneService.getAllCountryByZoneGroup(zg.getId());
 					  zgMap.put(zg.getId(), countryIds);
 				  }
@@ -885,7 +890,7 @@ public class PTCreateController {
 			}
 			tariffList = tariffService.getAllTariff();
 			for (Tariff tariff:tariffList) {
-				tariffMap.put(tariff.getWeightBandId()+"_"+tariff.getZoneGroupId(), tariff.getTariff());
+				tariffMap.put(tariff.getTariffGroupId()+"_"+tariff.getZoneGroupId(), tariff.getTariff());
 			}
 			wpList = weightBandService.getAllWeightBand();
 			for (WeightBand wp:wpList) {
@@ -898,16 +903,28 @@ public class PTCreateController {
 			for (Consignment con:consignmentList) {
 				Rev rev = new Rev();
 				Double value = 0.0;
-				String tariffkey = con.getWeightBandId()+"_"+con.getZoneGroupId();
+				//计算chargeableweightband，根据这个值 去匹配tariffGroup的单个值
+				WeightBand wb = weightBandService.getWeightBand(con.getWeightBandId());
+				//List<TariffGroup> tariffGroupList = new ArrayList<TariffGroup>(); 
+				Double chargeWeightBand = wb.getChargeableWeight();//
+				TariffGroup tariffGroup  = new TariffGroup();
+				//根据weightband 以及chargeweightband的值，假如<=20 则根据 weight，weightBandId，type 三个确定一个对象
+				if(chargeWeightBand <= 20){
+					tariffGroup = tariffGroupService.getTariffGroupByWeightAndWbIdAndType(chargeWeightBand,wb.getId(),payment);
+				}else{
+					tariffGroup = tariffGroupService.getTariffGroupByWbIdAndType(wb.getId(),payment);
+				}
+				//根据tariffkey 获取 tariff值
+				String tariffkey = tariffGroup.getId()+"_"+con.getZoneGroupId();
 				String key = con.getBusinessId()+"_"+con.getWeightBandId()+"_"+con.getZoneGroupId();
 				rev.setBusinessId(con.getBusinessId());
 				rev.setKilo(weightBandMap.get(con.getWeightBandId())*con.getConsignment());
 				
 				//假如是重货.
 				if("0".equals(isHighWeightBandMap.get(con.getWeightBandId()))){
-					value = DoubleUtil.get2Double(tariffMap.get(tariffkey)*(1-discountMap.get(key)*0.01)*con.getConsignment()*(1+fsi));//full tariff ×（1－dis％off）×CONS×（1+fsi%）
+					value = DoubleUtil.get2Double(tariffMap.get(tariffkey)*(1-discountMap.get(key)*0.01)*chargeWeightBand*con.getConsignment()*(1+fsi));//full tariff *（1－dis％off）*CONS*chargeWeightBand*（1+fsi%）
 				}else{
-					value = DoubleUtil.get2Double(tariffMap.get(tariffkey)*(1-discountMap.get(key)*0.01)*con.getConsignment());//tariff*(1-discount)*con
+					value = DoubleUtil.get2Double(tariffMap.get(tariffkey)*(1-discountMap.get(key)*0.01)*con.getConsignment()*(1+fsi));//tariff*(1-discount)*con*（1+fsi%）
 				}
 				
 				rev.setRev(value);
@@ -921,6 +938,13 @@ public class PTCreateController {
 			for (Rev rev : revList) {
 				Rev revNew = new Rev();
 				String key = rev.getBusinessId()+"_"+rev.getWeightBandId()+"_"+rev.getZoneGroupId();
+				//-------------以下代码是错误  --------------//
+				/**
+				 * 一个zone以及一个产品 设置的特殊国家 不能这么简单的取出来
+				 * 首先定位 cons 根据 rev.getBusinessId()+"_"+rev.getWeightBandId()+"_"+rev.getZoneGroupId();
+				 * 然后得到 每个 cons 下面的特殊国家，如果有 country 从而得出每个country 的rev
+				 * 如果没有 就根据 zonetype下的defaultcountry 以及ratio得到每个国家的rev
+				 */
 				List<Long> countrys = zgMap.get(rev.getZoneGroupId());
 				if(countrys.size()>0){
 					Double fullPercent = 1.00;

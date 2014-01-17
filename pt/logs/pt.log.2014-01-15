@@ -1,0 +1,285 @@
+2014-01-15 21:55:44,264 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@164.39.68.43:1521:dms, UserName=DMS, Oracle JDBC driver]
+2014-01-15 21:55:44,272 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from dms.V_PT_USER_PRI where userName = ? and password =? and rownum = 1 
+2014-01-15 21:55:44,496 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: F706RNK(String), China123(String)
+2014-01-15 21:55:44,573 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from dms.V_PT_USER_PRI where userName = 'F706RNK' and password ='China123' and rownum 
+= 1  {executed in 76 msec}
+2014-01-15 21:55:49,390 [qtp26443833-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:55:49,390 [qtp26443833-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-15 21:55:49,391 [qtp26443833-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 21:55:49,396 [qtp26443833-25] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 4 msec}
+2014-01-15 21:55:49,444 [qtp26443833-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:55:49,444 [qtp26443833-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-15 21:55:49,444 [qtp26443833-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-15 21:55:49,447 [qtp26443833-25] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 3 msec}
+2014-01-15 21:55:49,471 [qtp26443833-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:55:49,472 [qtp26443833-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 21:55:49,472 [qtp26443833-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-15 21:55:49,475 [qtp26443833-25] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 3 msec}
+2014-01-15 21:55:49,480 [qtp26443833-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:55:49,480 [qtp26443833-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 21:55:49,480 [qtp26443833-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-15 21:55:49,483 [qtp26443833-25] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 3 msec}
+2014-01-15 21:55:49,487 [qtp26443833-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:55:49,487 [qtp26443833-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 21:55:49,487 [qtp26443833-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-15 21:55:49,490 [qtp26443833-25] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 3 msec}
+2014-01-15 21:55:49,511 [qtp26443833-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:55:49,512 [qtp26443833-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? order by id 
+2014-01-15 21:55:49,512 [qtp26443833-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long), Receive Pay(String)
+2014-01-15 21:55:49,516 [qtp26443833-25] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=1 and type = 'Receive Pay' order by id  {executed in 3 msec}
+2014-01-15 21:55:49,558 [qtp26443833-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:55:49,558 [qtp26443833-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-15 21:55:49,559 [qtp26443833-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 21:55:49,562 [qtp26443833-25] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 3 msec}
+2014-01-15 21:56:56,429 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:56:56,430 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype where id=? 
+2014-01-15 21:56:56,430 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 51(Long)
+2014-01-15 21:56:56,435 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_zonetype where id=51  {executed in 5 msec}
+2014-01-15 21:56:56,439 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:56:56,439 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? order by id 
+2014-01-15 21:56:56,439 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long), Receive Pay(String)
+2014-01-15 21:56:56,468 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=1 and type = 'Receive Pay' order by id  {executed in 28 msec}
+2014-01-15 21:56:56,484 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:56:56,484 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-15 21:56:56,485 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 8ZONE(String)
+2014-01-15 21:56:56,487 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '8ZONE'  {executed in 2 msec}
+2014-01-15 21:56:56,493 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:56:56,493 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 21:56:56,494 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-15 21:56:56,497 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 3 msec}
+2014-01-15 21:56:56,501 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:56:56,501 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 21:56:56,501 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-15 21:56:56,504 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 2 msec}
+2014-01-15 21:56:56,507 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:56:56,508 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 21:56:56,508 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-15 21:56:56,510 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 2 msec}
+2014-01-15 21:56:56,513 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:56:56,514 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-15 21:56:56,514 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 21:56:56,516 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 2 msec}
+2014-01-15 21:56:56,597 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:56:56,597 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-15 21:56:56,599 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 21:56:56,601 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 2 msec}
+2014-01-15 21:57:04,561 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:04,561 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype where id=? 
+2014-01-15 21:57:04,562 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-15 21:57:04,565 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_zonetype where id=1  {executed in 3 msec}
+2014-01-15 21:57:04,568 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:04,569 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? order by id 
+2014-01-15 21:57:04,569 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long), Receive Pay(String)
+2014-01-15 21:57:04,571 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=2 and type = 'Receive Pay' order by id  {executed in 2 msec}
+2014-01-15 21:57:04,574 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:04,575 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-15 21:57:04,575 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-15 21:57:04,577 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 2 msec}
+2014-01-15 21:57:04,581 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:04,582 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 21:57:04,582 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-15 21:57:04,584 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 2 msec}
+2014-01-15 21:57:04,587 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:04,587 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 21:57:04,588 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-15 21:57:04,590 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 2 msec}
+2014-01-15 21:57:04,593 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:04,593 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 21:57:04,593 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-15 21:57:04,596 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 2 msec}
+2014-01-15 21:57:04,599 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:04,599 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-15 21:57:04,599 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 21:57:04,601 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 2 msec}
+2014-01-15 21:57:04,673 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:04,673 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-15 21:57:04,674 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 21:57:04,676 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 2 msec}
+2014-01-15 21:57:11,164 [qtp26443833-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:11,165 [qtp26443833-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype where id=? 
+2014-01-15 21:57:11,165 [qtp26443833-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-15 21:57:11,168 [qtp26443833-25] INFO  [jdbc.sqltiming] - select * from pt_zonetype where id=1  {executed in 3 msec}
+2014-01-15 21:57:11,171 [qtp26443833-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:11,171 [qtp26443833-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? order by id 
+2014-01-15 21:57:11,172 [qtp26443833-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long), Sender Pay(String)
+2014-01-15 21:57:11,175 [qtp26443833-25] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=2 and type = 'Sender Pay' order by id  {executed in 3 msec}
+2014-01-15 21:57:11,180 [qtp26443833-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:11,180 [qtp26443833-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-15 21:57:11,181 [qtp26443833-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-15 21:57:11,183 [qtp26443833-25] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 2 msec}
+2014-01-15 21:57:11,188 [qtp26443833-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:11,188 [qtp26443833-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 21:57:11,189 [qtp26443833-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-15 21:57:11,191 [qtp26443833-25] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 2 msec}
+2014-01-15 21:57:11,194 [qtp26443833-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:11,194 [qtp26443833-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 21:57:11,194 [qtp26443833-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-15 21:57:11,197 [qtp26443833-25] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 3 msec}
+2014-01-15 21:57:11,200 [qtp26443833-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:11,200 [qtp26443833-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 21:57:11,201 [qtp26443833-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-15 21:57:11,203 [qtp26443833-25] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 2 msec}
+2014-01-15 21:57:11,206 [qtp26443833-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:11,206 [qtp26443833-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-15 21:57:11,207 [qtp26443833-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 21:57:11,209 [qtp26443833-25] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 2 msec}
+2014-01-15 21:57:11,280 [qtp26443833-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 21:57:11,280 [qtp26443833-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-15 21:57:11,280 [qtp26443833-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 21:57:11,282 [qtp26443833-25] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 2 msec}
+2014-01-15 23:43:27,952 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:27,953 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-15 23:43:27,953 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 23:43:27,956 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 3 msec}
+2014-01-15 23:43:27,960 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:27,960 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-15 23:43:27,961 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-15 23:43:27,963 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 2 msec}
+2014-01-15 23:43:27,968 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:27,968 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 23:43:27,968 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-15 23:43:27,971 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 2 msec}
+2014-01-15 23:43:27,974 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:27,974 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 23:43:27,974 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-15 23:43:27,976 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 2 msec}
+2014-01-15 23:43:27,979 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:27,980 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 23:43:27,980 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-15 23:43:27,982 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 2 msec}
+2014-01-15 23:43:27,985 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:27,985 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? order by id 
+2014-01-15 23:43:27,985 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long), Receive Pay(String)
+2014-01-15 23:43:27,987 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=1 and type = 'Receive Pay' order by id  {executed in 2 msec}
+2014-01-15 23:43:27,998 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:27,998 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-15 23:43:27,998 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 23:43:28,000 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 2 msec}
+2014-01-15 23:43:43,537 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:43,537 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype where id=? 
+2014-01-15 23:43:43,537 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-15 23:43:43,540 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_zonetype where id=1  {executed in 3 msec}
+2014-01-15 23:43:43,544 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:43,544 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? order by id 
+2014-01-15 23:43:43,544 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long), Receive Pay(String)
+2014-01-15 23:43:43,546 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=2 and type = 'Receive Pay' order by id  {executed in 2 msec}
+2014-01-15 23:43:43,549 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:43,549 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-15 23:43:43,550 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-15 23:43:43,552 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 2 msec}
+2014-01-15 23:43:43,557 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:43,557 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 23:43:43,558 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-15 23:43:43,560 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 2 msec}
+2014-01-15 23:43:43,566 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:43,566 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 23:43:43,567 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-15 23:43:43,569 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 2 msec}
+2014-01-15 23:43:43,572 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:43,572 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 23:43:43,572 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-15 23:43:43,575 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 2 msec}
+2014-01-15 23:43:43,577 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:43,578 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-15 23:43:43,578 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 23:43:43,580 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 2 msec}
+2014-01-15 23:43:43,637 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:43,637 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-15 23:43:43,637 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 23:43:43,640 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 3 msec}
+2014-01-15 23:43:45,463 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:45,463 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype where id=? 
+2014-01-15 23:43:45,464 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-15 23:43:45,466 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_zonetype where id=1  {executed in 2 msec}
+2014-01-15 23:43:45,470 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:45,470 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? order by id 
+2014-01-15 23:43:45,470 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long), Sender Pay(String)
+2014-01-15 23:43:45,473 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=2 and type = 'Sender Pay' order by id  {executed in 2 msec}
+2014-01-15 23:43:45,485 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:45,485 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-15 23:43:45,486 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-15 23:43:45,489 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 3 msec}
+2014-01-15 23:43:45,493 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:45,493 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 23:43:45,494 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-15 23:43:45,496 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 2 msec}
+2014-01-15 23:43:45,499 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:45,499 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 23:43:45,500 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-15 23:43:45,502 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 2 msec}
+2014-01-15 23:43:45,505 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:45,505 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 23:43:45,505 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-15 23:43:45,508 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 3 msec}
+2014-01-15 23:43:45,510 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:45,511 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-15 23:43:45,511 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 23:43:45,513 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 2 msec}
+2014-01-15 23:43:45,571 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:45,571 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-15 23:43:45,572 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 23:43:45,574 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 2 msec}
+2014-01-15 23:43:52,116 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:52,116 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype where id=? 
+2014-01-15 23:43:52,116 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-15 23:43:52,119 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_zonetype where id=1  {executed in 2 msec}
+2014-01-15 23:43:52,122 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:52,123 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? order by id 
+2014-01-15 23:43:52,123 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long), Receive Pay(String)
+2014-01-15 23:43:52,125 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=3 and type = 'Receive Pay' order by id  {executed in 2 msec}
+2014-01-15 23:43:52,128 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:52,128 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-15 23:43:52,128 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-15 23:43:52,131 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 2 msec}
+2014-01-15 23:43:52,135 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:52,135 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 23:43:52,136 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-15 23:43:52,138 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 2 msec}
+2014-01-15 23:43:52,141 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:52,141 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 23:43:52,142 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-15 23:43:52,144 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 2 msec}
+2014-01-15 23:43:52,147 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:52,147 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 23:43:52,147 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-15 23:43:52,150 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 2 msec}
+2014-01-15 23:43:52,152 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:52,152 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-15 23:43:52,153 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 23:43:52,155 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 2 msec}
+2014-01-15 23:43:52,209 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:52,209 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-15 23:43:52,209 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 23:43:52,212 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 3 msec}
+2014-01-15 23:43:56,327 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:56,327 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype where id=? 
+2014-01-15 23:43:56,327 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-15 23:43:56,330 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_zonetype where id=1  {executed in 3 msec}
+2014-01-15 23:43:56,334 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:56,334 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? order by id 
+2014-01-15 23:43:56,334 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long), Sender Pay(String)
+2014-01-15 23:43:56,336 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=3 and type = 'Sender Pay' order by id  {executed in 2 msec}
+2014-01-15 23:43:56,347 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:56,347 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-15 23:43:56,347 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-15 23:43:56,350 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 3 msec}
+2014-01-15 23:43:56,354 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:56,355 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 23:43:56,355 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-15 23:43:56,357 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 2 msec}
+2014-01-15 23:43:56,360 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:56,361 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 23:43:56,361 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-15 23:43:56,363 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 2 msec}
+2014-01-15 23:43:56,366 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:56,367 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-15 23:43:56,367 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-15 23:43:56,369 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 2 msec}
+2014-01-15 23:43:56,372 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:56,372 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-15 23:43:56,372 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 23:43:56,374 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 2 msec}
+2014-01-15 23:43:56,428 [qtp26443833-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-15 23:43:56,428 [qtp26443833-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-15 23:43:56,428 [qtp26443833-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-15 23:43:56,431 [qtp26443833-26] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 3 msec}

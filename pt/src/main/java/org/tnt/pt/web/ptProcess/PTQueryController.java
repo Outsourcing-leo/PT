@@ -251,7 +251,7 @@ public class PTQueryController{
 		}
 		tariffList = tariffService.getAllTariff();
 		for (Tariff tariff:tariffList) {
-			String keyId = tariff.getWeightBandId()+"_"+tariff.getZoneGroupId();
+			String keyId = tariff.getTariffGroupId()+"_"+tariff.getZoneGroupId();
 			if(discountMap.get(keyId)!=null){
 				rateMap.put(keyId, tariff.getTariff()*discountMap.get(keyId)/100);
 			}

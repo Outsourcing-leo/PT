@@ -47,9 +47,9 @@ $(function(){
         	<dl>
             	<dt onclick="addMenuSub(this);">Base info</dt>
 				<dd><a href="${ctx}/ShowReport.wx?PAGEID=productlistpage" target="main">Product</a></dd>
-                <dd><a href="${ctx}/ShowReport.wx?PAGEID=chargeWeightbandlistpage" target="main">Chargeable Weight Band</a></dd>
+                <dd><a href="${ctx}/ShowReport.wx?PAGEID=chargeWeightbandlistpage" target="main">Chargeable WeightBand</a></dd>
                  <dd><a href="${ctx}/ShowReport.wx?PAGEID=WeightbandGrouplistpage" target="main">WeightBand Group</a></dd>
-				<dd><a href="${ctx}/ShowReport.wx?PAGEID=highWeightBandlistpage" target="main">High Weight Band</a></dd>
+				<dd><a href="${ctx}/ShowReport.wx?PAGEID=highWeightBandlistpage" target="main">High WeightBand</a></dd>
                 <dd><a href="${ctx}/ShowReport.wx?PAGEID=Countrylistpage" target="main">Country Maintenance</a></dd>
 				<dd><a href="${ctx}/ShowReport.wx?PAGEID=ZoneGrouplistpage" target="main">ZoneGroup</a></dd>
 				<dd><a href="${ctx}/ShowReport.wx?PAGEID=ZoneTypelistpage" target="main">ZoneType</a></dd>
@@ -58,6 +58,7 @@ $(function(){
                 <dd><a href="${ctx}/ShowReport.wx?PAGEID=DepotBSMlistpage" target="main">Depot-BSM</a></dd>
                 <dd><a href="${ctx}/ShowReport.wx?PAGEID=DepotRGMlistpage" target="main">Depot-RSM</a></dd>
                 <dd><a href="${ctx}/discount/init" target="main" >Discount Rate</a></dd>
+                <dd><a href="${ctx}/ShowReport.wx?PAGEID=tariffGrouplistpage" target="main">TariffGroup</a></dd>
                 <dd><a href="${ctx}/traiff/init" target="main" >Full Tariff</a></dd>
             </dl>
            <dl>
