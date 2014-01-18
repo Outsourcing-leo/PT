@@ -3,6 +3,7 @@ package org.tnt.pt.repository;
 
 import java.util.List;
 
+import org.tnt.pt.entity.Consignment;
 import org.tnt.pt.entity.Tariff;
 
 
@@ -26,4 +27,8 @@ public interface TariffDao {
 	void update(Tariff tariff);
 	
 	int find(Tariff tariff);
+	
+	void deleteTariffList(Tariff tariff);
+	
+	void batchInsert(List<Tariff> tariffList);
 }

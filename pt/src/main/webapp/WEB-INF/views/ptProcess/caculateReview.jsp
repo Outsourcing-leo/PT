@@ -17,7 +17,7 @@
 <c:if test="${flag=='both'}">
 	<table class="tabTitlesContainer">
 		<tr id="tabTitles">
-			<td class="tabTitleSelected" onclick="tabPageControl(0)">Sender Pay</td>
+			<td class="tabTitleSelected" onclick="tabPageControl(0)">SenderPay</td>
 			<td class="tabTitleUnSelected" onclick="tabPageControl(1)">Recieve Pay</td>
 		</tr>
 	</table>

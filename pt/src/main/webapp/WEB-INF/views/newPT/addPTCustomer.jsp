@@ -101,8 +101,8 @@
       <th style="background-color:yellow"><span><B> Terms  of  Payments:</B></span></th>
       <td colspan="3">
 	  <select id="tp" name="customer.payment">
-           <option value="Sender Pay">Sender Pay</option>
-		   <option value="Receive Pay">Receive Pay</option>
+           <option value="SenderPay">SenderPay</option>
+		   <option value="ReceivePay">ReceivePay</option>
 		   <option value="both">both</option>
        </select></td>
     </tr>
@@ -151,7 +151,7 @@
 function tothenext(obj){
 		if($('#tp').val()=='both'){
 			if(confirm("Term of Payment is BOTH?")){
-				if(confirm("is Receive Pay follow Sender Pay?")){
+				if(confirm("is ReceivePay follow SenderPay?")){
 					   $("#isFollow").val("YES");
 					   $("#busCus").attr('action','${ctx}/ptCreate/disConfirm/add');
 					   $("#busCus").submit();

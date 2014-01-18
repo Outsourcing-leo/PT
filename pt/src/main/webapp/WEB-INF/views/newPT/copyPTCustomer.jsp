@@ -84,8 +84,8 @@
       <th style="background-color:yellow"><span><B> Terms  of  Payments:</B></span></th>
       <td colspan="3">
 	  <select id="tp" name="customer.payment" value="${customer.payment}">
-           <option value="Sender Pays">Sender Pays</option>
-		   <option value="RECEIVE PAY">RECEIVE PAY</option>
+           <option value="SenderPays">SenderPays</option>
+		   <option value="ReceivePay">ReceivePay</option>
 		   <option value="both">both</option>
        </select></td>
     </tr>

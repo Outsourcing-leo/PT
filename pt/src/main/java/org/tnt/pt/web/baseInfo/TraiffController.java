@@ -158,6 +158,7 @@ public class TraiffController {
 		String msg = "";
 		List<JsonData> jsonDataList = new ArrayList<JsonData>();
 		//List<DiscountDefault>  discountDefaultList = new ArrayList<DiscountDefault>();
+		//List<Tariff>  tariffList = new ArrayList<Tariff>();
 		try {
 			JSONArray array = new JSONArray(jsonDatas); 
 			for(int i = 0; i < array.length(); i++) {  

@@ -10,8 +10,8 @@
 		<if test="zoneGroupId != null and zoneGroupId != ''">
 			and zoneGroupId=#{zoneGroupId}
 		</if>
-		<if test="weightBandId != null and weightBandId != ''">
-			and weightBandId=#{weightBandId}
+		<if test="tariffGroupId != null and tariffGroupId != ''">
+			and tariffGroupId=#{tariffGroupId}
 		</if>
 	</trim>
 	</sql> 
@@ -31,13 +31,13 @@
 
 <!-- 插入操作记录 -->
 	<insert id="insert" parameterType="Tariff" >
-		insert into pt_tariff (TARIFF,ZONEGROUPID,weightBandId)
-		values (#{tariff},#{zoneGroupId},#{weightBandId})
+		insert into pt_tariff (TARIFF,ZONEGROUPID,tariffGroupId)
+		values (#{tariff},#{zoneGroupId},#{tariffGroupId})
 	</insert>
 	
 	<update id="update" parameterType="Tariff" >
 		update pt_tariff set TARIFF= #{tariff}
-		where ZONEGROUPID = #{zoneGroupId} and weightBandId=#{weightBandId}
+		where ZONEGROUPID = #{zoneGroupId} and tariffGroupId=#{tariffGroupId}
 	</update>
 	
 	<!-- 机构列表总数-->

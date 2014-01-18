@@ -51,7 +51,7 @@ public class TariffGroupService {
 		Map<String,Object> parameter = new HashMap<String,Object>();
 		parameter.put("weightBandId", weightBandId);
 		parameter.put("payment", payment);
-		return (TariffGroup) tariffGroupDao.getTariffGroupByWeightAndWbIdAndType(parameter);
+		return (TariffGroup) tariffGroupDao.getTariffGroupByWbIdAndType(parameter);
 	}
 	
 	

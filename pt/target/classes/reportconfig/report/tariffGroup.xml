@@ -58,8 +58,8 @@
 				</col>
 				<col column="type" label="type" br="true">
 					<inputbox type="selectbox">
-						<option value="Sender Pay" label="Sender Pay"/> 
-						<option value="Receive Pay" label="Receive Pay"/>
+						<option value="SenderPay" label="SenderPay"/> 
+						<option value="ReceivePay" label="ReceivePay"/>
 					</inputbox>
 				</col>  
 			</display>

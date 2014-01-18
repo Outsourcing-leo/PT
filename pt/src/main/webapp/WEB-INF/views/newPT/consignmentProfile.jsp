@@ -43,7 +43,7 @@
 			var id = "zg_"+weightBandId+"_"+zonegroupId+"_"+${business.id};
 			var value = inputArr[i].split("_")[1];
 			$("#"+id).val(value);
-			$("#"+id).attr("disabled",true);
+			$("#"+id).attr("readonly",true);
 		}
 	}
 </script>
@@ -158,10 +158,10 @@ value="<c:choose><c:when test="${consignmentMap[key] == null}">0</c:when><c:othe
 
 <br />
 <div>total Rev&nbsp;&nbsp; 
-<c:if test="${payment == 'Receive Pay' }">
+<c:if test="${payment == 'ReceivePay' }">
 <input type="text" id="totalRev" name="business.totalRev_R" value="${business.totalRev_R}" class="required number" disabled/>
 </c:if>
-<c:if test="${payment == 'Sender Pay' }">
+<c:if test="${payment == 'SenderPay' }">
 <input type="text" id="totalRev" name="business.totalRev_S" value="${business.totalRev_S}" class="required number" disabled/>
 </c:if>
 <input type="button" value="refresh" class="cls-button" id="refresh"/> </div>

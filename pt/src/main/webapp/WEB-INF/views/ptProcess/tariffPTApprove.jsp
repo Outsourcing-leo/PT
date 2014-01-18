@@ -96,7 +96,7 @@
  <c:if test="${flag=='both'}">
 	<table class="tabTitlesContainer">
 		<tr id="tabTitles">
-			<td class="tabTitleSelected" onclick="tabPageControl(0)">Sender Pay</td>
+			<td class="tabTitleSelected" onclick="tabPageControl(0)">SenderPay</td>
 			<td class="tabTitleUnSelected" onclick="tabPageControl(1)">Recieve Pay</td>
 		</tr>
 	</table>
@@ -264,7 +264,7 @@
 <table class="table_B" width="50%" align="left">
         <thead>
 			<tr align="center">
-                <th colspan="6" style="text-align:left;">Global Express - Non Documents (rate per kg) Sender Pays</th>
+                <th colspan="6" style="text-align:left;">Global Express - Non Documents (rate per kg) SenderPays</th>
             </tr>
 			<tr align="center">
                 <th>Country</th><th>21-30kg</th><th>31-50kg</th>
@@ -444,7 +444,7 @@
 <table class="table_B" width="50%" align="left">
         <thead>
 			<tr align="center">
-                <th colspan="6" style="text-align:left;">Global Express - Non Documents (rate per kg) Sender Pays</th>
+                <th colspan="6" style="text-align:left;">Global Express - Non Documents (rate per kg) SenderPays</th>
             </tr>
 			<tr align="center">
                 <th>Country</th><th>21-30kg</th><th>31-50kg</th>

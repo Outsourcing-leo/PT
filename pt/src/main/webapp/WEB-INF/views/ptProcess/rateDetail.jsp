@@ -119,7 +119,7 @@
 <table class="table_B" width="50%" align="left">
         <thead>
 			<tr align="center">
-                <th colspan="6" style="text-align:left;">Global Express - Non Documents (rate per kg) Sender Pays</th>
+                <th colspan="6" style="text-align:left;">Global Express - Non Documents (rate per kg) SenderPays</th>
             </tr>
 			<tr align="center">
                 <th>Country</th><th>21-30kg</th><th>31-50kg</th>

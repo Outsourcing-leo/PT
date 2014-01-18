@@ -10,5 +10,5 @@ public static String PROCESS_SATE[] = {"Created","rsmWaiting","commercialWaiting
 	public static String ROLE_NAME[] = {"PT - Branch SALES Supervisor Team","PT - Regional SALES Supervisor Team",
 								"PT - HQ COMMERCIAL User Team","PT - BC FNA User Team","PT - Branch SALES User Team"};
 	
-	public static String PAYMENT[] = {"Sender Pay","Receive Pay","both"};
+	public static String PAYMENT[] = {"SenderPay","ReceivePay","both"};
 }

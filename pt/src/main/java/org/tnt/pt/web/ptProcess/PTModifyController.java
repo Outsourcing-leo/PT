@@ -132,10 +132,10 @@ public class PTModifyController {
 		zoneType = zoneTypeService.getZoneTypeByZoneType(business.getZoneType());//zonetype类型
 		
 		String payment = "";
-		//如果是yes 并且 payment 为空 择进入sender pay页面
+		//如果是yes 并且 payment 为空 择进入SenderPay页面
 		if("NO".equals(busCus.getIsFollow())&&"".equals(busCus.getPayment())){
 			payment=PTPARAMETERS.PAYMENT[0];
-		//如果是yes 并且 payment 为sender pay 择进入receive pay页面
+		//如果是yes 并且 payment 为SenderPay 择进入ReceivePay页面
 		}else if("NO".equals(busCus.getIsFollow())&&PTPARAMETERS.PAYMENT[0].equals(busCus.getPayment())){
 			payment=PTPARAMETERS.PAYMENT[1];
 		}else if("YES".equals(busCus.getIsFollow())){
@@ -200,10 +200,10 @@ public class PTModifyController {
 		zoneType = zoneTypeService.getZoneTypeByZoneType(business.getZoneType());//zonetype类型
 		
 		String payment = "";
-		//如果是yes 并且 payment 为空 择进入sender pay页面
+		//如果是yes 并且 payment 为空 择进入SenderPay页面
 		if("NO".equals(busCus.getIsFollow())&&"".equals(busCus.getPayment())){
 			payment=PTPARAMETERS.PAYMENT[0];
-		//如果是yes 并且 payment 为sender pay 择进入receive pay页面
+		//如果是yes 并且 payment 为SenderPay 择进入ReceivePay页面
 		}else if("NO".equals(busCus.getIsFollow())&&PTPARAMETERS.PAYMENT[0].equals(busCus.getPayment())){
 			payment=PTPARAMETERS.PAYMENT[1];
 		}else if("YES".equals(busCus.getIsFollow())){
@@ -293,10 +293,10 @@ public class PTModifyController {
 		zoneType = zoneTypeService.getZoneTypeByZoneType(business.getZoneType());//zonetype类型
 		
 		String payment = "";
-		//如果是yes 并且 payment 为空 择进入sender pay页面
+		//如果是yes 并且 payment 为空 择进入SenderPay页面
 		if("NO".equals(busCus.getIsFollow())&&"".equals(busCus.getPayment())){
 			payment=PTPARAMETERS.PAYMENT[0];
-		//如果是yes 并且 payment 为sender pay 择进入receive pay页面
+		//如果是yes 并且 payment 为SenderPay 择进入ReceivePay页面
 		}else if("NO".equals(busCus.getIsFollow())&&PTPARAMETERS.PAYMENT[0].equals(busCus.getPayment())){
 			payment=PTPARAMETERS.PAYMENT[1];
 		}else if("YES".equals(busCus.getIsFollow())){
@@ -366,10 +366,10 @@ public class PTModifyController {
 		zoneType = zoneTypeService.getZoneTypeByZoneType(business.getZoneType());//zonetype类型
 		
 		String payment = "";
-		//如果是yes 并且 payment 为空 择进入sender pay页面
+		//如果是yes 并且 payment 为空 择进入SenderPay页面
 		if("NO".equals(busCus.getIsFollow())&&"".equals(busCus.getPayment())){
 			payment=PTPARAMETERS.PAYMENT[0];
-		//如果是yes 并且 payment 为sender pay 择进入receive pay页面
+		//如果是yes 并且 payment 为SenderPay 择进入ReceivePay页面
 		}else if("NO".equals(busCus.getIsFollow())&&PTPARAMETERS.PAYMENT[0].equals(busCus.getPayment())){
 			payment=PTPARAMETERS.PAYMENT[1];
 		}else if("YES".equals(busCus.getIsFollow())){
@@ -426,7 +426,7 @@ public class PTModifyController {
 		String payment = "";
 		if("NO".equals(busCus.getIsFollow())&&"".equals(busCus.getPayment())){
 			payment = PTPARAMETERS.PAYMENT[0];
-		//如果是yes 并且 payment 为sender pay 择进入receive pay页面
+		//如果是yes 并且 payment 为SenderPay 择进入ReceivePay页面
 		}else if("NO".equals(busCus.getIsFollow())&&PTPARAMETERS.PAYMENT[0].equals(busCus.getPayment())){
 			payment = PTPARAMETERS.PAYMENT[1];
 		}else if("YES".equals(busCus.getIsFollow())){
