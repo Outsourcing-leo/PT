@@ -196,7 +196,7 @@ public class PTCreateController {
 						suff = suffix.toString();
 					}
 					busCus.getBusiness().setApplicationReference("PT-"+"SHA"+"-"+date+"-"+busCus.getCustomer().getChannel()+"-"+suff);// 编号 需要自动生成
-					busCus.getBusiness().setZoneType("13ZONE");
+					busCus.getBusiness().setZoneType("11ZONE");
 					busCus.getBusiness().setState("creating");
 					busCus.getBusiness().setSuffix(suffix);
 					busCus.getBusiness().setIsFollow(busCus.getIsFollow());
