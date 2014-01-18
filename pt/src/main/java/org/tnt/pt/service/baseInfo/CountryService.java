@@ -31,8 +31,8 @@ public class CountryService {
 		return  countryDao.findByCode(countryCode);
 	}
 	
-	public List<Country> findBy15DCode(String countryCode) {
-		return  countryDao.findBy15DCode(countryCode);
+	public List<Country> findBy15NCode(String countryCode) {
+		return  countryDao.findBy15NCode(countryCode);
 	}
 	
 	public List<Country> findBy48NCode(String countryCode) {

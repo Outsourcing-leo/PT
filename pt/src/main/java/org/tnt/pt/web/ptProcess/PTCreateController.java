@@ -1082,7 +1082,6 @@ public class PTCreateController {
 			for (Rev rev:revList) {
 				totalRev+=rev.getRev();
 			}
-			
 			msg = DoubleUtil.get2Double(totalRev)+"";
 		} catch (ParseException e) {
 			msg = "parseException";

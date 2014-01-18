@@ -45,7 +45,7 @@ public class CountryController {
  			}
  			List<Country> countryList = new ArrayList<Country>();
  			if("15D".equals(type)){
- 				countryList = countryService.findBy15DCode(countryCode);
+ 				countryList = countryService.findBy15NCode(countryCode);
  			}else if("48N".equals(type)){
  				countryList = countryService.findBy48NCode(countryCode);
  			}

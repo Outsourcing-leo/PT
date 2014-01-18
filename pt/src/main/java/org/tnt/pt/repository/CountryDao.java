@@ -24,6 +24,6 @@ public interface CountryDao {
 	
 	List<Country>  findByCode(String countryCode);
 	
-	List<Country> findBy15DCode(String countryCode);
+	List<Country> findBy15NCode(String countryCode);
 	List<Country> findBy48NCode(String countryCode);
 }
