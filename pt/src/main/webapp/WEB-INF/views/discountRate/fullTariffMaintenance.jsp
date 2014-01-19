@@ -37,7 +37,7 @@
                 	<select name="payment" value="${payment}">
 						  <option value="SenderPay" <c:if test="${payment eq 'SenderPay'}">selected</c:if> >SenderPay</option>
 						  <option value="ReceivePay" <c:if test="${payment eq 'ReceivePay'}">selected</c:if> >ReceivePay</option>
-						  <option value="both" <c:if test="${payment eq 'both'}">selected</c:if> >both</option>
+						  <option value="both" <c:if test="${payment eq 'Both'}">selected</c:if> >Both</option>
 					</select>
                 </td>				
             </tr>

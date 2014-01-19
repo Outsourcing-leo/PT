@@ -104,7 +104,7 @@
 	  <select id="tp" name="customer.payment">
            <option value="SenderPay" <c:if test="${customer.payment eq 'SenderPay'}">selected</c:if>>SenderPay</option>
 		   <option value="ReceivePay" <c:if test="${customer.payment eq 'ReceivePay'}">selected</c:if> >ReceivePay</option>
-		   <option value="both" <c:if test="${customer.payment eq 'both'}">selected</c:if> >both</option>
+		   <option value="Both" <c:if test="${customer.payment eq 'Both'}">selected</c:if> >Both</option>
        </select></td>
     </tr>
     <tr>

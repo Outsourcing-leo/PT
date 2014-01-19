@@ -86,7 +86,7 @@
 	  <select id="tp" name="customer.payment" value="${customer.payment}">
            <option value="SenderPays">SenderPays</option>
 		   <option value="ReceivePay">ReceivePay</option>
-		   <option value="both">both</option>
+		   <option value="Both">Both</option>
        </select></td>
     </tr>
     <tr>

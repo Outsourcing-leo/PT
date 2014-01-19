@@ -60,7 +60,7 @@
 					<inputbox type="selectbox">
 						<option value="SenderPay" label="SenderPay"/> 
 						<option value="ReceivePay" label="ReceivePay"/>
-						<option value="both" label="both"/>
+						<option value="Both" label="Both"/>
 					</inputbox>
 				</col>  
 			</display>
