@@ -142,9 +142,9 @@ response.setDateHeader("Expires", -10);
   <div style="text-align: center">
   <input type="button" value="Back" class="cls-button" id="Back" /> 
    	&nbsp;&nbsp;&nbsp;<input type="button" value="Next" class="cls-button"  id="next" />
-	&nbsp;&nbsp;&nbsp;<input type="button" value="Rates" class="cls-button"  id="content/PTProcess/PTAnalyseDetail.html"  onclick="window.location.href='${ctx}/ptCreate/rateDetail'"/>
-   	 &nbsp;&nbsp;&nbsp;<input type="button" value="Close" class="cls-button" onclick="window.location.href='index.html';"/>
-   </div>
+	&nbsp;&nbsp;&nbsp;<input type="button" value="Rates" class="cls-button"  id="rateDetail" />
+   	 &nbsp;&nbsp;&nbsp;<%--<input type="button" value="Close" class="cls-button" onclick="window.location.href='index.html';"/>
+   --%></div>
    <input type="hidden" id="isFollow" value="${isFollow}" name="isFollow">
    <input type="hidden" id="payment" value="${payment}" name="payment">
 </form>
@@ -192,6 +192,27 @@ response.setDateHeader("Expires", -10);
         	                $("#disConProfile").submit(); 
                 		}
                 	}
+                },
+                error:function(e) {
+                    alert("error："+e);
+                }
+            });
+        });
+        
+        $("#rateDetail").click(function(){
+        	//在提交之前还需要进行discount值的更新，做法如下：1、点击方框，则在隐藏域中加一个值。2、只更新修改的值 没有修改的值不更新
+        	
+            //序列化表单元素，返回json数据
+           var params = $(".table_B").find("input").serializeArray();
+            var jsonString = O2String(params);
+            $.ajax({
+                type:"POST",
+                url:"${ctx}/ptCreate/updateDiscount/${payment}",
+                dataType:"json",      
+                contentType:"application/json",   
+                data:jsonString,
+                success:function(data){
+                	window.showModalDialog('${ctx}/ptCreate/rateDetail/${payment}/${business.id}',"","dialogWidth=800px;dialogHeight=450px");
                 },
                 error:function(e) {
                     alert("error："+e);

@@ -164,6 +164,9 @@ value="<c:choose><c:when test="${consignmentMap[key] == null}">0</c:when><c:othe
 <c:if test="${payment == 'SenderPay' }">
 <input type="text" id="totalRev" name="business.totalRev_S" value="${business.totalRev_S}" class="required number" disabled/>
 </c:if>
+<c:if test="${payment == 'both' }">
+<input type="text" id="totalRev" name="business.totalRev" value="${business.totalRev}" class="required number" disabled/>
+</c:if>
 <input type="button" value="refresh" class="cls-button" id="refresh"/> </div>
 <br />
   <hr />

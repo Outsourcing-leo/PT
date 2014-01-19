@@ -17,7 +17,9 @@ import org.tnt.pt.entity.Country;
 public interface CountryDao {
 
 	Country get(Long id);
-
+	
+	Long  getIdByCountryCode(String countryCode);
+	
 	List< Country> findAll();
 	
 	List<Country> getAllCountryByZoneGroupId(Long zoneGroupId);

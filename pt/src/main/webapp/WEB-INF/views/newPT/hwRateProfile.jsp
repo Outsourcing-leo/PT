@@ -56,7 +56,7 @@ response.setDateHeader("Expires", -10);
 				appendTr +="<td><input type='text' name='"+id+"_"+inputArr[m]+"_${business.id}_"+productid+"_"+_len+"'  id='"+id+"_"+inputArr[m]+"_"+_len+"'/></td>"
 			}
         	 $("#"+id).append("<tr id='"+id+"_"+_len+"' align='center'>"
-					   +"<td><input type='text' name='"+id+"_country_name_"+_len+"'  id='"+id+"_country_name_"+_len+"' onclick=\"new Customer('"+id+"',"+_len+",'"+type+"').show(this)\"/><input type='hidden' name='"+id+"_country_id_"+_len+"'  id='"+id+"_country_id_"+_len+"'/></td>"
+					   +"<td><input type='text' name='"+id+"_country_name_"+_len+"'  id='"+id+"_country_name_"+_len+"' onkeyup=\"new Customer('"+id+"',"+_len+",'"+type+"').show(this)\"/></td>" //<input type='hidden' name='"+id+"_country_id_"+_len+"'  id='"+id+"_country_id_"+_len+"'/>
 					   + appendTr
                      +"<td><a href=\'#\' onclick=\"deltr(\'"+id+"\',"+_len+")\">删除</a></td>"
               +"</tr>");    
@@ -114,8 +114,7 @@ response.setDateHeader("Expires", -10);
         	<c:forEach items="${ndocumentCountrys}" var="country" varStatus="co">
 				<tr id='tb1_${co.index}' align="center">
 					<td>
-					<input type='text' value="${country.countryName}" name='tb1_country_name_${co.index}'  id='tb1_country_name_${co.index}' onclick="new Customer('tb1',${co.index},'15D').show(this)"/>
-					<input type='hidden' value="${country.id}" name='tb1_country_id_${co.index}'  id='tb1_country_id_${co.index}'/>
+					<input type='text' value="${country.countryCode}" name='tb1_country_name_${co.index}'  id='tb1_country_name_${co.index}' onclick="new Customer('tb1',${co.index},'15D').show(this)"/>
 					</td>
 					<c:forEach items="${ndocumentList}" var="weightBand" begin="0">
 							<c:set var="key">${business.id}_${ndocument}_${weightBand.id}_${country.id}</c:set>
@@ -152,8 +151,7 @@ response.setDateHeader("Expires", -10);
         	<c:forEach items="${eonomyCountrys}" var="country" varStatus="co">
 				<tr id='tb2_${co.index}' align="center">
 					<td>
-					<input type='text' value="${country.countryName}" name='tb2_country_name_${co.index}'  id='tb2_country_name_${co.index}' onclick="new Customer('tb2',${co.index},'48N').show(this)"/>
-					<input type='hidden' value="${country.id}" name='tb2_country_id_${co.index}'  id='tb2_country_id_${co.index}'/>
+					<input type='text' value="${country.countryCode}" name='tb2_country_name_${co.index}'  id='tb2_country_name_${co.index}' onclick="new Customer('tb2',${co.index},'48N').show(this)"/>
 					</td>
 					<c:forEach items="${eonomyList}" var="weightBand" begin="0">
 							<c:set var="key">${business.id}_${eonomy}_${weightBand.id}_${country.id}</c:set>

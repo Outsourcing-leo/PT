@@ -28,6 +28,8 @@ public interface BusinessDao extends BaseDao<Business> {
 	
 	void updateTotalRev_S(Map<String,Object> parameter);
 	
+	void updateTotalRev(Map<String,Object> parameter);
+	
 	Integer getMaxNum(Map<String,String> hashMap);
 	
 	void updateBus(Business business);

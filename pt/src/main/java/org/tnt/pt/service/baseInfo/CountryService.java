@@ -20,6 +20,13 @@ public class CountryService {
 
 	private CountryDao countryDao;
 
+	
+	
+	public Long getIdByCountryCode(String countryCode) {
+		return countryDao.getIdByCountryCode(countryCode);
+	}
+	
+	
 	public List<Country> getAllCountry() {
 		return (List<Country>) countryDao.findAll();
 	}

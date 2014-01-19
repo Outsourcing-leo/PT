@@ -80,6 +80,13 @@ public class BusinessService {
 		businessDao.updateTotalRev_S(parameter);
 	}
 	
+	public void updateTotalRev(Double tolRev,Long businessId){
+		Map<String,Object> parameter = new HashMap<String,Object>();
+		parameter.put("totalRev", tolRev);
+		parameter.put("businessId", businessId);
+		businessDao.updateTotalRev(parameter);
+	}
+	
 	public List<Business> getBusinessByBusiness(BusinessVO businessVO){
 		Integer rowCount = businessDao.selectByVOCount(businessVO);
 		businessVO.getNavigate().setRowCount(rowCount);

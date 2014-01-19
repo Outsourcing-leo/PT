@@ -29,6 +29,7 @@ public class Business extends IdEntity {
 	private String top;//付款方式
 	private String telPhone;
 	private Double totalRev_S;
+	private Double totalRev;
 	public Business() {
 	}
 
@@ -227,8 +228,15 @@ public class Business extends IdEntity {
 	public void setTop(String top) {
 		this.top = top;
 	}
-
 	
+	public Double getTotalRev() {
+		return totalRev;
+	}
+
+	public void setTotalRev(Double totalRev) {
+		this.totalRev = totalRev;
+	}
+
 	public Date getEffectiveDate() {
 		return effectiveDate;
 	}

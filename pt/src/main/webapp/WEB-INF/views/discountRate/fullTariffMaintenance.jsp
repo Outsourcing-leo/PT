@@ -35,8 +35,9 @@
 				 <td style="text-align:center;">Term of payment</td>
                 <td>
                 	<select name="payment" value="${payment}">
-						  <option value="ReceivePay" <c:if test="${payment eq 'ReceivePay'}">selected</c:if> >ReceivePay</option>
 						  <option value="SenderPay" <c:if test="${payment eq 'SenderPay'}">selected</c:if> >SenderPay</option>
+						  <option value="ReceivePay" <c:if test="${payment eq 'ReceivePay'}">selected</c:if> >ReceivePay</option>
+						  <option value="both" <c:if test="${payment eq 'both'}">selected</c:if> >both</option>
 					</select>
                 </td>				
             </tr>

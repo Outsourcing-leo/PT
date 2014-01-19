@@ -116,7 +116,7 @@
           </tbody>
 </table>
 <br>
-<table class="table_B" width="50%" align="left">
+<%--<table class="table_B" width="50%" align="left">
         <thead>
 			<tr align="center">
                 <th colspan="6" style="text-align:left;">Global Express - Non Documents (rate per kg) SenderPays</th>
@@ -128,7 +128,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>BEï¼Zoneï¼</td>
+                <td>BE Zone</td>
                 <td>50</td><td>51</td><td>52</td>
 				<td>53</td><td>54</td>
             </tr>
@@ -136,9 +136,9 @@
           </tbody>
 </table>
 
-   <br />
+   --%><br />
   <div style="text-align: center">
-  <input type="button" value="Close" class="cls-button" onclick="window.location.href='./index.html';"/>
+  <input type="button" value="Close" class="cls-button" onclick="window.close();"/>
    </div>
 </form>
 </div>

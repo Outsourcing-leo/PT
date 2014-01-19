@@ -102,6 +102,10 @@
 		update pt_business set TOTALREV_S=#{totalRev} where id=#{businessId}
 	</update>
 	
+	<update id="updateTotalRev" parameterType="map" >
+		update pt_business set TOTALREV=#{totalRev} where id=#{businessId}
+	</update>
+	
 	<delete id="delete" parameterType="Long">
 		delete from  pt_business where id=#{id}
 	</delete>

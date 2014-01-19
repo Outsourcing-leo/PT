@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -74,6 +75,7 @@ import org.tnt.pt.util.DateUtil;
 import org.tnt.pt.util.DoubleUtil;
 import org.tnt.pt.util.PTPARAMETERS;
 import org.tnt.pt.vo.BusCusVO;
+import org.tnt.pt.vo.BusinessVO;
 import org.tnt.pt.vo.JsonData;
 import org.tnt.pt.vo.RevVO;
 
@@ -143,12 +145,17 @@ public class PTCreateController {
 	 * @return
 	 */
 	@RequestMapping(value="copyCustomer/{id}", method = RequestMethod.POST)
+	@ResponseBody
 	public String copyCustomer(Model model,@PathVariable("id") Long businessId) {
 		Business business = businessService.getBusiness(businessId);
 		Customer cus = customerService.getCustomer(business.getCustomerId());
-		model.addAttribute("customer", cus);
-		model.addAttribute("business", business);
-		return "newPT/copyPTCustomer";
+		BusCusVO busCusVO = new BusCusVO();
+		busCusVO.setBusiness(business);
+		busCusVO.setCustomer(cus);
+		String cusstr = JsonMapper.nonDefaultMapper().toJson(cus);
+		//model.addAttribute("customer", cus);
+		//model.addAttribute("business", business);
+		return cusstr;
 	}
 	
 	/**
@@ -599,19 +606,22 @@ public class PTCreateController {
 	            String s = (String) it.next();
 	            if(s.contains("tb1")){
 	            	List<JsonData> jds = jdmap.get(s);
-	            	String keys = "";
+	            	Long keys = 0L;
 	            	for (JsonData jd: jds) {
-						if(jd.getName().contains("tb1_country_id")){
-							keys = jd.getValue();
+						if(jd.getName().contains("tb1_country_name")){
+							Long countryId = countryService.getIdByCountryCode(StringUtils.upperCase(jd.getValue().trim()));
+							keys = countryId;
 						}
 					}
 	            	jdnewmap.put("tb1_"+keys, jds);
 	            }else{
 	            	List<JsonData> jds = jdmap.get(s);
-	            	String keys = "";
+	            	Long keys = 0L;
 	            	for (JsonData jd: jds) {
-						if(jd.getName().contains("tb2_country_id")){
-							keys = jd.getValue();
+						if(jd.getName().contains("tb2_country_name")){
+							//keys = jd.getValue();
+							Long countryId = countryService.getIdByCountryCode(StringUtils.upperCase(jd.getValue().trim()));
+							keys = countryId;
 						}
 					}
 	            	jdnewmap.put("tb2_"+keys, jds);
@@ -931,10 +941,10 @@ public class PTCreateController {
 				 * 然后得到 每个 cons 下面的特殊国家，如果有 country 从而得出每个country 的rev
 				 * 如果没有 就根据 zonetype下的defaultcountry 以及ratio得到每个国家的rev
 				 */
-				if(con.getZoneGroupId()==1){
+/*				if(con.getZoneGroupId()==1){
 					System.out.println(11);
 				}
-				countryIds = specificConsignmentSetService.getCountrysInSpec(con.getBusinessId(),con.getWeightBandId(),con.getZoneGroupId(),payment);
+*/				countryIds = specificConsignmentSetService.getCountrysInSpec(con.getBusinessId(),con.getWeightBandId(),con.getZoneGroupId(),payment);
 				if(countryIds.size()>0){
 					for(Long id : countryIds){
 						Rev rev = new Rev();
@@ -1117,8 +1127,10 @@ public class PTCreateController {
 		//修改totalRev
 		if(payment.equals(PTPARAMETERS.PAYMENT[1])){
 			businessService.updateTotalRev_R(Double.valueOf(totalRev),busId);
-		}else{
+		}else if(payment.equals(PTPARAMETERS.PAYMENT[0])){
 			businessService.updateTotalRev_S(Double.valueOf(totalRev),busId);
+		}else if(payment.equals(PTPARAMETERS.PAYMENT[2])){
+			businessService.updateTotalRev(Double.valueOf(totalRev),busId);
 		}
 		
 		
@@ -1347,8 +1359,8 @@ public class PTCreateController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="rateDetail/{payment}", method = RequestMethod.GET)
-	public String rateDetail(Model model,@PathVariable("payment") String payment) {
+	@RequestMapping(value="rateDetail/{payment}/{businessId}", method = RequestMethod.GET)
+	public String rateDetail(Model model,@PathVariable("payment") String payment,@PathVariable("businessId") Long businessId) {
 		/**
 		 * 该处为保存该pt下折扣信息代码
 		 */
@@ -1367,7 +1379,7 @@ public class PTCreateController {
 		ZoneType zoneType = new ZoneType();
 		Customer customer = new Customer();
 		
-		business = businessService.getBusiness(1L);//1L为保存后获得的PT业务主表id
+		business = businessService.getBusiness(businessId);//1L为保存后获得的PT业务主表id
 		zoneType = zoneTypeService.getZoneTypeByZoneType(business.getZoneType());//zonetype类型
 		customer = customerService.getCustomer(business.getCustomerId());//客户信息
 		zoneGroupList =  zonegroupService.getAllZoneGroupByZoneType(zoneType.getZoneType());
@@ -1380,12 +1392,12 @@ public class PTCreateController {
 //------------这边可以优化		
 		
 		
-		Long businessId = business.getId();
-		/*for (Discount discount :discountList) {
+		//Long businessId = business.getId();
+		for (Discount discount :discountList) {
 			discountMap.put(discount.getWeightBandId()+"_"+discount.getZoneGroupId(), discount.getDiscount());
 		}
 		for (Tariff tariff :tariffList) {
-			tariffMap.put(tariff.getWeightBandId()+"_"+tariff.getZoneGroupId(), tariff.getTariff());
+			tariffMap.put(tariff.getTariffGroupId()+"_"+tariff.getZoneGroupId(), tariff.getTariff());
 		}
 		
 		
@@ -1396,8 +1408,16 @@ public class PTCreateController {
 				Long zoneGroupId = zoneGroup.getId();
 				rate.setBusinessId(businessId);
 				//rate = discount * tariff
-				rate.setRate(discountMap.get(weightBandId+"_"+zoneGroupId)
-						    *tariffMap.get(weightBandId+"_"+zoneGroupId));
+				Double chargeWeightBand = weightBand.getChargeableWeight();//
+				TariffGroup tariffGroup  = new TariffGroup();
+				//根据weightband 以及chargeweightband的值，假如<=20 则根据 weight，weightBandId，type 三个确定一个对象
+				if(chargeWeightBand <= 20){
+					tariffGroup = tariffGroupService.getTariffGroupByWeightAndWbIdAndType(chargeWeightBand,weightBand.getId(),payment);
+				}else{
+					tariffGroup = tariffGroupService.getTariffGroupByWbIdAndType(weightBand.getId(),payment);
+				}
+				
+				rate.setRate(discountMap.get(weightBandId+"_"+zoneGroupId)*tariffMap.get(tariffGroup.getId()+"_"+zoneGroupId));
 				rate.setWeightBandId(weightBandId);
 				rate.setZoneGroupId(zoneGroup.getId());
 				rateList.add(rate);
@@ -1410,8 +1430,17 @@ public class PTCreateController {
 				Long zoneGroupId = zoneGroup.getId();
 				rate.setBusinessId(businessId);
 				//rate = discount * tariff
+				Double chargeWeightBand = weightBand.getChargeableWeight();//
+				TariffGroup tariffGroup  = new TariffGroup();
+				//根据weightband 以及chargeweightband的值，假如<=20 则根据 weight，weightBandId，type 三个确定一个对象
+				if(chargeWeightBand <= 20){
+					tariffGroup = tariffGroupService.getTariffGroupByWeightAndWbIdAndType(chargeWeightBand,weightBand.getId(),payment);
+				}else{
+					tariffGroup = tariffGroupService.getTariffGroupByWbIdAndType(weightBand.getId(),payment);
+				}
+				
 				rate.setRate(discountMap.get(weightBandId+"_"+zoneGroupId)
-						    *tariffMap.get(weightBandId+"_"+zoneGroupId));
+						    *tariffMap.get(tariffGroup.getId()+"_"+zoneGroupId));
 				rate.setWeightBandId(weightBandId);
 				rate.setZoneGroupId(zoneGroup.getId());
 				rateList.add(rate);
@@ -1424,8 +1453,17 @@ public class PTCreateController {
 				Long zoneGroupId = zoneGroup.getId();
 				rate.setBusinessId(businessId);
 				//rate = discount * tariff
+				Double chargeWeightBand = weightBand.getChargeableWeight();//
+				TariffGroup tariffGroup  = new TariffGroup();
+				//根据weightband 以及chargeweightband的值，假如<=20 则根据 weight，weightBandId，type 三个确定一个对象
+				if(chargeWeightBand <= 20){
+					tariffGroup = tariffGroupService.getTariffGroupByWeightAndWbIdAndType(chargeWeightBand,weightBand.getId(),payment);
+				}else{
+					tariffGroup = tariffGroupService.getTariffGroupByWbIdAndType(weightBand.getId(),payment);
+				}
+				
 				rate.setRate(discountMap.get(weightBandId+"_"+zoneGroupId)
-					    *tariffMap.get(weightBandId+"_"+zoneGroupId));
+						    *tariffMap.get(tariffGroup.getId()+"_"+zoneGroupId));
 				rate.setWeightBandId(weightBandId);
 				rate.setZoneGroupId(zoneGroup.getId());
 				rateList.add(rate);
@@ -1435,7 +1473,8 @@ public class PTCreateController {
 		for (Rate rate:rateList) {
 			rateService.save(rate);
 			rateMap.put(rate.getWeightBandId()+"_"+rate.getZoneGroupId(), rate.getRate());
-		}*/
+		}
+		
 		rateList = rateService.getAllRateByBusId(businessId,payment);
 		for (Rate rate:rateList) {
 			rateMap.put(rate.getWeightBandId()+"_"+rate.getZoneGroupId(), rate.getRate());

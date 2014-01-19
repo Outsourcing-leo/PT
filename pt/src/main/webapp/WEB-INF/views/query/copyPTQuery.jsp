@@ -112,8 +112,21 @@ $(document).ready(function(){
 	}
      
     function copy(val){
-		document.forms[0].action="${ctx}/ptCreate/copyCustomer/"+val;
-		document.forms[0].submit();
+    	 $.ajax({
+             type:"POST",
+             url:"${ctx}/ptCreate/copyCustomer/"+val,
+             dataType:"text",      
+             contentType:"application/json",   
+             success:function(data){
+            	 window.returnValue = data;
+             	 window.close();
+             },
+             error:function(e) {
+                 alert("error："+e);
+             }
+         });
+		//document.forms[0].action=;
+		//document.forms[0].submit();
 	}
 </script>
 </body>

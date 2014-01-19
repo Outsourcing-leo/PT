@@ -69,7 +69,7 @@ Customer.prototype.draw = function() {
 	_cs[_cs.length] = '<table id="__customerTable" width="200" border="0" cellpadding="0" cellspacing="0" align="left">';
 	var customers =eval('('+countryList+')');//;
 	for(var i = 0; i < customers.length; i++){
-		_cs[_cs.length] = "<tr height='17' align='left'><td align='left' style='display: none;'>"+customers[i].id+"<\/td><td align='left'>"+customers[i].countryCode+"<\/td><\/tr>";
+		_cs[_cs.length] = "<tr height='17' align='left'><td align='left'>"+customers[i].countryCode+"<\/td><\/tr>";
 	}
 	_cs[_cs.length] = '<\/table>';
 	_cs[_cs.length] = '<\/div>';
@@ -92,8 +92,8 @@ Customer.prototype.bindCustomer = function() {
 		var value=tds[i].innerHTML;
 		tds[i].onclick = function () {
 			if (calendar.dataControl){
-				calendar.dataControl.value = this.cells[1].innerHTML;
-                document.getElementById(prefix+"_country_id_"+countryid).value = this.cells[0].innerHTML;
+				calendar.dataControl.value = this.cells[0].innerHTML;
+                //document.getElementById(prefix+"_country_id_"+countryid).value = this.cells[0].innerHTML;
 			}
 			calendar.hide();
 		}

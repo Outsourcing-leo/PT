@@ -284,7 +284,7 @@ public class PTQueryController{
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="copy", method = RequestMethod.POST)
+	@RequestMapping(value="copy", method = RequestMethod.GET)
 	public String copy(Model model) {
 		List<Business> businessList = new ArrayList<Business>();
 		BusinessVO businessVO = new BusinessVO();
