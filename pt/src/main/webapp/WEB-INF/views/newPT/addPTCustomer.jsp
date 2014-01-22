@@ -157,7 +157,7 @@
 
 function tothenext(obj){
 		if($('#tp').val()=='Both'){
-						if(confirm("Term of Payment is BOTH?")){
+						if(confirm("Term of Payment is Both?")){
 							if(confirm("is ReceivePay follow SenderPay?")){
 								   $("#isFollow").val("YES");
 								   $("#busCus").attr('action','${ctx}/ptCreate/disConfirm/add');

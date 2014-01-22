@@ -30,13 +30,22 @@ public class Business extends IdEntity {
 	private String telPhone;
 	private Double totalRev_S;
 	private Double totalRev;
+	private String userName;//录入pt的用户
+	
 	public Business() {
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public Business(Long id) {
 		this.id = id;
 	}
-
 
 	public String getIsFollow() {
 		return isFollow;
@@ -151,6 +160,8 @@ public class Business extends IdEntity {
 	}
 	
 	
+
+
 
 	public Double getTotalRev_R() {
 		return totalRev_R;

@@ -5,7 +5,7 @@
 <mapper namespace="org.tnt.pt.repository.dms.UserDao">
 	
 	<select id="findByLoginName" parameterType="String" resultType="User">
-		 select * from dms.V_PT_USER_PRI where userName = #{userName} and password =#{pwd} and rownum = 1
+		 select * from dms.V_PT_USER_PRI where userName = #{userName} and password =#{pwd} and rownum = 1 and is_default = 0
 	</select>
 	
 </mapper> 

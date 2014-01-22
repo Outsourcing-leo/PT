@@ -79,9 +79,9 @@
 		<selectKey  resultType="java.lang.Long" keyProperty="id"  order="BEFORE">  
 			<![CDATA[select SEQ_BUSINESS.NEXTVAL AS id FROM DUAL]]>  
 		</selectKey> 
-		insert into pt_business(id, customerId,reson,applicationDate,depotCode,isNewCus,territory,isDocumentSender,consStop,description,weightRange,applicationReference,ZONETYPE,STATE,SUFFIX,isFollow,TELPHONE)
+		insert into pt_business(id, customerId,reson,applicationDate,depotCode,isNewCus,territory,isDocumentSender,consStop,description,weightRange,applicationReference,ZONETYPE,STATE,SUFFIX,isFollow,TELPHONE,USERNAME)
 		values (#{id}, #{customerId},#{reson},#{applicationDate},#{depotCode},#{isNewCus},#{territory},#{isDocumentSender},#{consStop},#{description},#{weightRange},#{applicationReference}
-		,#{zoneType},#{state},#{suffix},#{isFollow,jdbcType=VARCHAR},#{telPhone})
+		,#{zoneType},#{state},#{suffix},#{isFollow,jdbcType=VARCHAR},#{telPhone},#{userName})
 	</insert>
 	 
 	<update id="update" parameterType="Business">

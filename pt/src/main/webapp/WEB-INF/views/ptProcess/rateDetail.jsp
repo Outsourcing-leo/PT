@@ -54,11 +54,11 @@
             </tr>
         </thead>
         <tbody>
-             <c:forEach items="${economyList}" var="weightBand">
+             <c:forEach items="${economyTGList}" var="tariffGroup">
 				<tr>
-					<td>${weightBand.name}</td>
+					<td>${tariffGroup.weight}</td>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
+					    <c:set var="key">${tariffGroup.id}_${zoneGroup.id}</c:set>
 						<td>${rateMap[key]}</td>	
 				   </c:forEach>
 			   </tr>
@@ -79,11 +79,11 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${documentList}" var="weightBand">
+            <c:forEach items="${documentTGList}" var="tariffGroup">
 				<tr>
-					<td>${weightBand.name}</td>
+					<td>${tariffGroup.weight}</td>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
+					    <c:set var="key">${tariffGroup.id}_${zoneGroup.id}</c:set>
 						<td>${rateMap[key]}</td>	
 				   </c:forEach>
 			   </tr>
@@ -104,11 +104,11 @@
             </tr>
         </thead>
         <tbody>
-             <c:forEach items="${ndocumentList}" var="weightBand">
+             <c:forEach items="${ndocumentTGList}" var="tariffGroup">
 				<tr>
-					<td>${weightBand.name}</td>
+					<td>${tariffGroup.weight}</td>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
+					    <c:set var="key">${tariffGroup.id}_${zoneGroup.id}</c:set>
 						<td>${rateMap[key]}</td>	
 				   </c:forEach>
 			   </tr>

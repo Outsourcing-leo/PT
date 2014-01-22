@@ -134,7 +134,7 @@ public class PTQueryController{
 		
 		rateList = rateService.getAllRateByBusId(businessId,customer.getPayment());
 		for (Rate rate:rateList) {
-			rateMap.put(rate.getWeightBandId()+"_"+rate.getZoneGroupId(), rate.getRate());
+			rateMap.put(rate.getTariffGroupId()+"_"+rate.getZoneGroupId(), rate.getRate());
 		}
 		
 		model.addAttribute("business", business);

@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class Rate extends IdEntity {
 	private Double rate;
 	private Long businessId;
-	private Long weightBandId;
+	private Long tariffGroupId;
 	private Long zoneGroupId;
 	
 	public Rate() {
@@ -31,12 +31,13 @@ public class Rate extends IdEntity {
 		this.rate = rate;
 	}
 
-	public Long getWeightBandId() {
-		return weightBandId;
+
+	public Long getTariffGroupId() {
+		return tariffGroupId;
 	}
 
-	public void setWeightBandId(Long weightBandId) {
-		this.weightBandId = weightBandId;
+	public void setTariffGroupId(Long tariffGroupId) {
+		this.tariffGroupId = tariffGroupId;
 	}
 
 	public Long getZoneGroupId() {
