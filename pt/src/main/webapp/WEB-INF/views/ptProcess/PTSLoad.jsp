@@ -23,12 +23,12 @@
 <table class="table_B" width="100%">
         <thead>
 			<tr>
-                <th>PT Application Reference#</th>
+                <th>PT Application Reference</th>
                 <th>Application date</th>
-                <th>Account #</th>
+                <th>Account </th>
                 <th>Customer Name</th>
                 <th>Channel</th>
-                <th>Terrotory</th>
+                <th>Territory</th>
                 <th>Operate</th>
             </tr>
         </thead>
@@ -40,7 +40,7 @@
 					<td>${business.account}</td>
 					<td>${business.cusName}</td>
 					<td>${business.channel}</td>
-					<td>${business.description}</td>
+					<td>${business.territory}</td>
 					<td align="left">
 					<a id="showDetail" href="#" onclick="showDetail('${business.id}')">Detail</a>
 					</td>

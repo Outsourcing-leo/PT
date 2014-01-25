@@ -111,6 +111,9 @@ public class BusinessService {
 		return businessDao.getBusinessByBusiness(businessVO);
 	}
 	
+	public void modifyEffectiveDate(Business business){
+		businessDao.modifyEffectiveDate(business);
+	}
 	
 	//New PTs Loading Applications
 	public List<PTSLoad> getAnalysePT(String state){

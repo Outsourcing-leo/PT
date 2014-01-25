@@ -33,7 +33,7 @@ $(document).ready(function(){
 <table class="table_A">
         <thead>
              <tr>
-              <td>PT Application Reference #: </td>
+              <td>PT Application Reference : </td>
 		      <td><input type="text" name="applicationReference" ></td>
 		      <td>Account Number:</td>
 		      <td><input type="text" name="account" ></td>
@@ -55,8 +55,8 @@ $(document).ready(function(){
 <table class="table_B" width="100%">
         <thead>
 			<tr>
-                <th>PT Application Reference#</th>
-                <th>Account Number#</th>
+                <th>PT Application Reference</th>
+                <th>Account Number</th>
                 <th>Application date</th>
                 <th>Remark</th>
                 <th>PDF DOWNLOAD</th>
@@ -89,8 +89,7 @@ $(document).ready(function(){
     });
 
 	function showDetail(val){
-		document.forms[0].action="${ctx}/ptQuery/tariffPT?id="+val;
-		document.forms[0].submit();
+		window.location.href="${ctx}/ptQuery/tariffPT/"+val;
 	}
 	
 	function downLoadPdf(id){

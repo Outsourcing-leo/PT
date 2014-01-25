@@ -54,11 +54,11 @@
             </tr>
         </thead>
         <tbody>
-             <c:forEach items="${economyTGList}" var="tariffGroup">
+             <c:forEach items="${economyList}" var="weightBand">
 				<tr>
-					<td>${tariffGroup.weight}</td>
+					<td>${weightBand.name}</td>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-					    <c:set var="key">${tariffGroup.id}_${zoneGroup.id}</c:set>
+					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
 						<td>${rateMap[key]}</td>	
 				   </c:forEach>
 			   </tr>
@@ -79,11 +79,11 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${documentTGList}" var="tariffGroup">
+            <c:forEach items="${documentList}" var="weightBand">
 				<tr>
-					<td>${tariffGroup.weight}</td>
+					<td>${weightBand.name}</td>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-					    <c:set var="key">${tariffGroup.id}_${zoneGroup.id}</c:set>
+					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
 						<td>${rateMap[key]}</td>	
 				   </c:forEach>
 			   </tr>
@@ -104,11 +104,11 @@
             </tr>
         </thead>
         <tbody>
-             <c:forEach items="${ndocumentTGList}" var="tariffGroup">
+             <c:forEach items="${ndocumentList}" var="weightBand">
 				<tr>
-					<td>${tariffGroup.weight}</td>
+					<td>${weightBand.name}</td>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-					    <c:set var="key">${tariffGroup.id}_${zoneGroup.id}</c:set>
+					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
 						<td>${rateMap[key]}</td>	
 				   </c:forEach>
 			   </tr>
@@ -116,8 +116,10 @@
           </tbody>
 </table>
 <br>
-<%--<table class="table_B" width="50%" align="left">
+<table class="table_B" width="50%" align="left">
         <thead>
+			<tSenderPayenter">
+                <th colspan="6" style="text-align:left;">Global Express - Non Documents (rate per kg) Sender Pays</th>
 			<tr align="center">
                 <th colspan="6" style="text-align:left;">Global Express - Non Documents (rate per kg) SenderPays</th>
             </tr>
@@ -128,7 +130,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>BE Zone</td>
+                <td>BEï¼Zoneï¼</td>
                 <td>50</td><td>51</td><td>52</td>
 				<td>53</td><td>54</td>
             </tr>
@@ -136,9 +138,9 @@
           </tbody>
 </table>
 
-   --%><br />
+   <br />
   <div style="text-align: center">
-  <input type="button" value="Close" class="cls-button" onclick="window.close();"/>
+  <input type="button" value="Close" class="cls-button" onclick="window.location.href='./index.html';"/>
    </div>
 </form>
 </div>

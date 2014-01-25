@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="org.tnt.pt.util.PTPARAMETERS"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -54,7 +55,7 @@
 					<td>${weightBand.chargeableWeight}</td>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 						<c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td><input type="text" value="${discountMap[key]}" size="3"/></td>
+						<td><input id="zg_${key}_${business.id}" name="zg_${key}_${business.id}" type="text" value="${discountMap[key]}" size="3"/></td>
 				   </c:forEach>
 			   </tr>
 			</c:forEach>
@@ -81,7 +82,7 @@
 					<td>${weightBand.chargeableWeight}</td>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 						<c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td><input type="text" value="${discountMap[key]}" size="3"/></td>
+						<td><input id="zg_${key}_${business.id}" name="zg_${key}_${business.id}" type="text" value="${discountMap[key]}" size="3"/></td>
 				   </c:forEach>
 			   </tr>
 			  </c:forEach>
@@ -108,13 +109,14 @@
 					<td>${weightBand.chargeableWeight}</td>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 						<c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td><input type="text" value="${discountMap[key]}" size="3"/></td>
+						<td><input id="zg_${key}_${business.id}" name="zg_${key}_${business.id}" type="text" value="${discountMap[key]}" size="3"/></td>
 				   </c:forEach>
 			   </tr>
 			  </c:forEach>
           </tbody>
 </table>
-
+<input type="hidden" id="isFollow" value="${isFollow}" name="isFollow">
+   <input type="hidden" id="payment" value="${payment}" name="payment">
 <br />
   <div style="text-align: center">
   <input type="button" value="Next" class="cls-button" id="next"/> 
@@ -128,24 +130,30 @@
 
     $(function(){
         $("#next").click(function(){
-        	window.history.back();
-        	/*
-            //序列化表单元素，返回json数据
-            var params = $(".table_B").find("input").serializeArray();
+        	//序列化表单元素，返回json数据
+        	var params = $(".table_B").find("input").serializeArray();
             var jsonString = O2String(params);
             $.ajax({
                 type:"POST",
-                url:"${ctx}/ptApprove/updateConsignment",
+                url:"${ctx}/ptApprove/updateConsignment/${payment}",
                 dataType:"json",      
                 contentType:"application/json",   
                 data:jsonString,
                 success:function(data){
-                	window.history.back();
+                	if($('#isFollow').val()=='NO'&&$('#payment').val()=='<%=PTPARAMETERS.PAYMENT[0]%>'){
+                		$('#payment').val('<%=PTPARAMETERS.PAYMENT[1]%>');
+                		$("#disConfirm").attr('action',"${ctx}/ptCreate/disConfirm/confirm");
+                		$("#disConfirm").submit();
+                	}else{
+                		$('#payment').val('');
+                		$("#disConfirm").attr('action',"${ctx}/ptCreate/disConProfile");
+                		$("#disConfirm").submit();
+                	}
                 },
                 error:function(e) {
                     alert("error："+e);
                 }
-            });*/
+            });
         });
     });
 

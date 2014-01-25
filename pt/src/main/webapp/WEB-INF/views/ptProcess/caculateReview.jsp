@@ -14,17 +14,18 @@
 </head>
 <body>
 <form action="${ctx}/ptQuery/ptApprove" method="post" id="ptQueryForm">
-<c:if test="${flag=='both'}">
+<c:if test="${flag=='Both'}">
 	<table class="tabTitlesContainer">
 		<tr id="tabTitles">
-			<td class="tabTitleSelected" onclick="tabPageControl(0)">SenderPay</td>
-			<td class="tabTitleUnSelected" onclick="tabPageControl(1)">Recieve Pay</td>
+			<td class="tabTitleSelected" onclick="tabPageControl(0)" style="cursor:pointer">Sender Pay</td>
+			<td class="tabTitleUnSelected" onclick="tabPageControl(1)" style="cursor:pointer">Recieve Pay</td>
 		</tr>
 	</table>
 </c:if>
-<table class="table_B" width="100%" id="tabPagesContainer">
+<div class="tabPageSelected" id="sedDIV">
+<table class="table_B" width="100%">
         <thead>
-			<tr align="center" style="background-color: Orange;">
+			<tr align="center" style="">
                 <c:forEach items="${showList}" var="show">
 					<th style="text-align:center;">${show}</th>
 				</c:forEach>
@@ -82,24 +83,43 @@
 			   </c:if> 
 			</c:forEach>
 		</tbody>
-		<tbody style="display: none;">
-			<c:forEach items="${recieveReviewList}" var="review" varStatus="stat">
-				<c:if test="${stat.last}">
-			   	<tr>
+	</table>
+</div>
+<div class="tabPageUnSelected" id="recDIV">
+<table class="table_B" width="100%">
+		<thead>
+			<tr align="center" style="">
+                <c:forEach items="${showList}" var="show">
+					<th style="text-align:center;" >${show}</th>
+				</c:forEach>
+				<th style="text-align:center;">Rev</th>
+				<th style="text-align:center;">Cons</th>
+				<th style="text-align:center;">Kilos</th>
+				<th style="text-align:center;">RPC</th>
+				<th style="text-align:center;">RPK</th>
+				<th style="text-align:center;">WPC</th>
+				<th style="text-align:center;">DM(%)</th>
+				<th style="text-align:center;">FM(%)</th>
+            </tr>
+        </thead>
+          <tbody >
+			<c:forEach items="${recieveReviewList}" var="review" varStatus="stats">
+				<c:if test="${stats.last}">
+			   	<tr align="center" >
 	                <td colspan="${counter}">Total</td>
-	                <td>${review.rev}</td>
-	                <td>${review.cons}</td>
-	                <td>${review.kilo}</td>
-	                <td>${review.rpc}</td>
-	                <td>${review.rpk}</td>
-	                <td>${review.wpc}</td>
-					<td>${review.dm}</td>
-					<td>${review.fm}</td>
+	                <td width="10%">${review.rev}</td>
+	                <td width="10%">${review.cons}</td>
+	                <td width="10%">${review.kilo}</td>
+	                <td width="10%">${review.rpc}</td>
+	                <td width="10%">${review.rpk}</td>
+	                <td width="10%">${review.wpc}</td>
+					<td width="10%">${review.dm}</td>
+					<td width="10%">${review.fm}</td>
 			   </tr>
-			   <c:set var="isDoing" value="1"/>
+			   <c:set var="isDoings" value="1"/>
 			   </c:if>
-			   <c:if test="${isDoing!=1}">
-				<tr>
+			   <c:if test="${isDoings!=1}">
+				<tr align="center" >
 	                <c:forEach items="${showList}" var="show">
 						<c:if test="${show=='Country'}">
 							<td>${review.COUNTRYNAME}</td>
@@ -114,19 +134,20 @@
 							<td>${review.WEIGHTNAME}</td>
 						</c:if>
 					</c:forEach>
-	                <td>${review.rev}</td>
-	                <td>${review.cons}</td>
-	                <td>${review.kilo}</td>
-	                <td>${review.rpc}</td>
-	                <td>${review.rpk}</td>
-	                <td>${review.wpc}</td>
-					<td>${review.dm}</td>
-					<td>${review.fm}</td>
+	                <td width="10%">${review.rev}</td>
+	                <td width="10%">${review.cons}</td>
+	                <td width="10%">${review.kilo}</td>
+	                <td width="10%">${review.rpc}</td>
+	                <td width="10%">${review.rpk}</td>
+	                <td width="10%">${review.wpc}</td>
+					<td width="10%">${review.dm}</td>
+					<td width="10%">${review.fm}</td>
 			   </tr>
-			   </c:if>
+			   </c:if> 
 			</c:forEach>
 		</tbody>
 </table>
+</div>
 </form>
 <script type="text/javascript">
 function tabPageControl(n) {
@@ -134,10 +155,14 @@ function tabPageControl(n) {
 		tabTitles.cells[i].className = "tabTitleUnSelected";
 	}
 	tabTitles.cells[n].className = "tabTitleSelected";
-	for ( var i = 0; i < tabPagesContainer.tBodies.length; i++) {
-		tabPagesContainer.tBodies[i].style.cssText = "display: none;";
+	if(n==1){
+		document.getElementById("recDIV").style.cssText = "display:block;";
+		document.getElementById("sedDIV").style.cssText = "display:none;";
+	}else{
+		document.getElementById("sedDIV").style.cssText = "display:block;";
+		document.getElementById("recDIV").style.cssText = "display:none;";
 	}
-	tabPagesContainer.tBodies[n].style.cssText = "display: block;";
+	
 }
 </script>
 </body>

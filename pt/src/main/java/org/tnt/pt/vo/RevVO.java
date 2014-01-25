@@ -22,8 +22,30 @@ public class RevVO {
 	private String chargeableWeight;
 	private Double dm  =0.00;
 	private Double fm  =0.00;
+	private String depotCode;
+	private String countryCode;
 	
 	public RevVO() {
+	}
+
+
+	public String getDepotCode() {
+		return depotCode;
+	}
+
+
+	public void setDepotCode(String depotCode) {
+		this.depotCode = depotCode;
+	}
+
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
 	}
 
 

@@ -41,6 +41,7 @@ import org.tnt.pt.service.ptProcess.BusinessService;
 import org.tnt.pt.service.ptProcess.ConsignmentService;
 import org.tnt.pt.service.ptProcess.CustomerService;
 import org.tnt.pt.service.ptProcess.DiscountService;
+import org.tnt.pt.service.ptProcess.ExamService;
 import org.tnt.pt.service.ptProcess.GeoSummaryService;
 import org.tnt.pt.service.ptProcess.RateService;
 import org.tnt.pt.service.ptProcess.RevService;
@@ -95,6 +96,8 @@ public class PTQueryController{
     SpecificCountryService specificCountryService; 
     @Autowired
     RevService revService;
+    @Autowired
+    ExamService examService;
 	/**
 	 * 公斤_时区_折扣  详细页
 	 * @param model
@@ -260,7 +263,6 @@ public class PTQueryController{
 					recRateMap.put(keyId, tariff.getTariff()*recDiscountMap.get(keyId)/100);
 				}
 			}
-			
 		}
 		model.addAttribute("flag",flag);
 		model.addAttribute("business", business);
@@ -284,7 +286,7 @@ public class PTQueryController{
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="copy", method = RequestMethod.GET)
+	@RequestMapping(value="copy", method = RequestMethod.POST)
 	public String copy(Model model) {
 		List<Business> businessList = new ArrayList<Business>();
 		BusinessVO businessVO = new BusinessVO();
@@ -356,10 +358,26 @@ public class PTQueryController{
 	public String ptModifyInit(Model model) {
 		List<Business> businessList = new ArrayList<Business>();
 		BusinessVO businessVO = new BusinessVO();
-		businessList = businessService.getBusinessByBusiness(businessVO);
+		businessList = examService.getBusinessByBusiness(businessVO);
 		model.addAttribute("businessList", businessList);
 		model.addAttribute("model", businessVO);
 		return "query/modifyPT";
+	}
+	
+	/**
+	 * PT MODIFY 初始化
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="modifyInitCommercial", method = RequestMethod.GET)
+	public String modifyInitCommercial(Model model) {
+		List<Business> businessList = new ArrayList<Business>();
+		BusinessVO businessVO = new BusinessVO();
+		businessVO.setState(PTPARAMETERS.PROCESS_SATE[2]);
+		businessList = businessService.getBusinessByBusiness(businessVO);
+		model.addAttribute("businessList", businessList);
+		model.addAttribute("model", businessVO);
+		return "query/modifyCommercial";
 	}
 	
 	/**

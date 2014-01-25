@@ -71,7 +71,7 @@ $(document).ready(function(){
                 <th>Customer Name</th>
                 <th>Depot</th>
                 <th>Channel</th>
-                <th>ToP</th>
+                <th>Top</th>
                 <th>Terrotory</th>
                 <th>Status</th>
             </tr>

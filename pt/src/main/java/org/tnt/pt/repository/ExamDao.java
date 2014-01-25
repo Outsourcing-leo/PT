@@ -1,9 +1,14 @@
 package org.tnt.pt.repository;
 
+import java.util.List;
 import java.util.Map;
 
+import org.tnt.pt.entity.Business;
 import org.tnt.pt.entity.BusinessFile;
 import org.tnt.pt.entity.Exam;
+import org.tnt.pt.entity.Tariff;
+import org.tnt.pt.vo.BusinessVO;
+import org.tnt.pt.vo.HWRateVO;
 
 
 
@@ -23,4 +28,10 @@ public interface ExamDao extends BaseDao<Exam>{
 	public void deleteFile(Map map);
 	
 	public String getFilePath(Map map);
+	
+	List<Tariff> getTariff(Map map);
+	
+	List<HWRateVO> getHWRateVO(Map map);
+	
+	List<Business> getBusinessByBusiness(BusinessVO businessVO);
 }

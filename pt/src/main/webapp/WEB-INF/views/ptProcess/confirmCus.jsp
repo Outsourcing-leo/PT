@@ -126,11 +126,9 @@
   <div style="text-align: center">
   <input type="button" value="Confirm" id="Confirm" class="cls-button" /> 
    	&nbsp;&nbsp;&nbsp;
-	<input type="button" value="Export" class="cls-button" />
+	<input type="button" value="Export" class="cls-button" onclick="javascript:window.history.back();"/>
    	&nbsp;&nbsp;&nbsp;
 	<input type="button" value="Previous" class="cls-button" onclick="javascript:window.history.back();"/>
-	&nbsp;&nbsp;&nbsp;
-	<input type="button" value="Close" class="cls-button" onclick="javascript:window.history.back();"/>
    </div>
    <input type="hidden" id="hiddenID" value="${business.id}" name="business.id"/>
    <input type="hidden" id="examOppion" value="${businessVO.examOppion}" name="examOppion"/>
@@ -141,6 +139,12 @@
 var date = new Date();
 document.getElementById('effDate').value=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();	
 
+function downLoadPdf(){
+	var id = document.getElementById("hiddenID").value
+    document.forms[0].action="${ctx}/documentDown/downDocument2/"+id;
+	document.forms[0].submit();
+}
+
 $(function() {
 	$("#Confirm").click(function(){
         var examOppion = document.getElementById("examOppion").value;
@@ -149,7 +153,7 @@ $(function() {
                 url:"${ctx}/ptApprove/commercialConfirm",
                 data:"id="+document.getElementById("hiddenID").value+"&examOppion="+examOppion,
                 success:function(data){
-                	alert('提交成功！');
+                	alert('Approve Success!');
                 },error:function(e) {
                     alert("error："+e);
                 }

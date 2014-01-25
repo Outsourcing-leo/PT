@@ -52,7 +52,7 @@ $(document).ready(function(){
 </div>
 <div>
 <div style="padding:0 5px 5px 5px;">
-<h4 style="float:left">zoneTable List</h4>
+<h4 style="float:left">Zone Table List</h4>
 <div class="clearboth"></div>
 <table class="table_B" width="100%">
         <thead>
