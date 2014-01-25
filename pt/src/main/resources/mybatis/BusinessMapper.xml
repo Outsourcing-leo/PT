@@ -79,9 +79,9 @@
 		<selectKey  resultType="java.lang.Long" keyProperty="id"  order="BEFORE">  
 			<![CDATA[select SEQ_BUSINESS.NEXTVAL AS id FROM DUAL]]>  
 		</selectKey> 
-		insert into pt_business(id, customerId,reson,applicationDate,depotCode,isNewCus,territory,isDocumentSender,consStop,description,weightRange,applicationReference,ZONETYPE,STATE,SUFFIX,isFollow)
+		insert into pt_business(id, customerId,reson,applicationDate,depotCode,isNewCus,territory,isDocumentSender,consStop,description,weightRange,applicationReference,ZONETYPE,STATE,SUFFIX,isFollow,TELPHONE,USERNAME)
 		values (#{id}, #{customerId},#{reson},#{applicationDate},#{depotCode},#{isNewCus},#{territory},#{isDocumentSender},#{consStop},#{description},#{weightRange},#{applicationReference}
-		,#{zoneType},#{state},#{suffix},#{isFollow,jdbcType=VARCHAR})
+		,#{zoneType},#{state},#{suffix},#{isFollow,jdbcType=VARCHAR},#{telPhone},#{userName})
 	</insert>
 	 
 	<update id="update" parameterType="Business">
@@ -90,10 +90,18 @@
 	
 	<update id="updateBus" parameterType="Business">
 	update pt_business set reson=#{reson},isNewCus=#{isNewCus},territory=#{territory},
-	isDocumentSender=#{isDocumentSender},consStop=#{consStop},description=#{description},weightRange=#{weightRange}
+	isDocumentSender=#{isDocumentSender},consStop=#{consStop},description=#{description},weightRange=#{weightRange},zoneType=#{zoneType},telPhone = #{telPhone}
 	 where id=#{id}
 	</update>
  
+	<update id="updateTotalRev_R" parameterType="map" >
+		update pt_business set TOTALREV_R=#{totalRev} where id=#{businessId}
+	</update>
+	
+	<update id="updateTotalRev_S" parameterType="map" >
+		update pt_business set TOTALREV_S=#{totalRev} where id=#{businessId}
+	</update>
+	
 	<update id="updateTotalRev" parameterType="map" >
 		update pt_business set TOTALREV=#{totalRev} where id=#{businessId}
 	</update>

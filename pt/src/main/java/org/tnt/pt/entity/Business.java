@@ -17,7 +17,7 @@ public class Business extends IdEntity {
 	private String weightRange;
 	private String applicationReference;
 	private String zoneType;
-	private Double totalRev;
+	private Double totalRev_R;
 	private String state;
 	private int suffix;//后缀
 	private String isFollow;//假如payment为both isfollow的意思代表是否跟从
@@ -27,14 +27,25 @@ public class Business extends IdEntity {
 	private String cusName;
 	private String channel;
 	private String top;//付款方式
-		
+	private String telPhone;
+	private Double totalRev_S;
+	private Double totalRev;
+	private String userName;//录入pt的用户
+	
 	public Business() {
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public Business(Long id) {
 		this.id = id;
 	}
-
 
 	public String getIsFollow() {
 		return isFollow;
@@ -50,6 +61,14 @@ public class Business extends IdEntity {
 
 	public void setCustomerId(Long customerId) {
 		this.customerId = customerId;
+	}
+
+	public String getTelPhone() {
+		return telPhone;
+	}
+
+	public void setTelPhone(String telPhone) {
+		this.telPhone = telPhone;
 	}
 
 	public String getReson() {
@@ -140,18 +159,24 @@ public class Business extends IdEntity {
 		this.zoneType = zoneType;
 	}
 	
-	/**
-	 * @return the totalRev
-	 */
-	public Double getTotalRev() {
-		return totalRev;
+	
+
+
+
+	public Double getTotalRev_R() {
+		return totalRev_R;
 	}
 
-	/**
-	 * @param totalRev the totalRev to set
-	 */
-	public void setTotalRev(Double totalRev) {
-		this.totalRev = totalRev;
+	public void setTotalRev_R(Double totalRev_R) {
+		this.totalRev_R = totalRev_R;
+	}
+
+	public Double getTotalRev_S() {
+		return totalRev_S;
+	}
+
+	public void setTotalRev_S(Double totalRev_S) {
+		this.totalRev_S = totalRev_S;
 	}
 
 	/**
@@ -214,8 +239,15 @@ public class Business extends IdEntity {
 	public void setTop(String top) {
 		this.top = top;
 	}
-
 	
+	public Double getTotalRev() {
+		return totalRev;
+	}
+
+	public void setTotalRev(Double totalRev) {
+		this.totalRev = totalRev;
+	}
+
 	public Date getEffectiveDate() {
 		return effectiveDate;
 	}

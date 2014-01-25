@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.PtApproveDao">
+
+	<sql id="Example_Where_Clause">
+	where 1=1
+	<trim  suffixOverrides="," >
+		<if test="applicationReference != null and applicationReference !='' ">
+				and applicationReference = #{applicationReference}
+		</if>
+		<if test="account != null and account!='' ">
+				and account = #{account}
+		</if>
+		<if test="startDate != null and startDate != '' ">
+				and applicationDate &gt;= to_date(#{startDate},'yyyy-mm-dd')
+		</if>
+		<if test="endDate != null and endDate != '' ">
+				and applicationDate &lt;= to_date(#{endDate},'yyyy-mm-dd')
+		</if>
+		<if test="state != null and state != '' ">
+				and state =#{state}
+		</if>
+		<if test="depot != null and depot != '' ">
+				and depotcode =#{depot}
+		</if>
+	</trim>
+	</sql>
+	
+	<select id="getReview" parameterType="org.tnt.pt.vo.BusinessVO" resultType="org.tnt.pt.entity.Review">
+		select #{multichoised} as multichoised,325 rev,325 cons,325 kilos,325 rpc,325 rpk,325 wpc,325 gm from dual
+	</select>
+	
+</mapper> 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.TariffDao">
+
+	<sql id="Example_Where_Clause">
+	where 1=1
+	<trim  suffixOverrides="," >
+		<if test="zoneGroupId != null and zoneGroupId != ''">
+			and zoneGroupId=#{zoneGroupId}
+		</if>
+		<if test="tariffGroupId != null and tariffGroupId != ''">
+			and tariffGroupId=#{tariffGroupId}
+		</if>
+	</trim>
+	</sql> 
+	
+	<!--
+		获取用户: 输出直接映射到对象, login_name列要"as loginName"以方便映射 ,team_id as "team.id"创建team对象并赋值
+	-->
+	<select id="get" parameterType="int" resultType="Tariff">
+		select * from pt_tariff where id=#{id}
+	</select>
+	
+	
+	<!-- 查询用户,演示: 1.输入用map传入多个参数 2.<where>语句, 智能添加where和and关键字 3.输出直接映射对象 -->
+	<select id="findAll" parameterType="map" resultType="Tariff">
+		select * from pt_tariff
+	</select>
+
+<!-- 插入操作记录 -->
+	<insert id="insert" parameterType="Tariff" >
+		insert into pt_tariff (TARIFF,ZONEGROUPID,tariffGroupId)
+		values (#{tariff},#{zoneGroupId},#{tariffGroupId})
+	</insert>
+	
+	<update id="update" parameterType="Tariff" >
+		update pt_tariff set TARIFF= #{tariff}
+		where ZONEGROUPID = #{zoneGroupId} and tariffGroupId=#{tariffGroupId}
+	</update>
+	
+	<!-- 机构列表总数-->
+	<select id="find" resultType="java.lang.Integer"  parameterType="Tariff">
+	select count(1) from pt_tariff 
+	<include refid="Example_Where_Clause"/>
+	</select>
+</mapper> 

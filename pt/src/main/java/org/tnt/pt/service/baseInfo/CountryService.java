@@ -20,6 +20,13 @@ public class CountryService {
 
 	private CountryDao countryDao;
 
+	
+	
+	public Long getIdByCountryCode(String countryCode) {
+		return countryDao.getIdByCountryCode(countryCode);
+	}
+	
+	
 	public List<Country> getAllCountry() {
 		return (List<Country>) countryDao.findAll();
 	}
@@ -27,8 +34,16 @@ public class CountryService {
 		return (List<Country>) countryDao.getAllCountryByZoneGroupId(zoneGroupId);
 	}
 	
-	public List<Country> findByName(String countryName) {
-		return  countryDao.findByName(countryName);
+	public List<Country> findByCode(String countryCode) {
+		return  countryDao.findByCode(countryCode);
+	}
+	
+	public List<Country> findBy15NCode(String countryCode) {
+		return  countryDao.findBy15NCode(countryCode);
+	}
+	
+	public List<Country> findBy48NCode(String countryCode) {
+		return  countryDao.findBy48NCode(countryCode);
 	}
 	
 	public Country getCountry(Long id) {

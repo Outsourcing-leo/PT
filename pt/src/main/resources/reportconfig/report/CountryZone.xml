@@ -9,11 +9,11 @@
 				<col column="{sequence:1}" label="sequence"/>
 				<col column="COUNTRYID" label="COUNTRYID"  displaytype="hidden"/>
 				<col column="ZONEGROUPID" label="ZONEGROUPID"  displaytype="hidden"/>
-				<col column="COUNTRYCODE" label="country Code" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="COUNTRYCODE" label="Country Code" valuestyleproperty="style='mso-number-format:\@'"/>
 				<col column="ZONETYPE" label="Zone Type" />
 				<col column="GEOZONE" label="GeoZone" />
-				<col column="defaultCountry" label="defaultCountry" />
-				<col column="defaultdepot" label="defaultdepot" />
+				<col column="defaultCountry" label="Default Country" />
+				<col column="defaultdepot" label="Default depot" />
 				<col column="ZONE" label="Zone" />
 				<col column="RATIO" label="Ratio" />
 			</display>

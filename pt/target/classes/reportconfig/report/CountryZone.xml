@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<applications xmlns="http://www.wabacus.com"
+			   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			   xsi:schemaLocation="http://www.wabacus.com ../xsd/wabacus.applications.xsd">
+	<page id="CountryZonelistpage">
+		<report id="CountryZone" title="CountryZone list" rowselect="multiple-checkbox|true" pagesize="10" scrollstyle="image" height="300px" width="100%" type="editablelist">
+			<display>
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="{sequence:1}" label="sequence"/>
+				<col column="COUNTRYID" label="COUNTRYID"  displaytype="hidden"/>
+				<col column="ZONEGROUPID" label="ZONEGROUPID"  displaytype="hidden"/>
+				<col column="COUNTRYCODE" label="Country Code" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="ZONETYPE" label="Zone Type" />
+				<col column="GEOZONE" label="GeoZone" />
+				<col column="defaultCountry" label="Default Country" />
+				<col column="defaultdepot" label="Default depot" />
+				<col column="ZONE" label="Zone" />
+				<col column="RATIO" label="Ratio" />
+			</display>
+			<sql>
+				<select>
+				<value>
+					<![CDATA[SELECT cz.ID,COUNTRYID,COUNTRYCODE,GEOZONE,defaultCountry,defaultdepot,ZONEGROUPID,cz.ZONETYPE,ZONE,RATIO FROM PT_COUNTRY_ZONE cz left join PT_COUNTRY on PT_COUNTRY.id=cz.COUNTRYID left join PT_ZONEGROUP on PT_ZONEGROUP.id=cz.ZONEGROUPID  where {#condition#} order by id]]>
+				</value>
+				<condition name="txtzonetype" label="zonetype" labelposition="left">
+					<value>
+						<![CDATA[(zonetype like  '%#data#%' )]]>
+					</value>
+				</condition>
+				<condition name="txtproductType" label="zone" labelposition="left">
+					<value>
+						<![CDATA[(zone like  '%#data#%' )]]>
+					</value>
+				</condition>
+				
+				</select>
+				 <insert pageurl="report{CountryZoneformpage.report1}"  popupparams="{title:'create countryZone',width:650,height:400}"></insert>
+				 <update pageurl="report{CountryZoneformpage.report1}" urlparams="txtid=@{id}" popupparams="{title:'update countryZone',width:650,height:400}"></update>
+				 <delete>
+				  	delete from PT_COUNTRY_ZONE where id=@{id__old};
+				</delete>
+			</sql>
+			<format>
+			  <value>
+					defaultCountry=defaultCountry==null?"1":defaultCountry.trim();
+					if(defaultCountry.equals("0")) defaultCountry="yes";
+					else defaultCountry="no";
+			  </value>
+			  
+			</format>
+		</report>
+	</page>
+	
+		<!-- 表单篇报表类型 -->
+	<page id="CountryZoneformpage" js="/webresources/script/validate.js"
+		css="/webresources/component/tiny_mce/themes/advanced/skins/o2k7/ui.css">
+		<report id="report1" title="CountryZone Detail" type="form" >
+			<display valuetdwidth="150px" labeltdwidth="100px" labelbgcolor="#f0f0f0" labelalign="right" valuealign="left">
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="COUNTRYID" displaytype="hidden"/>
+				<col column="countryCode" label="countryCode" updatecol="@{COUNTRYID}" >
+					<inputbox type="selectbox" servervalidate="isNotEmpty(${invalid.isnotempty})">
+						<option source="@{select id,countryCode from PT_COUNTRY}" label="countryCode" value="id"/>
+					</inputbox>
+				</col>
+				
+				<col column="ZONETYPE" label="ZoneType" br="true">
+					<inputbox type="selectbox" >
+						<option label="---select---" value=""/>
+						<option source="@{select distinct ZoneType from PT_ZONETYPE}" label="ZoneType" value="ZoneType"/>
+					</inputbox>
+				</col>
+				
+				<col column="ZONEGROUPID" label="ZONEGROUPID" displaytype="hidden"/>
+				<col column="ZONE" label="Zone" updatecol="@{ZONEGROUPID}">
+					<inputbox type="selectbox" depends="ZONETYPE">
+						<option source="@{select id,Zone from PT_ZONEGROUP where ZoneType like '%#ZONETYPE#%'}" label="zone" value="id"/>
+					</inputbox>
+				</col>
+				<col column="GEOZONE" label="GeoZone"  br="true">
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty});" afterdescription="*"/>
+				</col>
+				<col column="RATIO" label="Ratio" >
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty});isNumeric(${invalid.number})" afterdescription="*"/>
+				</col>
+				<col column="defaultCountry" label="defaultCountry" br="true">
+					<inputbox type="selectbox">
+						<option value="0" label="yes"/> 
+						<option value="1" label="no"/>
+					</inputbox>
+				</col> 
+				<col column="defaultDepot" label="defaultDepot" valuestyleproperty="3">
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty});" afterdescription="*"/>
+				</col> 
+			</display>
+			<sql>
+			  <select>
+				<value>
+					<![CDATA[SELECT cz.ID,COUNTRYID,COUNTRYCODE,GEOZONE,ZONEGROUPID,cz.ZONETYPE,ZONE,RATIO,defaultCountry,defaultDepot FROM PT_COUNTRY_ZONE cz  left join PT_COUNTRY on PT_COUNTRY.id=cz.COUNTRYID left join PT_ZONEGROUP on PT_ZONEGROUP.id=cz.ZONEGROUPID  where {#condition#}]]>
+				</value>
+				<condition name="txtid" hidden="true">
+					<value>
+						<![CDATA[(cz.id = '#data#' )]]>
+					</value>
+				</condition>
+			  </select>
+			  <insert>
+			  	  <params>
+				  	 	<param name="id" value="sequence{SEQ_PRODUCT}"></param>
+				  </params>
+				  <value>
+			  	         insert into PT_COUNTRY_ZONE(id=#{id},@{COUNTRYID},@{ZONEGROUPID},@{ZONETYPE},@{RATIO},@{GEOZONE},@{defaultCountry},@{defaultDepot});
+			  	 </value>
+			  </insert>
+			  <update>
+			 	 update PT_COUNTRY_ZONE(@{COUNTRYID},@{ZONEGROUPID},@{ZONETYPE},@{RATIO},@{GEOZONE},@{defaultCountry},@{defaultDepot}) where id=@{id__old};
+			  </update>
+			</sql>
+			<format>
+			
+			</format>
+		</report>
+	</page>
+</applications>

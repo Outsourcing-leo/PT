@@ -28,8 +28,8 @@
 	
 	
 	<insert id="save" parameterType="Rate" keyProperty="id">
-		insert into pt_rate (rate, businessId, weightBandId, zoneGroupId)
-		values (#{rate},#{businessId}, #{weightBandId}, #{zoneGroupId})
+		insert into pt_rate (rate, businessId, tariffGroupId, zoneGroupId)
+		values (#{rate},#{businessId}, #{tariffGroupId}, #{zoneGroupId})
 	</insert>
 	
 	<delete id="delete" parameterType="Long">

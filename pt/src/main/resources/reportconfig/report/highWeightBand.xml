@@ -7,11 +7,11 @@
 			<display>
 				<col column="id" label="id" displaytype="hidden"/>
 				<col column="{sequence:1}" label="sequence"/>
-				<col column="NAME" label="name" clickorderby="true" valuestyleproperty="style='mso-number-format:\@'"/>
-				<col column="CHARGEABLEWEIGHT" label="chargeable weight" />
-				<col column="BEGIN" label="from"/>
-				<col column="END" label="to" />
-				<col column="ADDONWEIGHTINT" label="add on weight int" />
+				<col column="NAME" label="Name" clickorderby="true" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="CHARGEABLEWEIGHT" label="Chargeable Weight" />
+				<col column="BEGIN" label="From"/>
+				<col column="END" label="To" />
+				<col column="ADDONWEIGHTINT" label="Add On Weight Int" />
 			</display>
 			<sql>
 				<select>

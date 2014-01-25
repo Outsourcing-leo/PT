@@ -22,7 +22,10 @@ public interface SpecificConsignmentSetDao extends BaseDao<SpecificConsignmentSe
 	
 	void deletespecificConsignmentSetList(SpecificConsignmentSet scs);
 	
-	List<SpecificConsignmentSet> getAllspecificConsignmentSetByBusId(Long businessId);
+	List<SpecificConsignmentSet> getAllspecificConsignmentSetByBusId(Map<String,Object> parameter);
 	
-	List<Country> getALLCountryListinSpec(Map<String,Long> map);
+	List<Country> getALLCountryListinSpec(Map<String,Object> map);
+	
+	List<Long> getCountrysInSpec(Map<String,Object> map);
+	
 }

@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springside.modules.mapper.JsonMapper;
+import org.tnt.pt.dmsentity.User;
 import org.tnt.pt.entity.Business;
 import org.tnt.pt.entity.Consignment;
 import org.tnt.pt.entity.Country;
@@ -35,12 +37,14 @@ import org.tnt.pt.entity.Discount;
 import org.tnt.pt.entity.DiscountDefault;
 import org.tnt.pt.entity.GEOSummary;
 import org.tnt.pt.entity.HWRate;
+import org.tnt.pt.entity.HighWeightBand;
 import org.tnt.pt.entity.Product;
 import org.tnt.pt.entity.Rate;
 import org.tnt.pt.entity.Rev;
 import org.tnt.pt.entity.SpecificConsignmentSet;
 import org.tnt.pt.entity.SpecificCountry;
 import org.tnt.pt.entity.Tariff;
+import org.tnt.pt.entity.TariffGroup;
 import org.tnt.pt.entity.WeightBand;
 import org.tnt.pt.entity.ZoneGroup;
 import org.tnt.pt.entity.ZoneSummary;
@@ -50,6 +54,7 @@ import org.tnt.pt.service.baseInfo.CountryService;
 import org.tnt.pt.service.baseInfo.CountryZoneService;
 import org.tnt.pt.service.baseInfo.DiscountDefaultService;
 import org.tnt.pt.service.baseInfo.ProductService;
+import org.tnt.pt.service.baseInfo.TariffGroupService;
 import org.tnt.pt.service.baseInfo.TariffService;
 import org.tnt.pt.service.baseInfo.WeightBandService;
 import org.tnt.pt.service.baseInfo.ZoneGroupService;
@@ -71,6 +76,7 @@ import org.tnt.pt.util.DateUtil;
 import org.tnt.pt.util.DoubleUtil;
 import org.tnt.pt.util.PTPARAMETERS;
 import org.tnt.pt.vo.BusCusVO;
+import org.tnt.pt.vo.BusinessVO;
 import org.tnt.pt.vo.JsonData;
 import org.tnt.pt.vo.RevVO;
 
@@ -126,6 +132,8 @@ public class PTCreateController {
     RevService revService;
     @Autowired
     FsiService fsiService;
+    @Autowired
+    TariffGroupService tariffGroupService;
     
 	@RequestMapping(value="addCustomer", method = RequestMethod.GET)
 	public String addCustomer() {
@@ -138,12 +146,17 @@ public class PTCreateController {
 	 * @return
 	 */
 	@RequestMapping(value="copyCustomer/{id}", method = RequestMethod.POST)
+	@ResponseBody
 	public String copyCustomer(Model model,@PathVariable("id") Long businessId) {
 		Business business = businessService.getBusiness(businessId);
 		Customer cus = customerService.getCustomer(business.getCustomerId());
-		model.addAttribute("customer", cus);
-		model.addAttribute("business", business);
-		return "newPT/copyPTCustomer";
+		BusCusVO busCusVO = new BusCusVO();
+		busCusVO.setBusiness(business);
+		busCusVO.setCustomer(cus);
+		String cusstr = JsonMapper.nonDefaultMapper().toJson(cus);
+		//model.addAttribute("customer", cus);
+		//model.addAttribute("business", business);
+		return cusstr;
 	}
 	
 	/**
@@ -151,18 +164,19 @@ public class PTCreateController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="disConfirm", method = RequestMethod.POST)
-	public String disConfirm(Model model,@ModelAttribute BusCusVO busCus) {
+	@RequestMapping(value="disConfirm/{type}", method = RequestMethod.POST)
+	public String disConfirm(HttpServletRequest request,Model model,@ModelAttribute BusCusVO busCus,@PathVariable("type") String type) {
+		User user = (User) request.getSession().getAttribute("user");
 		Business business = new Business();
 		ZoneType zoneType = new ZoneType();
 		Customer customer = new Customer();
 		business = busCus.getBusiness();
 		customer = busCus.getCustomer();	
 		String payment = "";
-		//如果是yes 并且 payment 为空 择进入sender pay页面
+		//如果是yes 并且 payment 为空 择进入SenderPay页面
 		if("NO".equals(busCus.getIsFollow())&&("".equals(busCus.getPayment())||PTPARAMETERS.PAYMENT[0].equals(busCus.getPayment()))){
 			payment=PTPARAMETERS.PAYMENT[0];
-		//如果是yes 并且 payment 为sender pay 择进入receive pay页面
+		//如果是yes 并且 payment 为SenderPay 择进入ReceivePay页面
 		}else if("NO".equals(busCus.getIsFollow())&&PTPARAMETERS.PAYMENT[1].equals(busCus.getPayment())){
 			payment=PTPARAMETERS.PAYMENT[1];
 		}else if("YES".equals(busCus.getIsFollow())){
@@ -174,30 +188,36 @@ public class PTCreateController {
 		/**
 		 * 保存business 和 customer
 		 */
-		if(busCus.getBusiness().getId()!=null&&("".equals(busCus.getBusiness().getZoneType())||busCus.getBusiness().getZoneType()==null)){
+		if("add".equals(type)){
+			if(busCus.getBusiness().getId()!=null&&("".equals(busCus.getBusiness().getZoneType())||busCus.getBusiness().getZoneType()==null)){
 				businessService.updateBusAndCus(busCus);
+			}
+			if(busCus.getBusiness().getId()==null&&("".equals(busCus.getBusiness().getZoneType())||busCus.getBusiness().getZoneType()==null)){
+					String date = DateUtil.getStringFromDate(new Date(), "yyyyMMdd");
+					Integer suffix = businessService.getMaxNum("SHA",date,busCus.getCustomer().getChannel())==null?0:businessService.getMaxNum("SHA",date,busCus.getCustomer().getChannel());
+					String suff = new String();
+					int len = String.valueOf(suffix).length();
+					if(len == 1){
+						suff = "00"+suffix.toString();
+					}else if(len == 2){
+						suff = "0"+suffix.toString();
+					}else{
+						suff = suffix.toString();
+					}
+					busCus.getBusiness().setApplicationReference("PT-"+user.getCode()+"-"+date+"-"+busCus.getCustomer().getChannel()+"-"+suff);// 编号 需要自动生成
+					busCus.getBusiness().setZoneType("11ZONE");
+					busCus.getBusiness().setState("creating");
+					busCus.getBusiness().setSuffix(suffix);
+					busCus.getBusiness().setIsFollow(busCus.getIsFollow());
+					busCus.getBusiness().setUserName(user.getUserName());
+					businessService.insert(busCus);
+			}else if(!"".equals(busCus.getBusiness().getZoneType())&&busCus.getBusiness().getZoneType()!=null){
+				businessService.updateBusAndCus(busCus);
+			}
+		}else if("confirm".equals(type)){
+			businessService.update(busCus.getBusiness());
 		}
-		if(busCus.getBusiness().getId()==null&&("".equals(busCus.getBusiness().getZoneType())||busCus.getBusiness().getZoneType()==null)){
-				String date = DateUtil.getStringFromDate(new Date(), "yyyyMMdd");
-				Integer suffix = businessService.getMaxNum("SHA",date,busCus.getCustomer().getChannel())==null?0:businessService.getMaxNum("SHA",date,busCus.getCustomer().getChannel());
-				String suff = new String();
-				int len = String.valueOf(suffix).length();
-				if(len == 1){
-					suff = "00"+suffix.toString();
-				}else if(len == 2){
-					suff = "0"+suffix.toString();
-				}else{
-					suff = suffix.toString();
-				}
-				busCus.getBusiness().setApplicationReference("PT-"+"SHA"+"-"+date+"-"+busCus.getCustomer().getChannel()+"-"+suff);// 编号 需要自动生成
-				busCus.getBusiness().setZoneType("13ZONE");
-				busCus.getBusiness().setState("creating");
-				busCus.getBusiness().setSuffix(suffix);
-				busCus.getBusiness().setIsFollow(busCus.getIsFollow());
-				businessService.insert(busCus);
-		}else if(!"".equals(busCus.getBusiness().getZoneType())&&busCus.getBusiness().getZoneType()!=null){
-				businessService.update(busCus.getBusiness());
-		}
+		
 		zoneType = zoneTypeService.getZoneTypeByZoneType(business.getZoneType());//zonetype类型
 		/**
 		 * 初始化数据
@@ -225,7 +245,7 @@ public class PTCreateController {
 			discountDefaultMap.put(discountDefault.getProductId()+"_"+discountDefault.getZoneGroupId(), discountDefault.getDiscount());
 		}
 		
-		model.addAttribute("business", business);
+		model.addAttribute("business", businessService.getBusiness(business.getId()));
 		model.addAttribute("customer", customer);
 		model.addAttribute("zoneType_", zoneType.getZoneType());
 		model.addAttribute("zoneGroupList", zoneGroupList);
@@ -256,7 +276,7 @@ public class PTCreateController {
 		String payment = "";
 		if("NO".equals(busCus.getIsFollow())&&"".equals(busCus.getPayment())){
 			payment = PTPARAMETERS.PAYMENT[0];
-		//如果是yes 并且 payment 为sender pay 择进入receive pay页面
+		//如果是yes 并且 payment 为SenderPay 择进入ReceivePay页面
 		}else if("NO".equals(busCus.getIsFollow())&&PTPARAMETERS.PAYMENT[0].equals(busCus.getPayment())){
 			payment = PTPARAMETERS.PAYMENT[1];
 		}else if("YES".equals(busCus.getIsFollow())){
@@ -500,7 +520,7 @@ public class PTCreateController {
 		String payment = "";
 		if("NO".equals(busCus.getIsFollow())&&"".equals(busCus.getPayment())){
 			payment = PTPARAMETERS.PAYMENT[0];
-		//如果是yes 并且 payment 为sender pay 择进入receive pay页面
+		//如果是yes 并且 payment 为SenderPay 择进入ReceivePay页面
 		}else if("NO".equals(busCus.getIsFollow())&&PTPARAMETERS.PAYMENT[0].equals(busCus.getPayment())){
 			payment = PTPARAMETERS.PAYMENT[1];
 		}else if("YES".equals(busCus.getIsFollow())){
@@ -589,19 +609,22 @@ public class PTCreateController {
 	            String s = (String) it.next();
 	            if(s.contains("tb1")){
 	            	List<JsonData> jds = jdmap.get(s);
-	            	String keys = "";
+	            	Long keys = 0L;
 	            	for (JsonData jd: jds) {
-						if(jd.getName().contains("tb1_country_id")){
-							keys = jd.getValue();
+						if(jd.getName().contains("tb1_country_name")){
+							Long countryId = countryService.getIdByCountryCode(StringUtils.upperCase(jd.getValue().trim()));
+							keys = countryId;
 						}
 					}
 	            	jdnewmap.put("tb1_"+keys, jds);
 	            }else{
 	            	List<JsonData> jds = jdmap.get(s);
-	            	String keys = "";
+	            	Long keys = 0L;
 	            	for (JsonData jd: jds) {
-						if(jd.getName().contains("tb2_country_id")){
-							keys = jd.getValue();
+						if(jd.getName().contains("tb2_country_name")){
+							//keys = jd.getValue();
+							Long countryId = countryService.getIdByCountryCode(StringUtils.upperCase(jd.getValue().trim()));
+							keys = countryId;
 						}
 					}
 	            	jdnewmap.put("tb2_"+keys, jds);
@@ -652,8 +675,8 @@ public class PTCreateController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="consProfile", method = RequestMethod.POST)
-	public String consProfile(Model model,@ModelAttribute BusCusVO busCus) {
+	@RequestMapping(value="consProfile/{isHighWight}", method = RequestMethod.POST)
+	public String consProfile(Model model,@ModelAttribute BusCusVO busCus,@PathVariable("isHighWight") String isHighWight) {
 		Business business = new Business();
 		ZoneType zoneType = new ZoneType();
 		Customer customer = new Customer();
@@ -664,7 +687,7 @@ public class PTCreateController {
 		String payment = "";
 		if("NO".equals(busCus.getIsFollow())&&"".equals(busCus.getPayment())){
 			payment = PTPARAMETERS.PAYMENT[0];
-		//如果是yes 并且 payment 为sender pay 择进入receive pay页面
+		//如果是yes 并且 payment 为SenderPay 择进入ReceivePay页面
 		}else if("NO".equals(busCus.getIsFollow())&&PTPARAMETERS.PAYMENT[0].equals(busCus.getPayment())){
 			payment = PTPARAMETERS.PAYMENT[1];
 		}else if("YES".equals(busCus.getIsFollow())){
@@ -701,6 +724,7 @@ public class PTCreateController {
 		
 		model.addAttribute("isFollow", busCus.getIsFollow());
 		model.addAttribute("payment",payment);
+		model.addAttribute("isHighWight",isHighWight);
 		
 		return "newPT/consignmentProfile";
 	}
@@ -730,9 +754,9 @@ public class PTCreateController {
 		product =  productService.getProduct(productId);
 		countryList = countryService.getAllCountryByZoneGroupId(zoneGroupId);
 		weightBandList = weightBandService.getAllWeightBandByProductId(productId);
-		countryListinSpec = specificConsignmentSetService.getALLCountryListinSpec(businessId,productId,zoneGroupId);
+		countryListinSpec = specificConsignmentSetService.getALLCountryListinSpec(businessId,productId,zoneGroupId,payment);
 		//获取 特殊国家 的 cons
-		specificConsignmentSets = specificConsignmentSetService.getAllspecificConsignmentSetByBusId(businessId);
+		specificConsignmentSets = specificConsignmentSetService.getAllspecificConsignmentSetByBusId(businessId,payment);
 		for (SpecificConsignmentSet sc:specificConsignmentSets) {
 			scMap.put(sc.getBusinessId()+"_"+sc.getProductId()+"_"+sc.getZoneGroupId()+"_"+sc.getWeightBandId()+"_"+sc.getCountryId(), sc.getConsignment());
 		}
@@ -810,10 +834,12 @@ public class PTCreateController {
 		List<WeightBand>  wpList = new ArrayList<WeightBand>();//WeightBand数量集合 批量插入
 		List<Rev>  revList = new ArrayList<Rev>();//Rev数量集合 批量插入
 		List<Rev>  revNewList = new ArrayList<Rev>();//Rev数量集合 批量插入
-		List<ZoneGroup> zoneGroupList = new ArrayList<ZoneGroup>();
+		//List<ZoneGroup> zoneGroupList = new ArrayList<ZoneGroup>();
 		List<Long> countryIds = new ArrayList<Long>();
+		List<Long> defaultCountryIds = new ArrayList<Long>();
 		List<CountryZone> countryZones= new ArrayList<CountryZone>();
 		List<SpecificConsignmentSet> specificConsignmentSets= new ArrayList<SpecificConsignmentSet>();
+		List<HWRate> hwRateList = new ArrayList<HWRate>();
 		
 		//Map<String,Integer> conMap = new HashMap<String,Integer>();//形成折扣map 方便查询
 		Map<String,Double> discountMap = new HashMap<String,Double>();//形成折扣map 方便查询
@@ -824,6 +850,7 @@ public class PTCreateController {
 		Map<Long,List<Long>> zgMap = new HashMap<Long,List<Long>>();//形成折扣map 方便查询
 		Map<String,Double> ratioMap = new HashMap<String,Double>();//形成折扣map 方便查询
 		Map<String,Integer> scsConMap = new HashMap<String,Integer>();//形成折扣map 方便查询
+		Map<String,Double> hwRateMap = new HashMap<String,Double>();//形成hwRateMap方便查询
 		try {
 			JSONArray array = new JSONArray(jsonDatas); 
 			for(int i = 0; i < array.length(); i++) {  
@@ -848,15 +875,20 @@ public class PTCreateController {
 			//获取zonegroupId 下的 国家id 是特殊国家 那么 zonegroupid下面就是单纯的 特殊国家
 			Business bus = businessService.getBusiness(consignmentList.get(0).getBusinessId());
 			Customer customer = customerService.getCustomer(bus.getCustomerId());
-			zoneGroupList =  zonegroupService.getAllZoneGroupByZoneType(bus.getZoneType());
-			for (ZoneGroup zg:zoneGroupList) {
+			//zoneGroupList =  zonegroupService.getAllZoneGroupByZoneType(bus.getZoneType());
+			/*for (ZoneGroup zg:zoneGroupList) {
 				  countryIds = specificCountryService.getCountryIds(zg.getId(),bus.getId());
 				  if(countryIds.size() > 0){
 					  zgMap.put(zg.getId(), countryIds);
 				  }else{
+					  //获取zone下面的默认国家
 					  countryIds = countryZoneService.getAllCountryByZoneGroup(zg.getId());
 					  zgMap.put(zg.getId(), countryIds);
 				  }
+			}*/
+			hwRateList = hwRateService.getAllHWRateByBusId(bus.getId(), payment);
+			for (HWRate hwRate : hwRateList) {
+				hwRateMap.put(hwRate.getBusinessId()+"_"+hwRate.getWeightBandId()+"_"+hwRate.getCountryId(), hwRate.getRate());
 			}
 			//获取所有国家的ratio
 			countryZones = countryZoneService.getAllCountryZone();
@@ -864,7 +896,7 @@ public class PTCreateController {
 				ratioMap.put(countryZone.getZoneGroupId()+"_"+countryZone.getCountryId(), countryZone.getRatio());
 			}
 			//获取 特殊国家 的 cons
-			specificConsignmentSets = specificConsignmentSetService.getAllspecificConsignmentSetByBusId(bus.getId());
+			specificConsignmentSets = specificConsignmentSetService.getAllspecificConsignmentSetByBusId(bus.getId(),payment);
 			for (SpecificConsignmentSet scs : specificConsignmentSets) {
 				scsConMap.put(bus.getId()+"_"+scs.getWeightBandId()+"_"+scs.getZoneGroupId()+"_"+scs.getCountryId(), scs.getConsignment());
 			}
@@ -879,7 +911,7 @@ public class PTCreateController {
 			}
 			tariffList = tariffService.getAllTariff();
 			for (Tariff tariff:tariffList) {
-				tariffMap.put(tariff.getWeightBandId()+"_"+tariff.getZoneGroupId(), tariff.getTariff());
+				tariffMap.put(tariff.getTariffGroupId()+"_"+tariff.getZoneGroupId(), tariff.getTariff());
 			}
 			wpList = weightBandService.getAllWeightBand();
 			for (WeightBand wp:wpList) {
@@ -890,31 +922,136 @@ public class PTCreateController {
 			
 			Double fsi = fsiService.getFsi(customer.getAccount());
 			for (Consignment con:consignmentList) {
-				Rev rev = new Rev();
-				Double value = 0.0;
-				String tariffkey = con.getWeightBandId()+"_"+con.getZoneGroupId();
-				String key = con.getBusinessId()+"_"+con.getWeightBandId()+"_"+con.getZoneGroupId();
-				rev.setBusinessId(con.getBusinessId());
-				rev.setKilo(weightBandMap.get(con.getWeightBandId())*con.getConsignment());
-				
-				//假如是重货.
-				if("0".equals(isHighWeightBandMap.get(con.getWeightBandId()))){
-					value = DoubleUtil.get2Double(tariffMap.get(tariffkey)*(1-discountMap.get(key)*0.01)*con.getConsignment()*(1+fsi));//full tariff ×（1－dis％off）×CONS×（1+fsi%）
+				//计算chargeableweightband，根据这个值 去匹配tariffGroup的单个值
+				WeightBand wb = weightBandService.getWeightBand(con.getWeightBandId());
+				//List<TariffGroup> tariffGroupList = new ArrayList<TariffGroup>(); 
+				Double chargeWeightBand = wb.getChargeableWeight();//
+				TariffGroup tariffGroup  = new TariffGroup();
+				//根据weightband 以及chargeweightband的值，假如<=20 则根据 weight，weightBandId，type 三个确定一个对象
+				if(chargeWeightBand <= 20){
+					tariffGroup = tariffGroupService.getTariffGroupByWeightAndWbIdAndType(chargeWeightBand,wb.getId(),payment);
 				}else{
-					value = DoubleUtil.get2Double(tariffMap.get(tariffkey)*(1-discountMap.get(key)*0.01)*con.getConsignment());//tariff*(1-discount)*con
+					tariffGroup = tariffGroupService.getTariffGroupByWbIdAndType(wb.getId(),payment);
+				}
+				//根据tariffkey 获取 tariff值
+				String tariffkey = tariffGroup.getId()+"_"+con.getZoneGroupId();
+				String key = con.getBusinessId()+"_"+con.getWeightBandId()+"_"+con.getZoneGroupId();
+				String hwRatekey = con.getBusinessId()+"_"+con.getWeightBandId();
+				
+				/**
+				 * 一个zone以及一个产品 设置的特殊国家 不能这么简单的取出来
+				 * 首先定位 cons 根据 rev.getBusinessId()+"_"+rev.getWeightBandId()+"_"+rev.getZoneGroupId();
+				 * 然后得到 每个 cons 下面的特殊国家，如果有 country 从而得出每个country 的rev
+				 * 如果没有 就根据 zonetype下的defaultcountry 以及ratio得到每个国家的rev
+				 */
+/*				if(con.getZoneGroupId()==1){
+					System.out.println(11);
+				}
+*/				countryIds = specificConsignmentSetService.getCountrysInSpec(con.getBusinessId(),con.getWeightBandId(),con.getZoneGroupId(),payment);
+				if(countryIds.size()>0){
+					for(Long id : countryIds){
+						Rev rev = new Rev();
+						Double value = 0.0;
+						rev.setBusinessId(con.getBusinessId());
+						rev.setKilo(weightBandMap.get(con.getWeightBandId())*scsConMap.get(key+"_"+id)); //con.getConsignment()
+						
+						if(hwRateMap.get(hwRatekey+"_"+id) != null){
+							//针对country的重货的rev
+							value = hwRateMap.get(hwRatekey+"_"+id)*chargeWeightBand*scsConMap.get(key+"_"+id)*(1+fsi);
+						}else{
+							//假如是重货.
+							if("0".equals(isHighWeightBandMap.get(con.getWeightBandId()))){
+								value = DoubleUtil.get2Double(tariffMap.get(tariffkey)*(1-discountMap.get(key)*0.01)*chargeWeightBand*scsConMap.get(key+"_"+id)*(1+fsi));//full tariff *（1－dis％off）*CONS*chargeWeightBand*（1+fsi%）   --con.getConsignment()*
+							}else{
+								value = DoubleUtil.get2Double(tariffMap.get(tariffkey)*(1-discountMap.get(key)*0.01)*scsConMap.get(key+"_"+id)*(1+fsi));//tariff*(1-discount)*con*（1+fsi%） --con.getConsignment()*
+							}
+						}
+						
+						rev.setRev(value);
+						rev.setWeightBandId(con.getWeightBandId());
+						rev.setZoneGroupId(con.getZoneGroupId());
+						rev.setCons(scsConMap.get(key+"_"+id).doubleValue()); //con.getConsignment().doubleValue()
+						rev.setProductId(productMap.get(con.getWeightBandId()));
+						rev.setCountryId(id);
+						rev.setPayment(payment);
+						revList.add(rev);
+					}
+					
+				}else{
+					//如果没有设置特殊国家，就根据默认国家的ratio来获取
+					defaultCountryIds = countryZoneService.getAllCountryByZoneGroup(con.getZoneGroupId());
+					Double fullPercent = 1.00;
+					for (int i=0,len=defaultCountryIds.size();i<len;i++) {
+						Rev rev = new Rev();
+						Double value = 0.0;
+						Long id = defaultCountryIds.get(i);
+						Double ratio  = ratioMap.get(con.getZoneGroupId()+"_"+id)*0.01;
+						Integer cons = con.getConsignment();
+						if(i < len-1){
+							rev.setBusinessId(con.getBusinessId());
+							rev.setCountryId(id);
+							rev.setKilo(weightBandMap.get(con.getWeightBandId())*cons*ratio);
+							if(hwRateMap.get(hwRatekey+"_"+id) != null){
+								//针对country的重货的rev  hwrate
+								value = hwRateMap.get(hwRatekey+"_"+id)*chargeWeightBand*cons*ratio*(1+fsi);
+							}else{
+								//假如是在weightband标记为重货（0）.
+								if("0".equals(isHighWeightBandMap.get(con.getWeightBandId()))){
+									value = DoubleUtil.get2Double(tariffMap.get(tariffkey)*(1-discountMap.get(key)*0.01)*chargeWeightBand*cons*ratio*(1+fsi));//full tariff *（1－dis％off）*CONS*chargeWeightBand*（1+fsi%）   --con.getConsignment()*
+								}else{
+									value = DoubleUtil.get2Double(tariffMap.get(tariffkey)*(1-discountMap.get(key)*0.01)*cons*ratio*(1+fsi));//tariff*(1-discount)*con*（1+fsi%） --con.getConsignment()*
+								}
+							}
+							rev.setRev(value);
+							rev.setCons(DoubleUtil.get2Double(cons*ratio));
+							rev.setWeightBandId(con.getWeightBandId());
+							rev.setZoneGroupId(con.getZoneGroupId());
+							rev.setProductId(productMap.get(con.getWeightBandId()));
+							rev.setPayment(payment);
+							revList.add(rev);
+						}else{
+							/**
+							 * fullpercent =1-ratio1-ratio2-ratio3..
+							 */
+							rev.setBusinessId(con.getBusinessId());
+							rev.setCountryId(id);
+							rev.setKilo(weightBandMap.get(con.getWeightBandId())*cons*fullPercent);
+							
+							if(hwRateMap.get(hwRatekey+"_"+id) != null){
+								//针对country的重货的rev  hwrate
+								value = hwRateMap.get(hwRatekey+"_"+id)*chargeWeightBand*cons*fullPercent*(1+fsi);
+							}else{
+								//假如是在weightband标记为重货（0）.
+								if("0".equals(isHighWeightBandMap.get(con.getWeightBandId()))){
+									value = DoubleUtil.get2Double(tariffMap.get(tariffkey)*(1-discountMap.get(key)*0.01)*chargeWeightBand*cons*fullPercent*(1+fsi));//full tariff *（1－dis％off）*CONS*chargeWeightBand*（1+fsi%）   --con.getConsignment()*
+								}else{
+									value = DoubleUtil.get2Double(tariffMap.get(tariffkey)*(1-discountMap.get(key)*0.01)*cons*fullPercent*(1+fsi));//tariff*(1-discount)*con*（1+fsi%） --con.getConsignment()*
+								}
+							}
+							rev.setRev(value);
+							rev.setCons(DoubleUtil.get2Double(cons*fullPercent));
+							rev.setWeightBandId(con.getWeightBandId());
+							rev.setZoneGroupId(con.getZoneGroupId());
+							rev.setProductId(productMap.get(con.getWeightBandId()));
+							rev.setPayment(payment);
+							revList.add(rev);
+						}
+						fullPercent = fullPercent - ratio;
+					}
 				}
 				
-				rev.setRev(value);
-				rev.setWeightBandId(con.getWeightBandId());
-				rev.setZoneGroupId(con.getZoneGroupId());
-				rev.setCons(con.getConsignment().doubleValue());
-				rev.setProductId(productMap.get(con.getWeightBandId()));
-				revList.add(rev);
 			}
 			
-			for (Rev rev : revList) {
+			/*for (Rev rev : revList) {
 				Rev revNew = new Rev();
 				String key = rev.getBusinessId()+"_"+rev.getWeightBandId()+"_"+rev.getZoneGroupId();
+				//-------------以下代码是错误  --------------//
+				*//**
+				 * 一个zone以及一个产品 设置的特殊国家 不能这么简单的取出来
+				 * 首先定位 cons 根据 rev.getBusinessId()+"_"+rev.getWeightBandId()+"_"+rev.getZoneGroupId();
+				 * 然后得到 每个 cons 下面的特殊国家，如果有 country 从而得出每个country 的rev
+				 * 如果没有 就根据 zonetype下的defaultcountry 以及ratio得到每个国家的rev
+				 *//*
 				List<Long> countrys = zgMap.get(rev.getZoneGroupId());
 				if(countrys.size()>0){
 					Double fullPercent = 1.00;
@@ -950,15 +1087,14 @@ public class PTCreateController {
 					revNew.setPayment(payment);
 				}
 				revNewList.add(revNew);
-			}
+			}*/
 			
-			revService.add(revNewList);
+			revService.add(revList);
 			
 			Double totalRev = 0.0;
-			for (Rev rev:revNewList) {
+			for (Rev rev:revList) {
 				totalRev+=rev.getRev();
 			}
-			
 			msg = DoubleUtil.get2Double(totalRev)+"";
 		} catch (ParseException e) {
 			msg = "parseException";
@@ -992,7 +1128,14 @@ public class PTCreateController {
 		Long busId = Long.valueOf(businessId);
 		
 		//修改totalRev
-		businessService.updateTotalRev(Double.valueOf(totalRev),busId);
+		if(payment.equals(PTPARAMETERS.PAYMENT[1])){
+			businessService.updateTotalRev_R(Double.valueOf(totalRev),busId);
+		}else if(payment.equals(PTPARAMETERS.PAYMENT[0])){
+			businessService.updateTotalRev_S(Double.valueOf(totalRev),busId);
+		}else if(payment.equals(PTPARAMETERS.PAYMENT[2])){
+			businessService.updateTotalRev(Double.valueOf(totalRev),busId);
+		}
+		
 		
 		geoList =  countryZoneService.getAllGEO();//得到所有的geo
 		for (String  geo : geoList ) {
@@ -1003,24 +1146,24 @@ public class PTCreateController {
 			for (Long countryId:countryIds) {
 				Rev rev = new Rev();
 				rev = revService.getCountryGroupBy(busId,countryId,payment);
-				revs.add(rev);
+				if (rev!=null) revs.add(rev);
 			}
 				
-			Double consM = geo_consSum(revs);
-			Double consY = consM*12;
-			Double kiloM = geo_kiloSum(revs);
-			Double kiloY = kiloM*12;
-			Double revM = geo_revSum(revs);
-			Double revY = kiloM*12;
+			Double consM = DoubleUtil.get2Double(geo_consSum(revs));
+			Double consY = DoubleUtil.get2Double(consM*12);
+			Double kiloM = DoubleUtil.get2Double(geo_kiloSum(revs));
+			Double kiloY = DoubleUtil.get2Double(kiloM*12);
+			Double revM = DoubleUtil.get2Double(geo_revSum(revs));
+			Double revY = DoubleUtil.get2Double(revM*12);
 			
 			geoSummary.setBusinessId(busId);
-			geoSummary.setConsM(DoubleUtil.get2Double(consM));
-			geoSummary.setConsY(DoubleUtil.get2Double(consY));
-			geoSummary.setKiloM(DoubleUtil.get2Double(kiloM));
-			geoSummary.setKiloY(DoubleUtil.get2Double(kiloY));
+			geoSummary.setConsM(consM);
+			geoSummary.setConsY(consY);
+			geoSummary.setKiloM(kiloM);
+			geoSummary.setKiloY(kiloY);
 			geoSummary.setGeoZone(geo);
-			geoSummary.setRevM(DoubleUtil.get2Double(revM));
-			geoSummary.setRevY(DoubleUtil.get2Double(revY));
+			geoSummary.setRevM(revM);
+			geoSummary.setRevY(revY);
 			geoSummary.setPayment(payment);
 			geoSummaryList.add(geoSummary);
 		}
@@ -1045,7 +1188,7 @@ public class PTCreateController {
 		String payment = "";
 		if("NO".equals(busCus.getIsFollow())&&"".equals(busCus.getPayment())){
 			payment = PTPARAMETERS.PAYMENT[0];
-		//如果是yes 并且 payment 为sender pay 择进入receive pay页面
+		//如果是yes 并且 payment 为SenderPay 择进入ReceivePay页面
 		}else if("NO".equals(busCus.getIsFollow())&&PTPARAMETERS.PAYMENT[0].equals(busCus.getPayment())){
 			payment = PTPARAMETERS.PAYMENT[1];
 		}else if("YES".equals(busCus.getIsFollow())){
@@ -1138,11 +1281,16 @@ public class PTCreateController {
 			msg = "businessId is empty ，pls check again";
 			return msg;
 		}else{
-			msg = "success!";
+			msg = "this pt save success!";
 		}
 		Long busId = Long.valueOf(businessId);
-		Business business = new Business();
-		business.setState("created");
+		Business business = businessService.getBusiness(busId);
+		/**
+		 * 只有状态为creating 状态才会修改为created，其他的不变
+		 */
+		if("creating".equals(business.getState())){
+			business.setState("created");
+		}
 		business.setId(busId);
 		//修改state
 		businessService.updateState(business);
@@ -1219,8 +1367,8 @@ public class PTCreateController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="rateDetail/{payment}", method = RequestMethod.GET)
-	public String rateDetail(Model model,@PathVariable("payment") String payment) {
+	@RequestMapping(value="rateDetail/{payment}/{businessId}", method = RequestMethod.GET)
+	public String rateDetail(Model model,@PathVariable("payment") String payment,@PathVariable("businessId") Long businessId) {
 		/**
 		 * 该处为保存该pt下折扣信息代码
 		 */
@@ -1230,6 +1378,10 @@ public class PTCreateController {
 		List<WeightBand> documentList = new ArrayList<WeightBand>();
 		List<WeightBand> ndocumentList = new ArrayList<WeightBand>();
 		List<WeightBand> economyList = new ArrayList<WeightBand>();
+		List<TariffGroup> documentTGList = new ArrayList<TariffGroup>();
+		List<TariffGroup> ndocumentTGList = new ArrayList<TariffGroup>();
+		List<TariffGroup> economyTGList = new ArrayList<TariffGroup>();
+		
 		List<Discount> discountList = new ArrayList<Discount>();
 		List<Tariff> tariffList = new ArrayList<Tariff>();
 		Map<String,Double> discountMap = new HashMap<String,Double>();//形成折扣map 方便查询
@@ -1239,11 +1391,12 @@ public class PTCreateController {
 		ZoneType zoneType = new ZoneType();
 		Customer customer = new Customer();
 		
-		business = businessService.getBusiness(1L);//1L为保存后获得的PT业务主表id
+		business = businessService.getBusiness(businessId);//1L为保存后获得的PT业务主表id
 		zoneType = zoneTypeService.getZoneTypeByZoneType(business.getZoneType());//zonetype类型
 		customer = customerService.getCustomer(business.getCustomerId());//客户信息
 		zoneGroupList =  zonegroupService.getAllZoneGroupByZoneType(zoneType.getZoneType());
 		documentList = weightBandService.getAllWeightBandByProductId(zoneType.getDocument());
+		
 		ndocumentList = weightBandService.getAllWeightBandByProductId(zoneType.getNonDocument());
 		economyList = weightBandService.getAllWeightBandByProductId(zoneType.getEconomy());
 		discountList = discountService.getAllDiscountByBusId(business.getId(),payment);
@@ -1252,74 +1405,115 @@ public class PTCreateController {
 //------------这边可以优化		
 		
 		
-		Long businessId = business.getId();
-		/*for (Discount discount :discountList) {
+		//Long businessId = business.getId();
+		for (Discount discount :discountList) {
 			discountMap.put(discount.getWeightBandId()+"_"+discount.getZoneGroupId(), discount.getDiscount());
 		}
 		for (Tariff tariff :tariffList) {
-			tariffMap.put(tariff.getWeightBandId()+"_"+tariff.getZoneGroupId(), tariff.getTariff());
+			tariffMap.put(tariff.getTariffGroupId()+"_"+tariff.getZoneGroupId(), tariff.getTariff());
 		}
 		
 		
 		for (WeightBand weightBand :documentList) {
 			for (ZoneGroup zoneGroup :zoneGroupList) {
-				Rate rate =  new Rate();
-				Long weightBandId = weightBand.getId();
-				Long zoneGroupId = zoneGroup.getId();
-				rate.setBusinessId(businessId);
-				//rate = discount * tariff
-				rate.setRate(discountMap.get(weightBandId+"_"+zoneGroupId)
-						    *tariffMap.get(weightBandId+"_"+zoneGroupId));
-				rate.setWeightBandId(weightBandId);
-				rate.setZoneGroupId(zoneGroup.getId());
-				rateList.add(rate);
+				List<TariffGroup> tGroupList = new ArrayList<TariffGroup>();
+				tGroupList = tariffGroupService.getAllTariffGroup(weightBand.getProductId(), payment);
+				for(TariffGroup tfg : tGroupList){
+					Rate rate =  new Rate();
+					Long weightBandId = weightBand.getId();
+					Long zoneGroupId = zoneGroup.getId();
+					rate.setBusinessId(businessId);
+					//rate = discount * tariff
+				/*	Double chargeWeightBand = weightBand.getChargeableWeight();//
+					TariffGroup tariffGroup  = new TariffGroup();
+					//根据weightband 以及chargeweightband的值，假如<=20 则根据 weight，weightBandId，type 三个确定一个对象
+					if(chargeWeightBand <= 20){
+						tariffGroup = tariffGroupService.getTariffGroupByWeightAndWbIdAndType(chargeWeightBand,weightBand.getId(),payment);
+					}else{
+						tariffGroup = tariffGroupService.getTariffGroupByWbIdAndType(weightBand.getId(),payment);
+					}*/
+					
+					rate.setRate(discountMap.get(weightBandId+"_"+zoneGroupId)*tariffMap.get(tfg.getId()+"_"+zoneGroupId));
+					rate.setTariffGroupId(tfg.getId());
+					rate.setZoneGroupId(zoneGroup.getId());
+					rateList.add(rate);
+					documentTGList.add(tfg);
+				}
+				
 			}
 		}
 		for (WeightBand weightBand :ndocumentList) {
 			for (ZoneGroup zoneGroup :zoneGroupList) {
-				Rate rate =  new Rate();
-				Long weightBandId = weightBand.getId();
-				Long zoneGroupId = zoneGroup.getId();
-				rate.setBusinessId(businessId);
-				//rate = discount * tariff
-				rate.setRate(discountMap.get(weightBandId+"_"+zoneGroupId)
-						    *tariffMap.get(weightBandId+"_"+zoneGroupId));
-				rate.setWeightBandId(weightBandId);
-				rate.setZoneGroupId(zoneGroup.getId());
-				rateList.add(rate);
+				List<TariffGroup> tGroupList = new ArrayList<TariffGroup>();
+				tGroupList = tariffGroupService.getAllTariffGroup(weightBand.getProductId(), payment);
+				for(TariffGroup tfg : tGroupList){
+					Rate rate =  new Rate();
+					Long weightBandId = weightBand.getId();
+					Long zoneGroupId = zoneGroup.getId();
+					rate.setBusinessId(businessId);
+					//rate = discount * tariff
+				/*	Double chargeWeightBand = weightBand.getChargeableWeight();//
+					TariffGroup tariffGroup  = new TariffGroup();
+					//根据weightband 以及chargeweightband的值，假如<=20 则根据 weight，weightBandId，type 三个确定一个对象
+					if(chargeWeightBand <= 20){
+						tariffGroup = tariffGroupService.getTariffGroupByWeightAndWbIdAndType(chargeWeightBand,weightBand.getId(),payment);
+					}else{
+						tariffGroup = tariffGroupService.getTariffGroupByWbIdAndType(weightBand.getId(),payment);
+					}*/
+					
+					rate.setRate(discountMap.get(weightBandId+"_"+zoneGroupId)*tariffMap.get(tfg.getId()+"_"+zoneGroupId));
+					rate.setTariffGroupId(tfg.getId());
+					rate.setZoneGroupId(zoneGroup.getId());
+					rateList.add(rate);
+					ndocumentTGList.add(tfg);
+				}
 			}
 		}
 		for (WeightBand weightBand :economyList) {
 			for (ZoneGroup zoneGroup :zoneGroupList) {
-				Rate rate =  new Rate();
-				Long weightBandId = weightBand.getId();
-				Long zoneGroupId = zoneGroup.getId();
-				rate.setBusinessId(businessId);
-				//rate = discount * tariff
-				rate.setRate(discountMap.get(weightBandId+"_"+zoneGroupId)
-					    *tariffMap.get(weightBandId+"_"+zoneGroupId));
-				rate.setWeightBandId(weightBandId);
-				rate.setZoneGroupId(zoneGroup.getId());
-				rateList.add(rate);
+				List<TariffGroup> tGroupList = new ArrayList<TariffGroup>();
+				tGroupList = tariffGroupService.getAllTariffGroup(weightBand.getProductId(), payment);
+				for(TariffGroup tfg : tGroupList){
+					Rate rate =  new Rate();
+					Long weightBandId = weightBand.getId();
+					Long zoneGroupId = zoneGroup.getId();
+					rate.setBusinessId(businessId);
+					//rate = discount * tariff
+				/*	Double chargeWeightBand = weightBand.getChargeableWeight();//
+					TariffGroup tariffGroup  = new TariffGroup();
+					//根据weightband 以及chargeweightband的值，假如<=20 则根据 weight，weightBandId，type 三个确定一个对象
+					if(chargeWeightBand <= 20){
+						tariffGroup = tariffGroupService.getTariffGroupByWeightAndWbIdAndType(chargeWeightBand,weightBand.getId(),payment);
+					}else{
+						tariffGroup = tariffGroupService.getTariffGroupByWbIdAndType(weightBand.getId(),payment);
+					}*/
+					
+					rate.setRate(discountMap.get(weightBandId+"_"+zoneGroupId)*tariffMap.get(tfg.getId()+"_"+zoneGroupId));
+					rate.setTariffGroupId(tfg.getId());
+					rate.setZoneGroupId(zoneGroup.getId());
+					rateList.add(rate);
+					economyTGList.add(tfg);
+				}
 			}
 		}
 		
 		for (Rate rate:rateList) {
 			rateService.save(rate);
-			rateMap.put(rate.getWeightBandId()+"_"+rate.getZoneGroupId(), rate.getRate());
-		}*/
+			rateMap.put(rate.getTariffGroupId()+"_"+rate.getZoneGroupId(), rate.getRate());
+		}
+		
 		rateList = rateService.getAllRateByBusId(businessId,payment);
 		for (Rate rate:rateList) {
-			rateMap.put(rate.getWeightBandId()+"_"+rate.getZoneGroupId(), rate.getRate());
+			rateMap.put(rate.getTariffGroupId()+"_"+rate.getZoneGroupId(), rate.getRate());
 		}
 		
 		model.addAttribute("business", business);
 		model.addAttribute("customer", customer);
 		model.addAttribute("zoneType", zoneType);
 		model.addAttribute("zoneGroupList", zoneGroupList);
-		model.addAttribute("documentList", documentList);
-		model.addAttribute("ndocumentList", ndocumentList);
-		model.addAttribute("economyList", economyList);
+		model.addAttribute("documentTGList", documentTGList);
+		model.addAttribute("ndocumentTGList", ndocumentTGList);
+		model.addAttribute("economyTGList", economyTGList);
 		model.addAttribute("rateMap", rateMap);
 		
 		return "ptProcess/rateDetail";

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<applications xmlns="http://www.wabacus.com"
+			   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			   xsi:schemaLocation="http://www.wabacus.com ../xsd/wabacus.applications.xsd">
+	<page id="DepotBSMlistpage">
+		<report id="DepotBSM" title="DepotBSM list" rowselect="multiple-checkbox|true" pagesize="10" scrollstyle="image" height="300px" width="100%" type="editablelist">
+			<display>
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="{sequence:1}" label="sequence"/>
+<!-- 				<col column="DEPOTID" label="DEPOTID" displaytype="hidden"/>
+ -->			<col column="DEPOTID" label="Depot" />
+				<col column="USERNAME" label="Username"/>
+				<col column="MAILLIST" label="MailList" />
+				<col column="type" label="type" displaytype="hidden" />
+			</display>
+			<sql>
+				<select>
+				<value>
+					<![CDATA[SELECT ID,DEPOTID,USERNAME,MAILLIST,type FROM PT_BSM_RGM where {#condition#} and type='BSM' order by id]]>
+				</value>
+				<condition name="txtdepotid" label="depot" labelposition="left">
+					<value>
+						<![CDATA[(depotid like  '%#data#%' )]]>
+					</value>
+				</condition>
+				<condition name="txtuserName" label="userName" labelposition="left">
+					<value>
+						<![CDATA[(userName like  '%#data#%' )]]>
+					</value>
+				</condition>
+				</select>
+				 <insert pageurl="report{DepotBSMformpage.report1}" popupparams="{title:'create DepotBSM',width:650,height:400}"></insert>
+				 <update pageurl="report{DepotBSMformpage.report1}" urlparams="txtid=@{id}" popupparams="{title:'update DepotBSM',width:650,height:400}"></update>
+				 <delete>
+				  	delete from PT_BSM_RGM where id=@{id__old};
+				</delete>
+			</sql>
+			<format>
+			  <value>
+			  </value>
+			</format>
+		</report>
+	</page>
+	
+		<!-- 表单篇报表类型 -->
+	<page id="DepotBSMformpage" js="/webresources/script/validate.js">
+		<report id="report1" title="DepotBSM Detail" type="form" >
+			<display valuetdwidth="150px" labeltdwidth="100px" labelbgcolor="#f0f0f0" labelalign="right" valuealign="left">
+				<col column="id" label="id" displaytype="hidden"/>
+			<!-- 	<col column="DEPOTID" label="DEPOTID" displaytype="hidden"/> -->
+				<col column="DEPOTID" label="depot" >
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty})" afterdescription="*"/>
+				</col>
+				<col column="USERNAME" label="username" br="true">
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty})" afterdescription="*"/>
+				</col>
+				<col column="MAILLIST" label="mailList" valuestyleproperty="colspan='3'">
+				<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty});isEmail(${invalid.email})" afterdescription="*"/>
+				</col>
+				<col column="TYPE" label="TYPE" defaultvalue="BSM" displaytype="hidden"/>
+			</display>
+			<sql>
+			  <select>
+				<value>
+					<![CDATA[SELECT ID,DEPOTID,USERNAME,MAILLIST,TYPE FROM PT_BSM_RGM where {#condition#}]]>
+				</value>
+				<condition name="txtid" hidden="true">
+					<value>
+						<![CDATA[(id = '#data#' )]]>
+					</value>
+				</condition>
+			  </select>
+			  <insert>
+			  	  <params>
+				  	 	<param name="id" value="sequence{SEQ_PRODUCT}"></param>
+				  </params>
+				  <value>
+			  	         insert into PT_BSM_RGM(id=#{id},@{DEPOTID},@{USERNAME},@{MAILLIST},@{TYPE});
+			  	 </value>
+			  </insert>
+			  <update>
+			 	 update PT_BSM_RGM(@{DEPOTID},@{USERNAME},@{MAILLIST},@{TYPE}) where id=@{id__old};
+			  </update>
+			</sql>
+			<format>
+			
+			</format>
+		</report>
+	</page>
+</applications>

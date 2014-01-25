@@ -30,20 +30,34 @@ public class SpecificConsignmentSetService {
 		specificConsignmentSetDao.batchInsert(specificConsignmentSetList);
 	}
 
-	public List<SpecificConsignmentSet> getAllspecificConsignmentSetByBusId(Long businessId){
-		if(businessId==null) throw new ServiceException("businessId 参数为空"); 
-		return specificConsignmentSetDao.getAllspecificConsignmentSetByBusId(businessId);
+	public List<SpecificConsignmentSet> getAllspecificConsignmentSetByBusId(Long businessId,String payment){
+		if(businessId==null||payment==null) throw new ServiceException("businessId 或者 payment参数为空"); 
+		Map<String,Object> parameter = new HashMap<String,Object>();
+		parameter.put("businessId", businessId);
+		parameter.put("payment", payment);
+		return specificConsignmentSetDao.getAllspecificConsignmentSetByBusId(parameter);
 	}
 	
-	public List<Country> getALLCountryListinSpec(Long businessId,Long productId,Long zonegroupId){
+	public List<Country> getALLCountryListinSpec(Long businessId,Long productId,Long zonegroupId,String payment){
 		if(businessId==null||productId==null||zonegroupId==null) throw new ServiceException("参数不能为空"); 
-		Map<String,Long> map = new HashMap<String,Long>();
+		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("businessId", businessId);
 		map.put("productId", productId);
 		map.put("zonegroupId", zonegroupId);
+		map.put("payment", payment);
 		return specificConsignmentSetDao.getALLCountryListinSpec(map);
 	}
 	
+
+	public List<Long> getCountrysInSpec(Long businessId,Long weightbandId,Long zonegroupId,String payment){
+		if(businessId==null||weightbandId==null||zonegroupId==null) throw new ServiceException("参数不能为空"); 
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("businessId", businessId);
+		map.put("weightbandId", weightbandId);
+		map.put("zonegroupId", zonegroupId);
+		map.put("payment", payment);
+		return specificConsignmentSetDao.getCountrysInSpec(map);
+	}
 	
 	public void delete(Long businessId){
 		specificConsignmentSetDao.delete(businessId);

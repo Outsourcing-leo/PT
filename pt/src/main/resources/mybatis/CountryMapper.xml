@@ -21,8 +21,22 @@
 	</select>
 	
 	<!-- 获取是重货的国家 -->
-	<select id="findByName" parameterType="java.lang.String" resultType="Country">
-		select pc.* from pt_country  pc where pc.COUNTRYNAME  like '%'||#{countryName}||'%'  and pc.ISHEAVY = 0
+	<select id="findByCode" parameterType="java.lang.String" resultType="Country">
+		select pc.* from pt_country  pc where pc.COUNTRYCode  like '%'||#{countryCode}||'%'  and pc.ISHEAVY = 0
 	</select>
 	
+	<!-- 获取是重货的国家 -->
+	<select id="findBy15NCode" parameterType="java.lang.String" resultType="Country">
+		select pc.* from pt_country  pc where pc.COUNTRYCode  like '%'||#{countryCode}||'%'  and pc.ISHEAVY = 0 and pc.IS15NAVAILABLE = 0
+	</select>
+	
+	<!-- 获取是重货的国家 -->
+	<select id="findBy48NCode" parameterType="java.lang.String" resultType="Country">
+		select pc.* from pt_country  pc where pc.COUNTRYCode  like '%'||#{countryCode}||'%'  and pc.ISHEAVY = 0 and pc.IS48NAVAILABLE = 0
+	</select>
+	
+	<!-- 根据countryCode获取id -->
+	<select id="getIdByCountryCode" parameterType="java.lang.String" resultType="long">
+		select id from pt_country  pc where pc.COUNTRYCode  = #{countryCode}
+	</select>
 </mapper> 

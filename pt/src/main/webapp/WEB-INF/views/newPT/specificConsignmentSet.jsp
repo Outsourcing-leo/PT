@@ -119,7 +119,7 @@ function addCountry(){
 	var appendTr = "<select onchange='jsFunction(this)' id='select0'>";
 	appendTr += "<option value=''>---select---</option>";
     for(var m=0; m < countrys.length; m++){
-		appendTr +="<option value='"+countrys[m].id+"'>"+countrys[m].countryName+"</option>";
+		appendTr +="<option value='"+countrys[m].id+"'>"+countrys[m].countryCode+"</option>";
 	}
     appendTr +="</select>";
 	$("#trhead").append("<th id='th0'>"+appendTr+"</th>");

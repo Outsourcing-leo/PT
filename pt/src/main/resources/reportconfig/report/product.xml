@@ -7,11 +7,11 @@
 			<display>
 				<col column="id" label="id" displaytype="hidden"/>
 				<col column="{sequence:1}" label="sequence"/>
-				<col column="PRODUCT" label="product" clickorderby="true" valuestyleproperty="style='mso-number-format:\@'"/>
-				<col column="PRODUCTTYPE" label="product type" />
-				<col column="NAME" label="name"/>
-				<col column="REMARK" label="remark" />
-				<col column="ISAVAILABLE" label="isAvailable" />
+				<col column="PRODUCT" label="Product" clickorderby="true" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="PRODUCTTYPE" label="Product Type" />
+				<col column="NAME" label="Name"/>
+				<col column="REMARK" label="Remark" />
+				<col column="ISAVAILABLE" label="Is Available" />
 				<!-- <col column="ISHIGHWEIGHT" label="isHighWeight"/>
 				<col column="HIGHWEIGHTID" label="HighWeightId" displaytype="hidden"/>
 				<col column="HIGHWEIGHTNAME" label="High Weight Name"  /> -->

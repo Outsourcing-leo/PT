@@ -20,7 +20,7 @@
 	</select>
 
 	<select id="getAllGEO" parameterType="map" resultType="String">
-		select distinct(GEOZONE) from pt_country_zone 
+		select distinct(GEOZONE) from pt_country_zone  where GEOZONE is not null
 	</select>
 	
 	<select id="getAllCountryByGeo" parameterType="String" resultType="Long">

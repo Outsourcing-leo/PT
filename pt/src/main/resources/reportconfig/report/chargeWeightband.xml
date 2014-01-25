@@ -7,16 +7,16 @@
 			<display>
 				<col column="id" label="id" displaytype="hidden"/>
 				<col column="{sequence:1}" label="sequence"/>
-				<col column="PRODUCT" label="product" clickorderby="true" valuestyleproperty="style='mso-number-format:\@'"/>
-				<col column="NAME" label="name"/>
+				<col column="PRODUCT" label="Product" clickorderby="true" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="NAME" label="Name"/>
 				<col column="CHARGEABLEWEIGHT" label="Chargeable Weight" />
-				<col column="BEGIN" label="from" />
-				<col column="END" label="to" />
+				<col column="BEGIN" label="From" />
+				<col column="END" label="To" />
 				<col column="ADDONWEIGHTINT" label="Add On Weight Int"/>
-				<col column="TYPE" label="type"/>
-				<col column="ISHIGHWEIGHT" label="is heavy"/>
-				<col column="weightbandgroup" label="weightbandgroup"/>
-				<col column="ISCOMMERCIALVISIBLE" label="commercial visible"/>
+				<col column="TYPE" label="Type"/>
+				<col column="ISHIGHWEIGHT" label="Is Heavy"/>
+				<col column="weightbandgroup" label="WeightBand Group"/>
+				<col column="ISCOMMERCIALVISIBLE" label="Commercial Visible"/>
 			</display>
 			<sql>
 				<select>

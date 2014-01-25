@@ -7,10 +7,10 @@
 			<display>
 				<col column="id" label="id" displaytype="hidden"/>
 				<col column="{sequence:1}" label="sequence"/>
-				<col column="COUNTRYID" label="COUNTRYID" displaytype="hidden"/>
-				<col column="COUNTRYCODE" label="country Code" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="COUNTRYID" label="CountryId" displaytype="hidden"/>
+				<col column="COUNTRYCODE" label="Country Code" valuestyleproperty="style='mso-number-format:\@'"/>
 				<col column="GEOZONETYPE" label="GEOZone Type" />
-				<col column="RATIO" label="ratio"/>
+				<col column="RATIO" label="Ratio"/>
 			</display>
 			<sql>
 				<select>

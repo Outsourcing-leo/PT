@@ -1,0 +1,1265 @@
+2014-01-14 21:47:00,752 [qtp20914447-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@164.39.68.43:1521:dms, UserName=DMS, Oracle JDBC driver]
+2014-01-14 21:47:00,760 [qtp20914447-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from dms.V_PT_USER_PRI where userName = ? and password =? and rownum = 1 
+2014-01-14 21:47:00,997 [qtp20914447-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: F706RNK(String), China123(String)
+2014-01-14 21:47:01,063 [qtp20914447-24] INFO  [jdbc.sqltiming] - select * from dms.V_PT_USER_PRI where userName = 'F706RNK' and password ='China123' and rownum 
+= 1  {executed in 65 msec}
+2014-01-14 21:55:44,846 [qtp20914447-26] ERROR [com.wabacus.WabacusFacade] - 显示页面tariffGrouplistpage失败
+com.wabacus.exception.WabacusRuntimeException: 从数据库取数据时执行SQL：select count(*) from (SELECT tg.id,tg.name,tg.type,tg.WEIGHTBANDID,wb.name as wname,pt.name as product FROM PT_tariffGroup tg left join PT_WEIGHTBAND wb on wb.id =tg.WEIGHTBANDID inner join PT_PRODUCT pt on pt.id = wb.PRODUCTID  )  wx_tabletemp 失败
+	at com.wabacus.system.dataset.sqldataset.AbsGetPartDataSetBySQL.getRecordcount(AbsGetPartDataSetBySQL.java:98)
+	at com.wabacus.system.assistant.ReportAssistant.loadReportDataRecordcount(ReportAssistant.java:369)
+	at com.wabacus.system.assistant.ReportAssistant.loadReportDataSet(ReportAssistant.java:328)
+	at com.wabacus.system.component.application.report.abstractreport.AbsReportType.loadReportData(AbsReportType.java:468)
+	at com.wabacus.system.component.container.AbsContainerType.initDisplayOnPage(AbsContainerType.java:124)
+	at com.wabacus.system.component.container.page.PageType.initDisplayOnPage(PageType.java:95)
+	at com.wabacus.system.ReportRequest.initDisplayOnPage(ReportRequest.java:423)
+	at com.wabacus.system.ReportRequest.init(ReportRequest.java:349)
+	at com.wabacus.WabacusFacade.displayReport(WabacusFacade.java:165)
+	at com.wabacus.WabacusFacade.displayReport(WabacusFacade.java:118)
+	at com.wabacus.WabacusServlet.service(WabacusServlet.java:243)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1329)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.tnt.pt.util.SetCharacterEncodingFilter.doFilter(SetCharacterEncodingFilter.java:46)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:445)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:559)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:363)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:483)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:920)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:982)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:635)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:627)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:51)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: java.sql.SQLException: ORA-00904: "TG"."NAME": 标识符无效
+
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:145)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:331)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:288)
+	at oracle.jdbc.driver.T4C8Oall.receive(T4C8Oall.java:743)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:216)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:911)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:1122)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeMaybeDescribe(T4CPreparedStatement.java:962)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1242)
+	at oracle.jdbc.driver.OracleStatement.doScrollExecuteCommon(OracleStatement.java:4885)
+	at oracle.jdbc.driver.OraclePreparedStatement.doScrollPstmtExecuteUpdate(OraclePreparedStatement.java:12486)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3413)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3459)
+	at com.mchange.v2.c3p0.impl.NewProxyPreparedStatement.executeQuery(NewProxyPreparedStatement.java:76)
+	at com.wabacus.system.dataset.sqldataset.AbsGetAllDataSetBySQL.executeQuery(AbsGetAllDataSetBySQL.java:265)
+	at com.wabacus.system.dataset.sqldataset.AbsGetPartDataSetBySQL.getRecordcount(AbsGetPartDataSetBySQL.java:92)
+	... 40 more
+--- ROOT CAUSE ---
+java.sql.SQLException: ORA-00904: "TG"."NAME": 标识符无效
+
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:145)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:331)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:288)
+	at oracle.jdbc.driver.T4C8Oall.receive(T4C8Oall.java:743)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:216)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:911)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:1122)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeMaybeDescribe(T4CPreparedStatement.java:962)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1242)
+	at oracle.jdbc.driver.OracleStatement.doScrollExecuteCommon(OracleStatement.java:4885)
+	at oracle.jdbc.driver.OraclePreparedStatement.doScrollPstmtExecuteUpdate(OraclePreparedStatement.java:12486)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3413)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3459)
+	at com.mchange.v2.c3p0.impl.NewProxyPreparedStatement.executeQuery(NewProxyPreparedStatement.java:76)
+	at com.wabacus.system.dataset.sqldataset.AbsGetAllDataSetBySQL.executeQuery(AbsGetAllDataSetBySQL.java:265)
+	at com.wabacus.system.dataset.sqldataset.AbsGetPartDataSetBySQL.getRecordcount(AbsGetPartDataSetBySQL.java:92)
+	at com.wabacus.system.assistant.ReportAssistant.loadReportDataRecordcount(ReportAssistant.java:369)
+	at com.wabacus.system.assistant.ReportAssistant.loadReportDataSet(ReportAssistant.java:328)
+	at com.wabacus.system.component.application.report.abstractreport.AbsReportType.loadReportData(AbsReportType.java:468)
+	at com.wabacus.system.component.container.AbsContainerType.initDisplayOnPage(AbsContainerType.java:124)
+	at com.wabacus.system.component.container.page.PageType.initDisplayOnPage(PageType.java:95)
+	at com.wabacus.system.ReportRequest.initDisplayOnPage(ReportRequest.java:423)
+	at com.wabacus.system.ReportRequest.init(ReportRequest.java:349)
+	at com.wabacus.WabacusFacade.displayReport(WabacusFacade.java:165)
+	at com.wabacus.WabacusFacade.displayReport(WabacusFacade.java:118)
+	at com.wabacus.WabacusServlet.service(WabacusServlet.java:243)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1329)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.tnt.pt.util.SetCharacterEncodingFilter.doFilter(SetCharacterEncodingFilter.java:46)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:445)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:559)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:363)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:483)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:920)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:982)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:635)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:627)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:51)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:619)
+2014-01-14 21:57:33,606 [qtp24659469-22] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@164.39.68.43:1521:dms, UserName=DMS, Oracle JDBC driver]
+2014-01-14 21:57:33,612 [qtp24659469-22] DEBUG [java.sql.Connection] - ==>  Preparing: select * from dms.V_PT_USER_PRI where userName = ? and password =? and rownum = 1 
+2014-01-14 21:57:33,821 [qtp24659469-22] DEBUG [java.sql.PreparedStatement] - ==> Parameters: F706RNK(String), China123(String)
+2014-01-14 21:57:33,876 [qtp24659469-22] INFO  [jdbc.sqltiming] - select * from dms.V_PT_USER_PRI where userName = 'F706RNK' and password ='China123' and rownum 
+= 1  {executed in 55 msec}
+2014-01-14 22:01:08,277 [qtp24659469-26] ERROR [com.wabacus.system.assistant.EditableReportAssistant] - 保存页面tariffGroupformpage上的报表数据失败
+com.wabacus.exception.WabacusRuntimeException: 保存报表tariffGroupformpage.report1数据失败
+	at com.wabacus.system.assistant.EditableReportAssistant.doSavePerAction(EditableReportAssistant.java:794)
+	at com.wabacus.system.assistant.EditableReportAssistant.doSaveRow(EditableReportAssistant.java:763)
+	at com.wabacus.system.assistant.EditableReportAssistant.doSaveReport(EditableReportAssistant.java:727)
+	at com.wabacus.system.component.application.report.EditableDetailReportType.updateDBData(EditableDetailReportType.java:241)
+	at com.wabacus.system.component.application.report.EditableDetailReportType.doSaveAction(EditableDetailReportType.java:219)
+	at com.wabacus.system.assistant.EditableReportAssistant.doSaveAction(EditableReportAssistant.java:433)
+	at com.wabacus.system.assistant.EditableReportAssistant.doAllReportsSaveAction(EditableReportAssistant.java:270)
+	at com.wabacus.system.component.application.report.EditableDetailReportType.initReportAfterDoStart(EditableDetailReportType.java:164)
+	at com.wabacus.system.component.application.report.abstractreport.AbsReportType.init(AbsReportType.java:198)
+	at com.wabacus.system.ReportRequest.initDisplayOnPage(ReportRequest.java:419)
+	at com.wabacus.system.ReportRequest.init(ReportRequest.java:349)
+	at com.wabacus.WabacusFacade.displayReport(WabacusFacade.java:165)
+	at com.wabacus.WabacusFacade.displayReport(WabacusFacade.java:118)
+	at com.wabacus.WabacusServlet.service(WabacusServlet.java:243)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1329)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.tnt.pt.util.SetCharacterEncodingFilter.doFilter(SetCharacterEncodingFilter.java:46)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:445)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:559)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:363)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:483)
+	at org.eclipse.jetty.server.AbstractHttpConnection.content(AbstractHttpConnection.java:931)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.content(AbstractHttpConnection.java:992)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:856)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:627)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:51)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: java.sql.SQLException: ORA-12899: 列 "PT4TNT"."PT_TARIFFGROUP"."TYPE" 的值太大 (实际值: 11, 最大值: 10)
+
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:145)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:331)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:288)
+	at oracle.jdbc.driver.T4C8Oall.receive(T4C8Oall.java:743)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:216)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForRows(T4CPreparedStatement.java:1120)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1278)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3415)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeUpdate(OraclePreparedStatement.java:3498)
+	at com.mchange.v2.c3p0.impl.NewProxyPreparedStatement.executeUpdate(NewProxyPreparedStatement.java:105)
+	at com.wabacus.system.component.application.report.configbean.editablereport.AbsEditSqlActionBean.updateData(AbsEditSqlActionBean.java:230)
+	at com.wabacus.system.assistant.EditableReportAssistant.doSavePerAction(EditableReportAssistant.java:791)
+	... 43 more
+--- ROOT CAUSE ---
+java.sql.SQLException: ORA-12899: 列 "PT4TNT"."PT_TARIFFGROUP"."TYPE" 的值太大 (实际值: 11, 最大值: 10)
+
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:145)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:331)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:288)
+	at oracle.jdbc.driver.T4C8Oall.receive(T4C8Oall.java:743)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:216)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForRows(T4CPreparedStatement.java:1120)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1278)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3415)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeUpdate(OraclePreparedStatement.java:3498)
+	at com.mchange.v2.c3p0.impl.NewProxyPreparedStatement.executeUpdate(NewProxyPreparedStatement.java:105)
+	at com.wabacus.system.component.application.report.configbean.editablereport.AbsEditSqlActionBean.updateData(AbsEditSqlActionBean.java:230)
+	at com.wabacus.system.assistant.EditableReportAssistant.doSavePerAction(EditableReportAssistant.java:791)
+	at com.wabacus.system.assistant.EditableReportAssistant.doSaveRow(EditableReportAssistant.java:763)
+	at com.wabacus.system.assistant.EditableReportAssistant.doSaveReport(EditableReportAssistant.java:727)
+	at com.wabacus.system.component.application.report.EditableDetailReportType.updateDBData(EditableDetailReportType.java:241)
+	at com.wabacus.system.component.application.report.EditableDetailReportType.doSaveAction(EditableDetailReportType.java:219)
+	at com.wabacus.system.assistant.EditableReportAssistant.doSaveAction(EditableReportAssistant.java:433)
+	at com.wabacus.system.assistant.EditableReportAssistant.doAllReportsSaveAction(EditableReportAssistant.java:270)
+	at com.wabacus.system.component.application.report.EditableDetailReportType.initReportAfterDoStart(EditableDetailReportType.java:164)
+	at com.wabacus.system.component.application.report.abstractreport.AbsReportType.init(AbsReportType.java:198)
+	at com.wabacus.system.ReportRequest.initDisplayOnPage(ReportRequest.java:419)
+	at com.wabacus.system.ReportRequest.init(ReportRequest.java:349)
+	at com.wabacus.WabacusFacade.displayReport(WabacusFacade.java:165)
+	at com.wabacus.WabacusFacade.displayReport(WabacusFacade.java:118)
+	at com.wabacus.WabacusServlet.service(WabacusServlet.java:243)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1329)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.tnt.pt.util.SetCharacterEncodingFilter.doFilter(SetCharacterEncodingFilter.java:46)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:445)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:559)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:363)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:483)
+	at org.eclipse.jetty.server.AbstractHttpConnection.content(AbstractHttpConnection.java:931)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.content(AbstractHttpConnection.java:992)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:856)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:627)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:51)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:619)
+2014-01-14 22:01:08,287 [qtp24659469-26] ERROR [com.wabacus.WabacusFacade] - 显示页面tariffGroupformpage失败，failed
+
+com.wabacus.exception.WabacusRuntimeException
+	at com.wabacus.exception.MessageCollector.error(MessageCollector.java:76)
+	at com.wabacus.system.assistant.EditableReportAssistant.promptFailedMessage(EditableReportAssistant.java:551)
+	at com.wabacus.system.assistant.EditableReportAssistant.doSaveAction(EditableReportAssistant.java:504)
+	at com.wabacus.system.assistant.EditableReportAssistant.doAllReportsSaveAction(EditableReportAssistant.java:270)
+	at com.wabacus.system.component.application.report.EditableDetailReportType.initReportAfterDoStart(EditableDetailReportType.java:164)
+	at com.wabacus.system.component.application.report.abstractreport.AbsReportType.init(AbsReportType.java:198)
+	at com.wabacus.system.ReportRequest.initDisplayOnPage(ReportRequest.java:419)
+	at com.wabacus.system.ReportRequest.init(ReportRequest.java:349)
+	at com.wabacus.WabacusFacade.displayReport(WabacusFacade.java:165)
+	at com.wabacus.WabacusFacade.displayReport(WabacusFacade.java:118)
+	at com.wabacus.WabacusServlet.service(WabacusServlet.java:243)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1329)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.tnt.pt.util.SetCharacterEncodingFilter.doFilter(SetCharacterEncodingFilter.java:46)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:445)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:559)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:363)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:483)
+	at org.eclipse.jetty.server.AbstractHttpConnection.content(AbstractHttpConnection.java:931)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.content(AbstractHttpConnection.java:992)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:856)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:627)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:51)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:619)
+2014-01-14 22:52:08,974 [qtp24659469-33] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:52:08,974 [qtp24659469-33] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-14 22:52:08,975 [qtp24659469-33] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 22:52:08,983 [qtp24659469-33] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 8 msec}
+2014-01-14 22:52:09,007 [qtp24659469-33] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:52:09,007 [qtp24659469-33] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-14 22:52:09,007 [qtp24659469-33] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-14 22:52:09,012 [qtp24659469-33] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 4 msec}
+2014-01-14 22:52:09,039 [qtp24659469-33] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:52:09,039 [qtp24659469-33] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 22:52:09,039 [qtp24659469-33] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-14 22:52:09,044 [qtp24659469-33] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 4 msec}
+2014-01-14 22:52:09,050 [qtp24659469-33] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:52:09,051 [qtp24659469-33] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 22:52:09,051 [qtp24659469-33] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-14 22:52:09,055 [qtp24659469-33] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 4 msec}
+2014-01-14 22:52:09,059 [qtp24659469-33] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:52:09,059 [qtp24659469-33] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 22:52:09,060 [qtp24659469-33] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-14 22:52:09,063 [qtp24659469-33] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 3 msec}
+2014-01-14 22:52:09,085 [qtp24659469-33] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:52:09,085 [qtp24659469-33] DEBUG [java.sql.Connection] - ==>  Preparing: select a.*,b.name as weightbandGroup from pt_weightband a left join PT_WEIGHTBANDGROUP b on a.WEIGHTBANDGROUPID =b.id where productId=? order by a.id 
+2014-01-14 22:52:09,085 [qtp24659469-33] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-14 22:52:09,092 [qtp24659469-33] INFO  [jdbc.sqltiming] - select a.*,b.name as weightbandGroup from pt_weightband a left join PT_WEIGHTBANDGROUP b on 
+a.WEIGHTBANDGROUPID =b.id where productId=1 order by a.id  {executed in 5 msec}
+2014-01-14 22:52:09,111 [qtp24659469-33] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:52:09,111 [qtp24659469-33] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-14 22:52:09,112 [qtp24659469-33] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 22:52:09,159 [qtp24659469-33] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 46 msec}
+2014-01-14 22:55:13,312 [qtp24659469-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:55:13,312 [qtp24659469-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-14 22:55:13,312 [qtp24659469-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 22:55:13,317 [qtp24659469-26] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 4 msec}
+2014-01-14 22:55:13,322 [qtp24659469-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:55:13,322 [qtp24659469-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-14 22:55:13,322 [qtp24659469-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-14 22:55:13,325 [qtp24659469-26] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 3 msec}
+2014-01-14 22:55:13,336 [qtp24659469-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:55:13,336 [qtp24659469-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 22:55:13,336 [qtp24659469-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-14 22:55:13,340 [qtp24659469-26] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 4 msec}
+2014-01-14 22:55:13,344 [qtp24659469-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:55:13,345 [qtp24659469-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 22:55:13,345 [qtp24659469-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-14 22:55:13,348 [qtp24659469-26] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 3 msec}
+2014-01-14 22:55:13,352 [qtp24659469-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:55:13,352 [qtp24659469-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 22:55:13,353 [qtp24659469-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-14 22:55:13,356 [qtp24659469-26] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 3 msec}
+2014-01-14 22:55:13,360 [qtp24659469-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:55:13,360 [qtp24659469-26] DEBUG [java.sql.Connection] - ==>  Preparing: select a.*,b.name as weightbandGroup from pt_weightband a left join PT_WEIGHTBANDGROUP b on a.WEIGHTBANDGROUPID =b.id where productId=? order by a.id 
+2014-01-14 22:55:13,361 [qtp24659469-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-14 22:55:13,365 [qtp24659469-26] INFO  [jdbc.sqltiming] - select a.*,b.name as weightbandGroup from pt_weightband a left join PT_WEIGHTBANDGROUP b on 
+a.WEIGHTBANDGROUPID =b.id where productId=1 order by a.id  {executed in 4 msec}
+2014-01-14 22:55:13,369 [qtp24659469-26] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:55:13,369 [qtp24659469-26] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-14 22:55:13,369 [qtp24659469-26] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 22:55:13,373 [qtp24659469-26] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 3 msec}
+2014-01-14 22:55:24,579 [qtp24659469-33] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:55:24,580 [qtp24659469-33] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-14 22:55:24,581 [qtp24659469-33] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 22:55:24,586 [qtp24659469-33] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 5 msec}
+2014-01-14 22:55:24,594 [qtp24659469-33] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:55:24,594 [qtp24659469-33] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-14 22:55:24,594 [qtp24659469-33] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-14 22:55:24,598 [qtp24659469-33] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 4 msec}
+2014-01-14 22:55:24,606 [qtp24659469-33] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:55:24,606 [qtp24659469-33] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 22:55:24,606 [qtp24659469-33] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-14 22:55:24,612 [qtp24659469-33] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 6 msec}
+2014-01-14 22:55:24,617 [qtp24659469-33] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:55:24,617 [qtp24659469-33] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 22:55:24,617 [qtp24659469-33] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-14 22:55:24,621 [qtp24659469-33] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 3 msec}
+2014-01-14 22:55:24,625 [qtp24659469-33] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:55:24,625 [qtp24659469-33] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 22:55:24,625 [qtp24659469-33] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-14 22:55:24,629 [qtp24659469-33] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 4 msec}
+2014-01-14 22:55:24,633 [qtp24659469-33] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:55:24,633 [qtp24659469-33] DEBUG [java.sql.Connection] - ==>  Preparing: select a.*,b.name as weightbandGroup from pt_weightband a left join PT_WEIGHTBANDGROUP b on a.WEIGHTBANDGROUPID =b.id where productId=? order by a.id 
+2014-01-14 22:55:24,634 [qtp24659469-33] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-14 22:55:24,637 [qtp24659469-33] INFO  [jdbc.sqltiming] - select a.*,b.name as weightbandGroup from pt_weightband a left join PT_WEIGHTBANDGROUP b on 
+a.WEIGHTBANDGROUPID =b.id where productId=1 order by a.id  {executed in 3 msec}
+2014-01-14 22:55:24,641 [qtp24659469-33] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 22:55:24,642 [qtp24659469-33] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-14 22:55:24,642 [qtp24659469-33] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 22:55:24,645 [qtp24659469-33] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 3 msec}
+2014-01-14 23:11:30,331 [qtp26443833-24] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@164.39.68.43:1521:dms, UserName=DMS, Oracle JDBC driver]
+2014-01-14 23:11:30,336 [qtp26443833-24] DEBUG [java.sql.Connection] - ==>  Preparing: select * from dms.V_PT_USER_PRI where userName = ? and password =? and rownum = 1 
+2014-01-14 23:11:30,538 [qtp26443833-24] DEBUG [java.sql.PreparedStatement] - ==> Parameters: F706RNK(String), China123(String)
+2014-01-14 23:11:30,594 [qtp26443833-24] INFO  [jdbc.sqltiming] - select * from dms.V_PT_USER_PRI where userName = 'F706RNK' and password ='China123' and rownum 
+= 1  {executed in 56 msec}
+2014-01-14 23:11:37,783 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:11:37,783 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-14 23:11:37,783 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:11:37,790 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 5 msec}
+2014-01-14 23:11:37,838 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:11:37,838 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-14 23:11:37,838 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-14 23:11:37,842 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 4 msec}
+2014-01-14 23:11:37,867 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:11:37,867 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:11:37,868 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-14 23:11:37,871 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 3 msec}
+2014-01-14 23:11:37,877 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:11:37,877 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:11:37,877 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-14 23:11:37,881 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 4 msec}
+2014-01-14 23:11:37,886 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:11:37,886 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:11:37,887 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-14 23:11:37,889 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 2 msec}
+2014-01-14 23:11:37,910 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:11:37,911 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? 
+2014-01-14 23:11:37,911 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long), Receive Pay(String)
+2014-01-14 23:11:37,917 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=1 and type = 'Receive Pay'  {executed in 6 msec}
+2014-01-14 23:11:37,980 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:11:37,980 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-14 23:11:37,980 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:11:37,984 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 4 msec}
+2014-01-14 23:11:38,635 [qtp26443833-28] WARN  [org.eclipse.jetty.servlet.ServletHandler] - /pt/traiff/init
+javax.el.PropertyNotFoundException: The class 'org.tnt.pt.entity.Tariff' does not have the property 'weight'.
+	at javax.el.BeanELResolver.getBeanProperty(BeanELResolver.java:579)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:281)
+	at javax.el.CompositeELResolver.getValue(CompositeELResolver.java:175)
+	at com.sun.el.parser.AstValue.getValue(AstValue.java:138)
+	at com.sun.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:206)
+	at org.apache.jasper.runtime.PageContextImpl.evaluateExpression(PageContextImpl.java:1007)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspx_meth_c_forEach_3(fullTariffMaintenance_jsp.java from :510)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspService(fullTariffMaintenance_jsp.java from :154)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:109)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:403)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:476)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:366)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:447)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:577)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:293)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:120)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:238)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:262)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1180)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:950)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:852)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:882)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:778)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1329)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:445)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:559)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:363)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:483)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:920)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:982)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:635)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:627)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:51)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:619)
+2014-01-14 23:11:39,064 [qtp26443833-28] ERROR [500.jsp] - The class 'org.tnt.pt.entity.Tariff' does not have the property 'weight'.
+javax.el.PropertyNotFoundException: The class 'org.tnt.pt.entity.Tariff' does not have the property 'weight'.
+	at javax.el.BeanELResolver.getBeanProperty(BeanELResolver.java:579)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:281)
+	at javax.el.CompositeELResolver.getValue(CompositeELResolver.java:175)
+	at com.sun.el.parser.AstValue.getValue(AstValue.java:138)
+	at com.sun.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:206)
+	at org.apache.jasper.runtime.PageContextImpl.evaluateExpression(PageContextImpl.java:1007)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspx_meth_c_forEach_3(fullTariffMaintenance_jsp.java from :510)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspService(fullTariffMaintenance_jsp.java from :154)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:109)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:403)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:476)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:366)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:447)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:577)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:293)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:120)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:238)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:262)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1180)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:950)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:852)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:882)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:778)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1329)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:445)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:559)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:363)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:483)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:920)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:982)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:635)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:627)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:51)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:619)
+2014-01-14 23:13:40,467 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:13:40,468 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-14 23:13:40,468 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:13:40,472 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 4 msec}
+2014-01-14 23:13:40,478 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:13:40,478 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-14 23:13:40,478 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-14 23:13:40,482 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 4 msec}
+2014-01-14 23:13:40,490 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:13:40,491 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:13:40,491 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-14 23:13:40,494 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 3 msec}
+2014-01-14 23:13:40,498 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:13:40,499 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:13:40,499 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-14 23:13:40,502 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 3 msec}
+2014-01-14 23:13:40,506 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:13:40,506 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:13:40,506 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-14 23:13:40,510 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 3 msec}
+2014-01-14 23:13:40,514 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:13:40,514 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? 
+2014-01-14 23:13:40,514 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long), Receive Pay(String)
+2014-01-14 23:13:40,517 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=1 and type = 'Receive Pay'  {executed in 3 msec}
+2014-01-14 23:13:40,531 [qtp26443833-28] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:13:40,531 [qtp26443833-28] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-14 23:13:40,531 [qtp26443833-28] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:13:40,534 [qtp26443833-28] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 2 msec}
+2014-01-14 23:14:24,006 [qtp26443833-28] WARN  [org.eclipse.jetty.servlet.ServletHandler] - /pt/traiff/init
+javax.el.PropertyNotFoundException: The class 'org.tnt.pt.entity.Tariff' does not have the property 'weight'.
+	at javax.el.BeanELResolver.getBeanProperty(BeanELResolver.java:579)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:281)
+	at javax.el.CompositeELResolver.getValue(CompositeELResolver.java:175)
+	at com.sun.el.parser.AstValue.getValue(AstValue.java:138)
+	at com.sun.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:206)
+	at org.apache.jasper.runtime.PageContextImpl.evaluateExpression(PageContextImpl.java:1007)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspx_meth_c_forEach_3(fullTariffMaintenance_jsp.java from :510)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspService(fullTariffMaintenance_jsp.java from :154)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:109)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:403)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:476)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:366)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:447)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:577)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:293)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:120)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:238)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:262)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1180)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:950)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:852)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:882)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:778)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1329)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:445)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:559)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:363)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:483)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:920)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:982)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:635)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:627)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:51)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:619)
+2014-01-14 23:14:24,008 [qtp26443833-28] ERROR [500.jsp] - The class 'org.tnt.pt.entity.Tariff' does not have the property 'weight'.
+javax.el.PropertyNotFoundException: The class 'org.tnt.pt.entity.Tariff' does not have the property 'weight'.
+	at javax.el.BeanELResolver.getBeanProperty(BeanELResolver.java:579)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:281)
+	at javax.el.CompositeELResolver.getValue(CompositeELResolver.java:175)
+	at com.sun.el.parser.AstValue.getValue(AstValue.java:138)
+	at com.sun.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:206)
+	at org.apache.jasper.runtime.PageContextImpl.evaluateExpression(PageContextImpl.java:1007)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspx_meth_c_forEach_3(fullTariffMaintenance_jsp.java from :510)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspService(fullTariffMaintenance_jsp.java from :154)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:109)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:403)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:476)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:366)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:447)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:577)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:293)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:120)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:238)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:262)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1180)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:950)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:852)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:882)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:778)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1329)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:445)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:559)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:363)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:483)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:920)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:982)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:635)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:627)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:51)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:619)
+2014-01-14 23:20:38,729 [qtp13059051-22] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@164.39.68.43:1521:dms, UserName=DMS, Oracle JDBC driver]
+2014-01-14 23:20:38,735 [qtp13059051-22] DEBUG [java.sql.Connection] - ==>  Preparing: select * from dms.V_PT_USER_PRI where userName = ? and password =? and rownum = 1 
+2014-01-14 23:20:38,952 [qtp13059051-22] DEBUG [java.sql.PreparedStatement] - ==> Parameters: F706RNK(String), China123(String)
+2014-01-14 23:20:39,046 [qtp13059051-22] INFO  [jdbc.sqltiming] - select * from dms.V_PT_USER_PRI where userName = 'F706RNK' and password ='China123' and rownum 
+= 1  {executed in 94 msec}
+2014-01-14 23:20:44,018 [qtp13059051-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:20:44,018 [qtp13059051-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-14 23:20:44,019 [qtp13059051-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:20:44,025 [qtp13059051-25] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 6 msec}
+2014-01-14 23:20:44,073 [qtp13059051-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:20:44,073 [qtp13059051-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-14 23:20:44,073 [qtp13059051-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-14 23:20:44,078 [qtp13059051-25] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 4 msec}
+2014-01-14 23:20:44,102 [qtp13059051-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:20:44,103 [qtp13059051-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:20:44,103 [qtp13059051-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-14 23:20:44,107 [qtp13059051-25] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 4 msec}
+2014-01-14 23:20:44,112 [qtp13059051-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:20:44,113 [qtp13059051-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:20:44,113 [qtp13059051-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-14 23:20:44,116 [qtp13059051-25] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 3 msec}
+2014-01-14 23:20:44,120 [qtp13059051-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:20:44,121 [qtp13059051-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:20:44,121 [qtp13059051-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-14 23:20:44,124 [qtp13059051-25] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 3 msec}
+2014-01-14 23:20:44,146 [qtp13059051-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:20:44,146 [qtp13059051-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? 
+2014-01-14 23:20:44,146 [qtp13059051-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long), Receive Pay(String)
+2014-01-14 23:20:44,150 [qtp13059051-25] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=1 and type = 'Receive Pay'  {executed in 3 msec}
+2014-01-14 23:20:44,183 [qtp13059051-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:20:44,184 [qtp13059051-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-14 23:20:44,184 [qtp13059051-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:20:44,187 [qtp13059051-25] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 3 msec}
+2014-01-14 23:20:46,742 [qtp13059051-25] WARN  [org.eclipse.jetty.servlet.ServletHandler] - /pt/traiff/init
+javax.el.PropertyNotFoundException: The class 'org.tnt.pt.entity.Tariff' does not have the property 'weight'.
+	at javax.el.BeanELResolver.getBeanProperty(BeanELResolver.java:579)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:281)
+	at javax.el.CompositeELResolver.getValue(CompositeELResolver.java:175)
+	at com.sun.el.parser.AstValue.getValue(AstValue.java:138)
+	at com.sun.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:206)
+	at org.apache.jasper.runtime.PageContextImpl.evaluateExpression(PageContextImpl.java:1007)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspx_meth_c_forEach_3(fullTariffMaintenance_jsp.java from :510)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspService(fullTariffMaintenance_jsp.java from :154)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:109)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:403)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:476)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:366)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:447)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:577)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:293)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:120)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:238)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:262)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1180)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:950)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:852)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:882)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:778)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1329)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:445)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:559)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:363)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:483)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:920)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:982)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:635)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:627)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:51)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:619)
+2014-01-14 23:20:47,154 [qtp13059051-25] ERROR [500.jsp] - The class 'org.tnt.pt.entity.Tariff' does not have the property 'weight'.
+javax.el.PropertyNotFoundException: The class 'org.tnt.pt.entity.Tariff' does not have the property 'weight'.
+	at javax.el.BeanELResolver.getBeanProperty(BeanELResolver.java:579)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:281)
+	at javax.el.CompositeELResolver.getValue(CompositeELResolver.java:175)
+	at com.sun.el.parser.AstValue.getValue(AstValue.java:138)
+	at com.sun.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:206)
+	at org.apache.jasper.runtime.PageContextImpl.evaluateExpression(PageContextImpl.java:1007)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspx_meth_c_forEach_3(fullTariffMaintenance_jsp.java from :510)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspService(fullTariffMaintenance_jsp.java from :154)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:109)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:403)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:476)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:366)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:447)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:577)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:293)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:120)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:238)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:262)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1180)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:950)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:852)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:882)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:778)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1329)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:445)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:559)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:363)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:483)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:920)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:982)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:635)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:627)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:51)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:619)
+2014-01-14 23:25:21,310 [qtp24659469-20] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@164.39.68.43:1521:dms, UserName=DMS, Oracle JDBC driver]
+2014-01-14 23:25:21,315 [qtp24659469-20] DEBUG [java.sql.Connection] - ==>  Preparing: select * from dms.V_PT_USER_PRI where userName = ? and password =? and rownum = 1 
+2014-01-14 23:25:21,498 [qtp24659469-20] DEBUG [java.sql.PreparedStatement] - ==> Parameters: F706RNK(String), China123(String)
+2014-01-14 23:25:21,560 [qtp24659469-20] INFO  [jdbc.sqltiming] - select * from dms.V_PT_USER_PRI where userName = 'F706RNK' and password ='China123' and rownum 
+= 1  {executed in 62 msec}
+2014-01-14 23:25:26,366 [qtp24659469-22] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:25:26,367 [qtp24659469-22] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-14 23:25:26,367 [qtp24659469-22] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:25:26,371 [qtp24659469-22] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 4 msec}
+2014-01-14 23:25:26,418 [qtp24659469-22] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:25:26,418 [qtp24659469-22] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-14 23:25:26,418 [qtp24659469-22] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-14 23:25:26,420 [qtp24659469-22] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 2 msec}
+2014-01-14 23:25:26,444 [qtp24659469-22] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:25:26,444 [qtp24659469-22] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:25:26,444 [qtp24659469-22] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-14 23:25:26,446 [qtp24659469-22] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 2 msec}
+2014-01-14 23:25:26,450 [qtp24659469-22] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:25:26,450 [qtp24659469-22] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:25:26,451 [qtp24659469-22] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-14 23:25:26,452 [qtp24659469-22] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 1 msec}
+2014-01-14 23:25:26,455 [qtp24659469-22] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:25:26,455 [qtp24659469-22] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:25:26,456 [qtp24659469-22] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-14 23:25:26,457 [qtp24659469-22] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 1 msec}
+2014-01-14 23:25:26,477 [qtp24659469-22] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:25:26,477 [qtp24659469-22] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? 
+2014-01-14 23:25:26,478 [qtp24659469-22] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long), Receive Pay(String)
+2014-01-14 23:25:26,480 [qtp24659469-22] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=1 and type = 'Receive Pay'  {executed in 2 msec}
+2014-01-14 23:25:26,510 [qtp24659469-22] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:25:26,511 [qtp24659469-22] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-14 23:25:26,511 [qtp24659469-22] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:25:26,513 [qtp24659469-22] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 2 msec}
+2014-01-14 23:25:30,031 [qtp24659469-22] WARN  [org.eclipse.jetty.servlet.ServletHandler] - /pt/traiff/init
+javax.el.PropertyNotFoundException: The class 'org.tnt.pt.entity.Tariff' does not have the property 'type'.
+	at javax.el.BeanELResolver.getBeanProperty(BeanELResolver.java:579)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:281)
+	at javax.el.CompositeELResolver.getValue(CompositeELResolver.java:175)
+	at com.sun.el.parser.AstValue.getValue(AstValue.java:138)
+	at com.sun.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:206)
+	at org.apache.jasper.runtime.PageContextImpl.evaluateExpression(PageContextImpl.java:1007)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspx_meth_c_forEach_3(fullTariffMaintenance_jsp.java from :510)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspService(fullTariffMaintenance_jsp.java from :154)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:109)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:403)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:476)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:366)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:447)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:577)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:293)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:120)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:238)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:262)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1180)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:950)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:852)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:882)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:778)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1329)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:445)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:559)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:363)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:483)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:920)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:982)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:635)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:627)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:51)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:619)
+2014-01-14 23:25:30,435 [qtp24659469-22] ERROR [500.jsp] - The class 'org.tnt.pt.entity.Tariff' does not have the property 'type'.
+javax.el.PropertyNotFoundException: The class 'org.tnt.pt.entity.Tariff' does not have the property 'type'.
+	at javax.el.BeanELResolver.getBeanProperty(BeanELResolver.java:579)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:281)
+	at javax.el.CompositeELResolver.getValue(CompositeELResolver.java:175)
+	at com.sun.el.parser.AstValue.getValue(AstValue.java:138)
+	at com.sun.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:206)
+	at org.apache.jasper.runtime.PageContextImpl.evaluateExpression(PageContextImpl.java:1007)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspx_meth_c_forEach_3(fullTariffMaintenance_jsp.java from :510)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspService(fullTariffMaintenance_jsp.java from :154)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:109)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:403)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:476)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:366)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:447)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:577)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:293)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:120)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:238)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:262)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1180)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:950)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:852)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:882)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:778)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1329)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:445)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:559)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:363)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:483)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:920)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:982)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:635)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:627)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:51)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:619)
+2014-01-14 23:35:58,034 [qtp20914447-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@164.39.68.43:1521:dms, UserName=DMS, Oracle JDBC driver]
+2014-01-14 23:35:58,039 [qtp20914447-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from dms.V_PT_USER_PRI where userName = ? and password =? and rownum = 1 
+2014-01-14 23:35:58,222 [qtp20914447-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: F706RNK(String), China123(String)
+2014-01-14 23:35:58,269 [qtp20914447-25] INFO  [jdbc.sqltiming] - select * from dms.V_PT_USER_PRI where userName = 'F706RNK' and password ='China123' and rownum 
+= 1  {executed in 47 msec}
+2014-01-14 23:36:03,090 [qtp20914447-20] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:36:03,090 [qtp20914447-20] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-14 23:36:03,090 [qtp20914447-20] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:36:03,096 [qtp20914447-20] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 6 msec}
+2014-01-14 23:36:03,147 [qtp20914447-20] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:36:03,148 [qtp20914447-20] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-14 23:36:03,148 [qtp20914447-20] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-14 23:36:03,152 [qtp20914447-20] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 4 msec}
+2014-01-14 23:36:03,176 [qtp20914447-20] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:36:03,176 [qtp20914447-20] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:36:03,177 [qtp20914447-20] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-14 23:36:03,180 [qtp20914447-20] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 3 msec}
+2014-01-14 23:36:03,185 [qtp20914447-20] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:36:03,185 [qtp20914447-20] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:36:03,186 [qtp20914447-20] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-14 23:36:03,188 [qtp20914447-20] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 2 msec}
+2014-01-14 23:36:03,192 [qtp20914447-20] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:36:03,192 [qtp20914447-20] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:36:03,193 [qtp20914447-20] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-14 23:36:03,197 [qtp20914447-20] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 4 msec}
+2014-01-14 23:36:03,219 [qtp20914447-20] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:36:03,219 [qtp20914447-20] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? 
+2014-01-14 23:36:03,219 [qtp20914447-20] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long), Receive Pay(String)
+2014-01-14 23:36:03,223 [qtp20914447-20] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=1 and type = 'Receive Pay'  {executed in 4 msec}
+2014-01-14 23:36:03,260 [qtp20914447-20] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:36:03,260 [qtp20914447-20] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-14 23:36:03,260 [qtp20914447-20] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:36:03,265 [qtp20914447-20] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 5 msec}
+2014-01-14 23:36:06,034 [qtp20914447-20] WARN  [org.eclipse.jetty.servlet.ServletHandler] - /pt/traiff/init
+javax.el.PropertyNotFoundException: The class 'org.tnt.pt.entity.Tariff' does not have the property 'weight'.
+	at javax.el.BeanELResolver.getBeanProperty(BeanELResolver.java:579)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:281)
+	at javax.el.CompositeELResolver.getValue(CompositeELResolver.java:175)
+	at com.sun.el.parser.AstValue.getValue(AstValue.java:138)
+	at com.sun.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:206)
+	at org.apache.jasper.runtime.PageContextImpl.evaluateExpression(PageContextImpl.java:1007)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspx_meth_c_forEach_3(fullTariffMaintenance_jsp.java from :510)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspService(fullTariffMaintenance_jsp.java from :154)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:109)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:403)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:476)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:366)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:447)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:577)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:293)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:120)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:238)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:262)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1180)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:950)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:852)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:882)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:778)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1329)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:445)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:559)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:363)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:483)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:920)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:982)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:635)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:627)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:51)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:619)
+2014-01-14 23:36:06,421 [qtp20914447-20] ERROR [500.jsp] - The class 'org.tnt.pt.entity.Tariff' does not have the property 'weight'.
+javax.el.PropertyNotFoundException: The class 'org.tnt.pt.entity.Tariff' does not have the property 'weight'.
+	at javax.el.BeanELResolver.getBeanProperty(BeanELResolver.java:579)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:281)
+	at javax.el.CompositeELResolver.getValue(CompositeELResolver.java:175)
+	at com.sun.el.parser.AstValue.getValue(AstValue.java:138)
+	at com.sun.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:206)
+	at org.apache.jasper.runtime.PageContextImpl.evaluateExpression(PageContextImpl.java:1007)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspx_meth_c_forEach_3(fullTariffMaintenance_jsp.java from :510)
+	at org.apache.jsp.WEB_002dINF.views.discountRate.fullTariffMaintenance_jsp._jspService(fullTariffMaintenance_jsp.java from :154)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:109)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:403)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:476)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:366)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:447)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:577)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:293)
+	at org.eclipse.jetty.server.Dispatcher.forward(Dispatcher.java:120)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:238)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:262)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1180)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:950)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:852)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:882)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:778)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:652)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1329)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1300)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:445)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:559)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:227)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1038)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:374)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:189)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:972)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:363)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:483)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:920)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:982)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:635)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:627)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:51)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:619)
+2014-01-14 23:36:25,523 [qtp20914447-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:36:25,523 [qtp20914447-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-14 23:36:25,524 [qtp20914447-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:36:25,528 [qtp20914447-25] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 4 msec}
+2014-01-14 23:36:25,532 [qtp20914447-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:36:25,532 [qtp20914447-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-14 23:36:25,533 [qtp20914447-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-14 23:36:25,536 [qtp20914447-25] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 3 msec}
+2014-01-14 23:36:25,543 [qtp20914447-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:36:25,544 [qtp20914447-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:36:25,544 [qtp20914447-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-14 23:36:25,547 [qtp20914447-25] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 3 msec}
+2014-01-14 23:36:25,550 [qtp20914447-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:36:25,550 [qtp20914447-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:36:25,550 [qtp20914447-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-14 23:36:25,553 [qtp20914447-25] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 3 msec}
+2014-01-14 23:36:25,556 [qtp20914447-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:36:25,556 [qtp20914447-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:36:25,556 [qtp20914447-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-14 23:36:25,559 [qtp20914447-25] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 3 msec}
+2014-01-14 23:36:25,562 [qtp20914447-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:36:25,562 [qtp20914447-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? 
+2014-01-14 23:36:25,563 [qtp20914447-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long), Receive Pay(String)
+2014-01-14 23:36:25,565 [qtp20914447-25] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=1 and type = 'Receive Pay'  {executed in 2 msec}
+2014-01-14 23:36:25,578 [qtp20914447-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:36:25,579 [qtp20914447-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-14 23:36:25,579 [qtp20914447-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:36:25,582 [qtp20914447-25] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 3 msec}
+2014-01-14 23:38:03,673 [qtp24659469-20] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:38:03,679 [qtp24659469-20] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-14 23:38:03,888 [qtp24659469-20] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:38:03,925 [qtp24659469-20] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 37 msec}
+2014-01-14 23:38:04,038 [qtp24659469-20] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:38:04,038 [qtp24659469-20] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-14 23:38:04,039 [qtp24659469-20] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-14 23:38:04,043 [qtp24659469-20] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 4 msec}
+2014-01-14 23:38:04,093 [qtp24659469-20] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:38:04,094 [qtp24659469-20] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:38:04,095 [qtp24659469-20] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-14 23:38:04,100 [qtp24659469-20] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 5 msec}
+2014-01-14 23:38:04,107 [qtp24659469-20] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:38:04,107 [qtp24659469-20] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:38:04,108 [qtp24659469-20] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-14 23:38:04,111 [qtp24659469-20] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 3 msec}
+2014-01-14 23:38:04,116 [qtp24659469-20] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:38:04,116 [qtp24659469-20] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:38:04,117 [qtp24659469-20] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-14 23:38:04,120 [qtp24659469-20] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 3 msec}
+2014-01-14 23:38:04,142 [qtp24659469-20] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:38:04,142 [qtp24659469-20] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? 
+2014-01-14 23:38:04,142 [qtp24659469-20] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long), Receive Pay(String)
+2014-01-14 23:38:04,148 [qtp24659469-20] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=1 and type = 'Receive Pay'  {executed in 5 msec}
+2014-01-14 23:38:04,204 [qtp24659469-20] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:38:04,204 [qtp24659469-20] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-14 23:38:04,205 [qtp24659469-20] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:38:04,209 [qtp24659469-20] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 4 msec}
+2014-01-14 23:41:59,587 [qtp13059051-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:41:59,593 [qtp13059051-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonetype 
+2014-01-14 23:41:59,805 [qtp13059051-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:41:59,840 [qtp13059051-25] INFO  [jdbc.sqltiming] - select * from pt_zonetype  {executed in 35 msec}
+2014-01-14 23:41:59,946 [qtp13059051-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:41:59,946 [qtp13059051-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_zonegroup where zonetype = ? 
+2014-01-14 23:41:59,947 [qtp13059051-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 13ZONE(String)
+2014-01-14 23:41:59,951 [qtp13059051-25] INFO  [jdbc.sqltiming] - select * from pt_zonegroup where zonetype = '13ZONE'  {executed in 4 msec}
+2014-01-14 23:41:59,996 [qtp13059051-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:41:59,996 [qtp13059051-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:41:59,997 [qtp13059051-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long)
+2014-01-14 23:42:00,000 [qtp13059051-25] INFO  [jdbc.sqltiming] - select * from pt_product where id=1  {executed in 3 msec}
+2014-01-14 23:42:00,005 [qtp13059051-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:42:00,005 [qtp13059051-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:42:00,005 [qtp13059051-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 2(Long)
+2014-01-14 23:42:00,008 [qtp13059051-25] INFO  [jdbc.sqltiming] - select * from pt_product where id=2  {executed in 3 msec}
+2014-01-14 23:42:00,011 [qtp13059051-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:42:00,012 [qtp13059051-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_product where id=? 
+2014-01-14 23:42:00,012 [qtp13059051-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 3(Long)
+2014-01-14 23:42:00,015 [qtp13059051-25] INFO  [jdbc.sqltiming] - select * from pt_product where id=3  {executed in 3 msec}
+2014-01-14 23:42:00,035 [qtp13059051-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:42:00,035 [qtp13059051-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariffGroup where productId=? and type = ? order by id 
+2014-01-14 23:42:00,036 [qtp13059051-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 1(Long), Receive Pay(String)
+2014-01-14 23:42:00,041 [qtp13059051-25] INFO  [jdbc.sqltiming] - select * from pt_tariffGroup where productId=1 and type = 'Receive Pay' order by id  {executed in 5 msec}
+2014-01-14 23:42:00,083 [qtp13059051-25] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@127.0.0.1:1521:pt, UserName=PT4TNT, Oracle JDBC driver]
+2014-01-14 23:42:00,084 [qtp13059051-25] DEBUG [java.sql.Connection] - ==>  Preparing: select * from pt_tariff 
+2014-01-14 23:42:00,084 [qtp13059051-25] DEBUG [java.sql.PreparedStatement] - ==> Parameters: 
+2014-01-14 23:42:00,087 [qtp13059051-25] INFO  [jdbc.sqltiming] - select * from pt_tariff  {executed in 3 msec}

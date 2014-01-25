@@ -6,6 +6,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<%
+response.setHeader("Pragma","No-cache");    
+response.setHeader("Cache-Control","no-cache");    
+response.setDateHeader("Expires", -10);   
+%> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>New PT-hwRate Profile</title>
 <link href="${ctx}/static/styles/main.css" type="text/css" rel="stylesheet" />
@@ -33,7 +38,7 @@
 	}
 	
 	
-	 function addtr(id){
+	 function addtr(id,type){
 	        var weightBandids;
 	        var productid;
 	        //增加<tr/>
@@ -51,7 +56,7 @@
 				appendTr +="<td><input type='text' name='"+id+"_"+inputArr[m]+"_${business.id}_"+productid+"_"+_len+"'  id='"+id+"_"+inputArr[m]+"_"+_len+"'/></td>"
 			}
         	 $("#"+id).append("<tr id='"+id+"_"+_len+"' align='center'>"
-					   +"<td><input type='text' name='"+id+"_country_name_"+_len+"'  id='"+id+"_country_name_"+_len+"' onclick=\"new Customer('"+id+"',"+_len+").show(this)\"/><input type='hidden' name='"+id+"_country_id_"+_len+"'  id='"+id+"_country_id_"+_len+"'/></td>"
+					   +"<td><input type='text' name='"+id+"_country_name_"+_len+"'  id='"+id+"_country_name_"+_len+"' onkeyup=\"new Customer('"+id+"',"+_len+",'"+type+"').show(this)\"/></td>" //<input type='hidden' name='"+id+"_country_id_"+_len+"'  id='"+id+"_country_id_"+_len+"'/>
 					   + appendTr
                      +"<td><a href=\'#\' onclick=\"deltr(\'"+id+"\',"+_len+")\">删除</a></td>"
               +"</tr>");    
@@ -85,7 +90,7 @@
       <th>PT Application Reference #: </th>
       <td>${business.applicationReference}<input type="hidden" value="${business.applicationReference}" name="business.applicationReference"></td>
       <th>Terms of payments:</th>
-      <td>${customer.payment}<input type="hidden" value="${customer.payment}" name="customer.payment"></td>
+      <td>${payment}<input type="hidden" value="${customer.payment}" name="customer.payment"></td>
       </tr>
   </table>
   </div>
@@ -109,8 +114,7 @@
         	<c:forEach items="${ndocumentCountrys}" var="country" varStatus="co">
 				<tr id='tb1_${co.index}' align="center">
 					<td>
-					<input type='text' value="${country.countryName}" name='tb1_country_name_${co.index}'  id='tb1_country_name_${co.index}' onclick="new Customer('tb1',${co.index}).show(this)"/>
-					<input type='hidden' value="${country.id}" name='tb1_country_id_${co.index}'  id='tb1_country_id_${co.index}'/>
+					<input type='text' value="${country.countryCode}" name='tb1_country_name_${co.index}'  id='tb1_country_name_${co.index}' onclick="new Customer('tb1',${co.index},'15D').show(this)"/>
 					</td>
 					<c:forEach items="${ndocumentList}" var="weightBand" begin="0">
 							<c:set var="key">${business.id}_${ndocument}_${weightBand.id}_${country.id}</c:set>
@@ -124,7 +128,7 @@
 <br>
 
   <div style="text-align: left">
-    <input type="button" value="Add a New Row" class="cls-button" onclick="addtr('tb1')"/> 
+    <input type="button" value="Add a New Row" class="cls-button" onclick="addtr('tb1','15D')"/> 
    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <%--<input type="button" value="Delete Selected Rows" class="cls-button" />
@@ -147,8 +151,7 @@
         	<c:forEach items="${eonomyCountrys}" var="country" varStatus="co">
 				<tr id='tb2_${co.index}' align="center">
 					<td>
-					<input type='text' value="${country.countryName}" name='tb2_country_name_${co.index}'  id='tb2_country_name_${co.index}' onclick="new Customer('tb2',${co.index}).show(this)"/>
-					<input type='hidden' value="${country.id}" name='tb2_country_id_${co.index}'  id='tb2_country_id_${co.index}'/>
+					<input type='text' value="${country.countryCode}" name='tb2_country_name_${co.index}'  id='tb2_country_name_${co.index}' onclick="new Customer('tb2',${co.index},'48N').show(this)"/>
 					</td>
 					<c:forEach items="${eonomyList}" var="weightBand" begin="0">
 							<c:set var="key">${business.id}_${eonomy}_${weightBand.id}_${country.id}</c:set>
@@ -161,7 +164,7 @@
 </table>
  <br>
   <div style="text-align: left">
-    <input type="button" value="Add a New Row" class="cls-button" onclick="addtr('tb2')"/><%-- 
+    <input type="button" value="Add a New Row" class="cls-button" onclick="addtr('tb2','48N')"/><%-- 
    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <input type="button" value="Delete Selected Rows" class="cls-button" />
@@ -211,7 +214,7 @@
 	                 		$("#hwRateProfile").submit();
 	                 	}else{
 	                 		$('#payment').val('');
-		                 	$("#hwRateProfile").attr('action',"${ctx}/ptCreate/consProfile");
+		                 	$("#hwRateProfile").attr('action',"${ctx}/ptCreate/consProfile/hw");
 		                 	$("#hwRateProfile").submit();
 	                 	}
 	                 },
@@ -225,7 +228,7 @@
               		$("#hwRateProfile").submit();
               	}else{
               		$('#payment').val('');
-	                $("#hwRateProfile").attr('action',"${ctx}/ptCreate/consProfile");
+	                $("#hwRateProfile").attr('action',"${ctx}/ptCreate/consProfile/hw");
 	                $("#hwRateProfile").submit();
               	}
              }

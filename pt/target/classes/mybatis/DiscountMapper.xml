@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.DiscountDao">
+
+	<select id="get" parameterType="int" resultType="Discount">
+		select * from pt_discount where id=#{id}
+	</select>
+	
+	
+	<select id="findAll" parameterType="map" resultType="Discount">
+		select * from pt_discount 
+	</select>
+
+	<select id="findAllByBusId" parameterType="map" resultType="Discount">
+		select * from pt_discount 
+		<where>
+			1=1
+			<if test="businessId != null">
+				and businessId=#{businessId}
+			</if>
+			<if test="payment != null">
+				and payment=#{payment}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into pt_discount (id,DISCOUNT,BUSINESSID,WEIGHTBANDID,ZONEGROUPID,payment) select SEQ_Discount.NEXTVAL,A.* from (
+		<foreach collection="list" item="item" index="index" separator="union" >
+			select #{item.discount},#{item.businessId},#{item.weightBandId},#{item.zoneGroupId},#{item.payment} from dual
+		</foreach>
+		) A
+	</insert>
+
+	<delete id="deleteDiscountList" parameterType="Discount">
+	     delete from pt_discount 
+	     <where>
+			<if test="businessId != null">
+				businessId=#{businessId}
+			</if>
+			<if test="payment != null">
+				and payment=#{payment}
+			</if>
+		</where>
+	</delete>
+	
+	<delete id="delete" parameterType="Long">
+		delete from  pt_discount where businessid=#{ids}
+	</delete>
+</mapper> 

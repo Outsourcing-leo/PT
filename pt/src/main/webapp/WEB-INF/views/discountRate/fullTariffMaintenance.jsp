@@ -32,10 +32,17 @@
 						</c:forEach>
 					</select>
                 </td>
-								
+				 <td style="text-align:center;">Term of payment</td>
+                <td>
+                	<select name="payment" value="${payment}">
+						  <option value="SenderPay" <c:if test="${payment eq 'SenderPay'}">selected</c:if> >SenderPay</option>
+						  <option value="ReceivePay" <c:if test="${payment eq 'ReceivePay'}">selected</c:if> >ReceivePay</option>
+						  <option value="both" <c:if test="${payment eq 'Both'}">selected</c:if> >Both</option>
+					</select>
+                </td>				
             </tr>
             <tr>
-            	<td colspan="4" align="right"><input type="submit" value="query" class="cls-button"/>
+            	<td colspan="6" align="right"><input type="submit" value="query" class="cls-button"/>
             		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             		<%--<input type="button" value="open file" class="cls-button" onclick="javascript:jQuery.dialog.open('content/DiscountRate/fullTariffUpload.html',{id:'memdiv2',width :740,height :350,title:'fullTariffUpload'})"/>
             		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -58,11 +65,11 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${weightBandList}" var="weightBand">
+            <c:forEach items="${tariffGroupList}" var="tariffGroup">
 				<tr>
-					<td>${weightBand.name}</td>
+					<td>${tariffGroup.weight}</td>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-							<c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
+							<c:set var="key">${tariffGroup.id}_${zoneGroup.id}</c:set>
 						     <td><input id="zg_${key}" name="zg_${key}" value="${traiffMap[key]}" size="4"/></td>
 				   </c:forEach>
 			   </tr>

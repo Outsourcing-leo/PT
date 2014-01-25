@@ -7,15 +7,15 @@
 			<display>
 				<col column="id" label="id" displaytype="hidden"/>
 				<col column="{sequence:1}" label="sequence"/>
-				<col column="ZONETYPE" label="zoneType" valuestyleproperty="style='mso-number-format:\@'"/>
-				<col column="DOCUMENT" label="document" displaytype="hidden"/>
-				<col column="NONDOCUMENT" label="nonDocument" displaytype="hidden"/>
-				<col column="ECONOMY" label="economy" displaytype="hidden"/>
-				<col column="doc" label="document" />
-				<col column="non" label="nonDocument" />
-				<col column="eco" label="economy" />
-				<col column="ISAVAILABLE" label="isAvailable" />
-				<col column="REMARK" label="remark"/>
+				<col column="ZONETYPE" label="ZoneType" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="DOCUMENT" label="Document" displaytype="hidden"/>
+				<col column="NONDOCUMENT" label="Non Document" displaytype="hidden"/>
+				<col column="ECONOMY" label="Economy" displaytype="hidden"/>
+				<col column="doc" label="Document" />
+				<col column="non" label="Non Document" />
+				<col column="eco" label="Economy" />
+				<col column="ISAVAILABLE" label="Is Available" />
+				<col column="REMARK" label="Remark"/>
 			</display>
 			<sql>
 				<select>

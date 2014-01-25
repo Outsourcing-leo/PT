@@ -33,8 +33,8 @@ function handleStateChange() {//alert("cust");
 	}
 }
 
-function getCustomersByType(exvalue){
-	var url = "/pt/country/getCountryList?countryName="+ exvalue;
+function getCustomersByType(exvalue,type){
+	var url = "/pt/country/getCountryList?countryCode="+ exvalue+"&type="+type;
 	xmlHttp = createXMLHttpRequest();	     
 	xmlHttp.onreadystatechange = handleStateChange;
 	if(xmlHttpFrom==1){
@@ -49,9 +49,11 @@ var _selectFlag = 0;
 var _trLength = 0;
 var countryid = 0;
 var prefix = '';
-function Customer(pre,index) {
+var type='';
+function Customer(pre,index,type_) {
 	countryid = index;
 	prefix = pre;
+	type= type_;
 	this.dataControl = null;
 	this.panel  = this.getElementById("__customerPanel");
 	this.iframe = window.frames["__customerIframe"];
@@ -67,7 +69,7 @@ Customer.prototype.draw = function() {
 	_cs[_cs.length] = '<table id="__customerTable" width="200" border="0" cellpadding="0" cellspacing="0" align="left">';
 	var customers =eval('('+countryList+')');//;
 	for(var i = 0; i < customers.length; i++){
-		_cs[_cs.length] = "<tr height='17' align='left'><td align='left' style='display: none;'>"+customers[i].id+"<\/td><td align='left'>"+customers[i].countryName+"<\/td><\/tr>";
+		_cs[_cs.length] = "<tr height='17' align='left'><td align='left'>"+customers[i].countryCode+"<\/td><\/tr>";
 	}
 	_cs[_cs.length] = '<\/table>';
 	_cs[_cs.length] = '<\/div>';
@@ -90,8 +92,8 @@ Customer.prototype.bindCustomer = function() {
 		var value=tds[i].innerHTML;
 		tds[i].onclick = function () {
 			if (calendar.dataControl){
-				calendar.dataControl.value = this.cells[1].innerHTML;
-                document.getElementById(prefix+"_country_id_"+countryid).value = this.cells[0].innerHTML;
+				calendar.dataControl.value = this.cells[0].innerHTML;
+                //document.getElementById(prefix+"_country_id_"+countryid).value = this.cells[0].innerHTML;
 			}
 			calendar.hide();
 		}
@@ -118,7 +120,7 @@ Customer.prototype.show = function (targetObject, eventObject , popuControl) {
 		throw new Error("arguments[0] is necessary!")
 	}
 	this.dataControl = targetObject;
-	getCustomersByType(this.dataControl.value);
+	getCustomersByType(this.dataControl.value,type);
 	_targetObject = targetObject;
 	popuControl = popuControl || targetObject;
 	this.draw();

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<applications xmlns="http://www.wabacus.com"
+			   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			   xsi:schemaLocation="http://www.wabacus.com ../xsd/wabacus.applications.xsd">
+	<page id="Countrylistpage">
+		<report id="country" title="country list" rowselect="multiple-checkbox|true" pagesize="10" scrollstyle="image" height="300px" width="100%" type="editablelist">
+			<display>
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="{sequence:1}" label="sequence"/>
+				<col column="COUNTRYCODE" label="Country Code" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="COUNTRYNAME" label="Country Name" />
+				<col column="DEPOTCODE" label="Depot Code"/>
+				<col column="ISAVAILABLE" label="Is Available" />   
+				<col column="ISHEAVY" label="Is Heavy" />   
+				<col column="IS15DAvailable" label="Is 15D Available" /> 
+				<col column="IS15NAvailable" label="Is 15N Available" /> 
+				<col column="IS48NAvailable" label="Is 48N Available" />                                      
+			</display>
+			<sql>
+				<select>
+				<value>
+					<![CDATA[SELECT ID,COUNTRYCODE,COUNTRYNO,COUNTRYNAME,DEPOTCODE,ISAVAILABLE,ISHEAVY,IS15DAvailable,IS15NAvailable,IS48NAvailable  FROM PT_COUNTRY where {#condition#} order by id]]>
+				</value>
+				<condition name="txtcountryCode" label="country Code" labelposition="left">
+					<value>
+						<![CDATA[(countryCode like '%#data#%' )]]>
+					</value>
+				</condition>
+				<condition name="txtdepotCode" label="depot Code" labelposition="left">
+					<value>
+						<![CDATA[(depotCode like '%#data#%' )]]>
+					</value>
+				</condition>
+				</select>
+				 <insert pageurl="report{Countryformpage.report1}" popupparams="{title:'create country',width:650,height:400}"></insert>
+				 <update pageurl="report{Countryformpage.report1}" urlparams="txtid=@{id}"  popupparams="{title:'update country',width:650,height:400}"></update>
+				 <delete>
+				  	delete from PT_COUNTRY where id=@{id__old};
+				</delete>
+			</sql>
+			<format>
+			  <value>
+				    ISAVAILABLE=ISAVAILABLE==null?"1":ISAVAILABLE.trim();
+					if(ISAVAILABLE.equals("0")) ISAVAILABLE="yes";
+					else ISAVAILABLE="no"; 
+					
+					IS15DAvailable=IS15DAvailable==null?"1":IS15DAvailable.trim();
+					if(IS15DAvailable.equals("0")) IS15DAvailable="yes";
+					else IS15DAvailable="no";
+					
+					IS15NAvailable=IS15NAvailable==null?"1":IS15NAvailable.trim();
+					if(IS15NAvailable.equals("0")) IS15NAvailable="yes";
+					else IS15NAvailable="no";
+					
+					IS48NAvailable=IS48NAvailable==null?"1":IS48NAvailable.trim();
+					if(IS48NAvailable.equals("0")) IS48NAvailable="yes";
+					else IS48NAvailable="no";
+					
+					ISHEAVY=ISHEAVY==null?"1":ISHEAVY.trim();
+					if(ISHEAVY.equals("0")) ISHEAVY="yes";
+					else ISHEAVY="no";
+			  </value>
+			</format>
+		</report>
+	</page>
+	
+		<!-- 表单篇报表类型 -->
+	<page id="Countryformpage" js="/webresources/script/validate.js">
+		<report id="report1" title="country Detail" type="form" >
+			<display valuetdwidth="150px" labeltdwidth="100px" labelbgcolor="#f0f0f0" labelalign="right" valuealign="left">
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="COUNTRYCODE" label="country Code">
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty})" afterdescription="*"/>
+				</col>
+				<col column="COUNTRYNAME" label="country Name" br="true">
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty})" afterdescription="*"/>
+				</col>
+				<col column="COUNTRYNO" label="country no">
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty})" afterdescription="*"/>
+				</col>
+				<col column="DEPOTCODE" label="depot Code" br="true">
+					
+				</col>
+				<col column="ISAVAILABLE" label="isAvailable" >
+					<inputbox type="selectbox">
+						<option value="0" label="yes"/> 
+						<option value="1" label="no"/>
+					</inputbox>
+				</col>  
+				<col column="ISHEAVY" label="isHeavy"  br="true">
+					<inputbox type="selectbox">
+						<option value="0" label="yes"/> 
+						<option value="1" label="no"/>
+					</inputbox>
+				</col>  
+				<col column="IS15DAvailable" label="Is 15D Available" >
+					<inputbox type="selectbox">
+						<option value="0" label="yes"/> 
+						<option value="1" label="no"/>
+					</inputbox>
+				</col>  
+				<col column="IS15NAvailable" label="Is 15N Available"   br="true">
+					<inputbox type="selectbox">
+						<option value="0" label="yes"/> 
+						<option value="1" label="no"/>
+					</inputbox>
+				</col>  
+				<col column="IS48NAvailable" label="Is 48N Available" >
+					<inputbox type="selectbox">
+						<option value="0" label="yes"/> 
+						<option value="1" label="no"/>
+					</inputbox>
+				</col>  
+			</display>
+			<sql>
+			  <select>
+				<value>
+					<![CDATA[SELECT ID,COUNTRYCODE,COUNTRYNO,COUNTRYNAME,DEPOTCODE,ISAVAILABLE,ISHEAVY,IS15DAvailable,IS15NAvailable,IS48NAvailable FROM PT_COUNTRY where {#condition#}]]>
+				</value>
+				<condition name="txtid" hidden="true">
+					<value>
+						<![CDATA[(id = '#data#' )]]>
+					</value>
+				</condition>
+			  </select>
+			  <insert>
+			  	  <params>
+				  	 	<param name="id" value="sequence{SEQ_PRODUCT}"></param>
+				  </params>
+				  <value>
+			  	      insert into PT_COUNTRY(id=#{id},@{COUNTRYCODE},@{COUNTRYNO},@{COUNTRYNAME},@{DEPOTCODE},@{ISAVAILABLE},@{ISHEAVY},@{IS15DAvailable},@{IS15NAvailable},@{IS48NAvailable});
+			  	 </value>
+			  </insert>
+			  <update>
+			 		  update PT_COUNTRY(@{COUNTRYCODE},@{COUNTRYNO},@{COUNTRYNAME},@{DEPOTCODE},@{ISAVAILABLE},@{ISHEAVY},@{IS15DAvailable},@{IS15NAvailable},@{IS48NAvailable}) where id=@{id__old};
+			  </update>
+			</sql>
+			<format>
+			
+			</format>
+		</report>
+	</page>
+</applications>

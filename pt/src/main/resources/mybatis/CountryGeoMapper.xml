@@ -12,7 +12,7 @@
 	</select>
 
 	<select id="getAllGEO" parameterType="map" resultType="String">
-		select distinct(GEOZONETYPE) from pt_country_geo 
+		select distinct(GEOZONETYPE) from pt_country_geo  where GEOZONETYPE is not null
 	</select>
 	
 	<select id="getAllCountryByGeo" parameterType="String" resultType="Long">

@@ -36,14 +36,20 @@ public class CountryController {
     @RequestMapping(value = "/getCountryList")
  	public String getOrgList(HttpServletRequest request,HttpServletResponse response){
      	try {
-     		String countryName = request.getParameter("countryName");
- 			if (StringUtils.isNotEmpty(countryName)) {
- 				countryName = new String(countryName.getBytes("ISO-8859-1"),"UTF-8");
+     		String countryCode = request.getParameter("countryCode");
+     		String type = request.getParameter("type");
+ 			if (StringUtils.isNotEmpty(countryCode)) {
+ 				countryCode = new String(countryCode.getBytes("ISO-8859-1"),"UTF-8");
  			}else {
- 				countryName = "";
+ 				countryCode = "";
  			}
  			List<Country> countryList = new ArrayList<Country>();
- 			countryList = countryService.findByName(countryName);
+ 			if("15D".equals(type)){
+ 				countryList = countryService.findBy15NCode(countryCode);
+ 			}else if("48N".equals(type)){
+ 				countryList = countryService.findBy48NCode(countryCode);
+ 			}
+ 			
  			String countrystr = JsonMapper.nonDefaultMapper().toJson(countryList);
  			response.setContentType("text/html; charset=UTF-8");
  			response.setHeader("Cathe-Control", "no-cache");

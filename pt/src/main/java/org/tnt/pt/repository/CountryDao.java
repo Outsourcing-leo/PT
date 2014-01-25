@@ -17,12 +17,15 @@ import org.tnt.pt.entity.Country;
 public interface CountryDao {
 
 	Country get(Long id);
-
+	
+	Long  getIdByCountryCode(String countryCode);
+	
 	List< Country> findAll();
 	
 	List<Country> getAllCountryByZoneGroupId(Long zoneGroupId);
 	
-	List<Country>  findByName(String countryName);
+	List<Country>  findByCode(String countryCode);
 	
-	
+	List<Country> findBy15NCode(String countryCode);
+	List<Country> findBy48NCode(String countryCode);
 }

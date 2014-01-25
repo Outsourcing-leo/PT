@@ -134,7 +134,7 @@ public class PTQueryController{
 		
 		rateList = rateService.getAllRateByBusId(businessId,customer.getPayment());
 		for (Rate rate:rateList) {
-			rateMap.put(rate.getWeightBandId()+"_"+rate.getZoneGroupId(), rate.getRate());
+			rateMap.put(rate.getTariffGroupId()+"_"+rate.getZoneGroupId(), rate.getRate());
 		}
 		
 		model.addAttribute("business", business);
@@ -251,7 +251,7 @@ public class PTQueryController{
 		}
 		tariffList = tariffService.getAllTariff();
 		for (Tariff tariff:tariffList) {
-			String keyId = tariff.getWeightBandId()+"_"+tariff.getZoneGroupId();
+			String keyId = tariff.getTariffGroupId()+"_"+tariff.getZoneGroupId();
 			if(discountMap.get(keyId)!=null){
 				rateMap.put(keyId, tariff.getTariff()*discountMap.get(keyId)/100);
 			}
@@ -284,7 +284,7 @@ public class PTQueryController{
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="copy", method = RequestMethod.POST)
+	@RequestMapping(value="copy", method = RequestMethod.GET)
 	public String copy(Model model) {
 		List<Business> businessList = new ArrayList<Business>();
 		BusinessVO businessVO = new BusinessVO();

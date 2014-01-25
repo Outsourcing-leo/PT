@@ -8,9 +8,9 @@
 				<col column="id" label="id" displaytype="hidden"/>
 				<col column="{sequence:1}" label="sequence"/>
 <!-- 				<col column="DEPOTID" label="DEPOTID" displaytype="hidden"/>
- -->			<col column="DEPOTID" label="depot" />
-				<col column="USERNAME" label="username"/>
-				<col column="MAILLIST" label="mailList" />
+ -->			<col column="DEPOTID" label="Depot" />
+				<col column="USERNAME" label="Username"/>
+				<col column="MAILLIST" label="MailList" />
 				<col column="type" label="type" displaytype="hidden" />
 			</display>
 			<sql>

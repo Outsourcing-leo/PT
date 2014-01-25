@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<applications xmlns="http://www.wabacus.com"
+			   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			   xsi:schemaLocation="http://www.wabacus.com ../xsd/wabacus.applications.xsd">
+	<page id="WeightbandGrouplistpage">
+		<report id="WeightbandGroup" title="WeightbandGroup list" rowselect="multiple-checkbox|true" pagesize="10" scrollstyle="image" height="300px" width="100%" type="editablelist">
+			<display>
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="{sequence:1}" label="sequence"/>
+				<col column="name" label="Name"/>
+			</display>
+			<sql>
+				<select>
+				<value>
+					<![CDATA[SELECT * FROM PT_WEIGHTBANDGroup where {#condition#} order by id]]>
+				</value>
+				<condition name="txtname" label="name" labelposition="left">
+					<value>
+						<![CDATA[(name like '%#data#%' )]]>
+					</value>
+				</condition>
+				</select>
+				 <insert pageurl="report{WeightbandGroupformpage.report1}" popupparams="{title:'create WeightbandGroup',width:650,height:400}"></insert>
+				 <update pageurl="report{WeightbandGroupformpage.report1}" urlparams="txtid=@{id}" popupparams="{title:'update WeightbandGroup',width:650,height:400}"></update>
+				 <delete>
+				  	delete from PT_WEIGHTBANDGroup where id=@{id__old};
+				</delete>
+			</sql>
+			<format>
+			  <value>
+			  </value>
+			</format>
+		</report>
+	</page>
+	
+		<!-- 表单篇报表类型 -->
+	<page id="WeightbandGroupformpage" js="/webresources/script/validate.js">
+		<report id="report1" title="WeightbandGroup Detail" type="form" >
+			<display valuetdwidth="150px" labeltdwidth="100px" labelbgcolor="#f0f0f0" labelalign="right" valuealign="left">
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="name" label="name"/>
+			</display>
+			<sql>
+			  <select>
+				<value>
+					<![CDATA[SELECT  id,name FROM PT_WEIGHTBANDGroup where {#condition#}]]>
+				</value>
+				<condition name="txtid" hidden="true">
+					<value>
+						<![CDATA[(id = '#data#' )]]>
+					</value>
+				</condition>
+			  </select>
+			  <insert>
+			  	  <params>
+				  	 	<param name="id" value="sequence{SEQ_PRODUCT}"></param>
+				  </params>
+				  <value>
+			  	         insert into PT_WEIGHTBANDGroup (id=#{id},@{name});
+			  	 </value>
+			  </insert>
+			  <update>
+			 	 update PT_WEIGHTBANDGroup(@{name}) where id=@{id__old};
+			  </update>
+			</sql>
+			<format>
+			
+			</format>
+		</report>
+	</page>
+</applications>

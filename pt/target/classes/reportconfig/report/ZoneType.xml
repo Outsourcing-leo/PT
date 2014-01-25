@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<applications xmlns="http://www.wabacus.com"
+			   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			   xsi:schemaLocation="http://www.wabacus.com ../xsd/wabacus.applications.xsd">
+	<page id="ZoneTypelistpage">
+		<report id="ZoneType" title="ZoneType list" rowselect="multiple-checkbox|true" pagesize="10" scrollstyle="image" height="300px" width="100%" type="editablelist">
+			<display>
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="{sequence:1}" label="sequence"/>
+				<col column="ZONETYPE" label="ZoneType" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="DOCUMENT" label="Document" displaytype="hidden"/>
+				<col column="NONDOCUMENT" label="Non Document" displaytype="hidden"/>
+				<col column="ECONOMY" label="Economy" displaytype="hidden"/>
+				<col column="doc" label="Document" />
+				<col column="non" label="Non Document" />
+				<col column="eco" label="Economy" />
+				<col column="ISAVAILABLE" label="Is Available" />
+				<col column="REMARK" label="Remark"/>
+			</display>
+			<sql>
+				<select>
+				<value>
+					<![CDATA[SELECT pz.ID,ZONETYPE,pd1.product as doc ,DOCUMENT,pd2.product as non ,NONDOCUMENT,pd3.product as eco ,ECONOMY,pz.ISAVAILABLE,pz.REMARK 
+					      FROM PT_ZONETYPE pz inner join PT_PRODUCT pd1 on pd1.id =DOCUMENT inner join PT_PRODUCT pd2 on pd2.id =NONDOCUMENT inner join PT_PRODUCT pd3 on pd3.id =ECONOMY  order by id]]>
+				</value>
+				</select>
+				 <insert pageurl="report{ZoneTypeformpage.report1}"  popupparams="{title:'create ZoneType',width:650,height:400}"></insert>
+				 <update pageurl="report{ZoneTypeformpage.report1}" urlparams="txtid=@{id}" popupparams="{title:'update ZoneType',width:650,height:400}"></update>
+				 <delete>
+				  	delete from PT_ZONETYPE where id=@{id__old};
+				</delete>
+			</sql>
+			<format>
+			  <value>
+					ISAVAILABLE=ISAVAILABLE==null?"1":ISAVAILABLE.trim();
+					if(ISAVAILABLE.equals("0")) ISAVAILABLE="yes";
+					else ISAVAILABLE="no";
+			  </value>
+			</format>
+		</report>
+	</page>
+	
+		<!-- 表单篇报表类型 -->
+	<page id="ZoneTypeformpage" js="/webresources/script/validate.js">
+		<report id="report1" title="ZoneType Detail" type="form" >
+			<display valuetdwidth="150px" labeltdwidth="100px" labelbgcolor="#f0f0f0" labelalign="right" valuealign="left">
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="ZONETYPE" label="zoneType">
+					<inputbox type="selectbox" servervalidate="isNotEmpty(${invalid.isnotempty})">
+						<option source="@{select distinct ZONETYPE from PT_ZONEGROUP}" label="ZONETYPE" value="ZONETYPE"/>
+					</inputbox>
+				</col>
+				<col column="DOCUMENT" displaytype="hidden"/>
+				<col column="doc" label="D_PRODUCT" updatecol="@{DOCUMENT}" br="true">
+					<inputbox type="selectbox" servervalidate="isNotEmpty(${invalid.isnotempty})">
+						<option source="@{select id,product  from PT_PRODUCT where producttype=0}" label="product" value="id"/>
+					</inputbox>
+				</col>
+				<col column="NONDOCUMENT" label="nonDocument" displaytype="hidden"/>
+				<col column="non" label="N_PRODUCT" updatecol="@{NONDOCUMENT}" >
+					<inputbox type="selectbox" servervalidate="isNotEmpty(${invalid.isnotempty})">
+						<option source="@{select id,product from PT_PRODUCT where producttype=1}" label="product" value="id"/>
+					</inputbox>
+				</col>
+				<col column="ECONOMY" label="economy"  displaytype="hidden"/>
+				<col column="eco" label="E_PRODUCT" updatecol="@{ECONOMY}" br="true">
+					<inputbox type="selectbox" servervalidate="isNotEmpty(${invalid.isnotempty})">
+						<option source="@{select id,product from PT_PRODUCT where producttype=2}" label="product" value="id"/>
+					</inputbox>
+				</col>
+				<col column="ISAVAILABLE" label="isAvailable"  >
+					<inputbox type="selectbox">
+						<option value="0" label="yes"/> 
+						<option value="1" label="no"/>
+					</inputbox>
+				</col>  
+				<col column="REMARK" label="remark"/>
+			</display>
+			<sql>
+			  <select>
+				<value>
+					<![CDATA[SELECT pz.ID,ZONETYPE,pd1.product as doc ,DOCUMENT,pd2.product as non ,NONDOCUMENT,pd3.product as eco ,ECONOMY,pz.ISAVAILABLE,pz.REMARK 
+					      FROM PT_ZONETYPE pz inner join PT_PRODUCT pd1 on pd1.id =DOCUMENT inner join PT_PRODUCT pd2 on pd2.id =NONDOCUMENT inner join PT_PRODUCT pd3 on pd3.id =ECONOMY where {#condition#} ]]>
+				</value>
+				<condition name="txtid" hidden="true">
+					<value>
+						<![CDATA[(pz.id = '#data#' )]]>
+					</value>
+				</condition>
+			  </select>
+			  <insert>
+			  	  <params>
+				  	 	<param name="id" value="sequence{SEQ_PRODUCT}"></param>
+				  </params>
+				  <value>
+			  	         insert into PT_ZONETYPE(id=#{id},@{ZONETYPE},@{DOCUMENT},@{NONDOCUMENT},@{ECONOMY},@{ISAVAILABLE},@{REMARK});
+			  	 </value>
+			  </insert>
+			  <update>
+			 	 update PT_ZONETYPE(@{ZONETYPE},@{DOCUMENT},@{NONDOCUMENT},@{ECONOMY},@{ISAVAILABLE},@{REMARK}) where id=@{id__old};
+			  </update>
+			</sql>
+			<format>
+			
+			</format>
+		</report>
+	</page>
+</applications>

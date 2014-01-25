@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<applications xmlns="http://www.wabacus.com"
+			   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			   xsi:schemaLocation="http://www.wabacus.com ../xsd/wabacus.applications.xsd">
+	<page id="tariffGrouplistpage">
+		<report id="tariffGroup" title="tariffGroup list" rowselect="multiple-checkbox|true" pagesize="10" scrollstyle="image" height="300px" width="100%" type="editablelist">
+			<display>
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="{sequence:1}" label="sequence"/>
+				<col column="WEIGHT" label="Weight"/>
+				<col column="product" label="Product"/>
+				<col column="wname" label="WeightBand"/>
+				<col column="type" label="Type"/>
+			</display>
+			<sql>
+				<select>
+				<value>
+					<![CDATA[SELECT  tg.id,tg.WEIGHT,tg.type,tg.WEIGHTBANDID,wb.name as wname,pt.name as product FROM PT_tariffGroup tg left join PT_WEIGHTBAND wb on wb.id =tg.WEIGHTBANDID 
+					inner join PT_PRODUCT pt on pt.id = wb.PRODUCTID where {#condition#} order by tg.id]]>
+				</value>
+				<condition name="txtweight" label="Weight" labelposition="left">
+					<value>
+						<![CDATA[(Weight like '%#data#%' )]]>
+					</value>
+				</condition>
+				</select>
+				 <insert pageurl="report{tariffGroupformpage.report1}" popupparams="{title:'create tariffGroup',width:650,height:400}"></insert>
+				 <update pageurl="report{tariffGroupformpage.report1}" urlparams="txtid=@{id}" popupparams="{title:'update tariffGroup',width:650,height:400}"></update>
+				 <delete>
+				  	delete from PT_tariffGroup where id=@{id__old};
+				</delete>
+			</sql>
+			<format>
+			  <value>
+			  </value>
+			</format>
+		</report>
+	</page>
+	
+		<!-- 表单篇报表类型 -->
+	<page id="tariffGroupformpage" js="/webresources/script/validate.js">
+		<report id="report1" title="tariffGroup Detail" type="form" >
+			<display valuetdwidth="150px" labeltdwidth="100px" labelbgcolor="#f0f0f0" labelalign="right" valuealign="left">
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="productid" label="product">
+					<inputbox type="selectbox" >
+						<option source="@{select id,name from PT_product}" label="name" value="id"/>
+					</inputbox>
+				</col>
+				<col column="WEIGHTBANDID" label="WEIGHTBANDID" displaytype="hidden"/>
+				<col column="wname" label="weightBand" updatecol="@{WEIGHTBANDID}" br="true">
+					<inputbox type="selectbox" depends="productid">
+						<option source="@{select id,NAME as wname from PT_WEIGHTBAND where PRODUCTID = '#productid#'}" label="wname" value="id"/>
+					</inputbox>
+				</col>
+				<col column="WEIGHT" label="Weight" >
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty});isNumeric(${invalid.number})" afterdescription="*"/>
+				</col>
+				<col column="type" label="type" br="true">
+					<inputbox type="selectbox">
+						<option value="SenderPay" label="SenderPay"/> 
+						<option value="ReceivePay" label="ReceivePay"/>
+						<option value="Both" label="Both"/>
+					</inputbox>
+				</col>  
+			</display>
+			<sql>
+			  <select>
+				<value>
+					<![CDATA[SELECT  tg.id,tg.WEIGHT ,tg.type,tg.WEIGHTBANDID,wb.name as wname,pt.id as productid FROM PT_tariffGroup tg left join PT_WEIGHTBAND wb on wb.id =tg.WEIGHTBANDID 
+					inner join PT_PRODUCT pt on pt.id = wb.PRODUCTID where {#condition#}]]>
+				</value>
+				<condition name="txtid" hidden="true">
+					<value>
+						<![CDATA[(tg.id = '#data#' )]]>
+					</value>
+				</condition>
+			  </select>
+			  <insert>
+			  	  <params>
+				  	 	<param name="id" value="sequence{SEQ_PRODUCT}"></param>
+				  </params>
+				  <value>
+			  	         insert into PT_tariffGroup (id=#{id},@{WEIGHT},@{WEIGHTBANDID},@{productid},@{type});
+			  	 </value>
+			  </insert>
+			  <update>
+			 	 update PT_tariffGroup(@{WEIGHT},@{WEIGHTBANDID},@{productid},@{type}) where id=@{id__old};
+			  </update>
+			</sql>
+			<format>
+			
+			</format>
+		</report>
+	</page>
+</applications>

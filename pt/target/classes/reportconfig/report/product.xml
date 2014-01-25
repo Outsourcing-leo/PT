@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<applications xmlns="http://www.wabacus.com"
+			   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			   xsi:schemaLocation="http://www.wabacus.com ../xsd/wabacus.applications.xsd">
+	<page id="productlistpage">
+		<report id="product" title="product list" rowselect="multiple-checkbox|true" pagesize="10" scrollstyle="image" height="300px" width="100%" type="editablelist">
+			<display>
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="{sequence:1}" label="sequence"/>
+				<col column="PRODUCT" label="Product" clickorderby="true" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="PRODUCTTYPE" label="Product Type" />
+				<col column="NAME" label="Name"/>
+				<col column="REMARK" label="Remark" />
+				<col column="ISAVAILABLE" label="Is Available" />
+				<!-- <col column="ISHIGHWEIGHT" label="isHighWeight"/>
+				<col column="HIGHWEIGHTID" label="HighWeightId" displaytype="hidden"/>
+				<col column="HIGHWEIGHTNAME" label="High Weight Name"  /> -->
+			</display>
+			<sql>
+				<select>
+				<value>
+					<![CDATA[SELECT prdouct.ID,PRODUCT,PRODUCTTYPE,prdouct.NAME,REMARK,ISAVAILABLE,ISHIGHWEIGHT,HIGHWEIGHTID,hw.name as  HIGHWEIGHTNAME FROM PT_PRODUCT prdouct left join PT_HIGHWEIGHTBAND hw on hw.id =HIGHWEIGHTID   where {#condition#} order by id]]>
+				</value>
+				<condition name="txtproduct" label="product" labelposition="left">
+					<value>
+						<![CDATA[(product like  '%#data#%' )]]>
+					</value>
+				</condition>
+				<condition name="txtproductType" label="productType" labelposition="left">
+					<value>
+						<![CDATA[(productType like  '%#data#%' )]]>
+					</value>
+				</condition>
+				</select>
+				 <insert pageurl="report{productformpage.report1}" popupparams="{title:'create product',width:650,height:400}"></insert>
+				 <update pageurl="report{productformpage.report1}" urlparams="txtid=@{id}" popupparams="{title:'update product',width:650,height:400}"></update>
+				 <delete>
+				  	delete from PT_PRODUCT where id=@{id__old};
+				</delete>
+			</sql>
+			<format>
+			  <value>
+				    ISAVAILABLE=ISAVAILABLE==null?"1":ISAVAILABLE.trim();
+					if(ISAVAILABLE.equals("0")) ISAVAILABLE="yes";
+					else ISAVAILABLE="no";
+					
+					<!-- ISHIGHWEIGHT=ISHIGHWEIGHT==null?"1":ISHIGHWEIGHT.trim();
+					if(ISHIGHWEIGHT.equals("0")) ISHIGHWEIGHT="yes";
+					else ISHIGHWEIGHT="no";
+					 -->
+					 
+					PRODUCTTYPE=PRODUCTTYPE==null?"1":PRODUCTTYPE.trim();
+					if(PRODUCTTYPE.equals("0")) PRODUCTTYPE="Document";
+					else if(PRODUCTTYPE.equals("1")) PRODUCTTYPE="Non-Dcoument";
+					else  PRODUCTTYPE="Economy";
+			  </value>
+			</format>
+		</report>
+	</page>
+	
+		<!-- 表单篇报表类型 -->
+	<page id="productformpage" js="/webresources/script/validate.js">
+		<report id="report1" title="product Detail" type="form" >
+			<display valuetdwidth="150px" labeltdwidth="100px" labelbgcolor="#f0f0f0" labelalign="right" valuealign="left">
+				<col column="id" label="id" displaytype="hidden"/>
+				<col column="PRODUCT" label="product" >
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty})" afterdescription="*"/>
+				</col>
+				<col column="PRODUCTTYPE" label="productType"  br="true">
+					<inputbox type="selectbox">
+						<option value="0" label="Document"/> 
+						<option value="1" label="Non-Dcoument"/>
+						<option value="2" label="Economy"/>
+					</inputbox>
+				</col>  
+				<col column="NAME" label="name" >
+					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty})" afterdescription="*"/>
+				</col>
+				<col column="REMARK" label="remark"  br="true" />
+				<col column="ISAVAILABLE" label="isAvailable" valuestyleproperty="colspan='3'">
+					<inputbox type="selectbox">
+						<option value="0" label="yes"/> 
+						<option value="1" label="no"/>
+					</inputbox>
+				</col>  
+				<!-- 
+				<col column="ISHIGHWEIGHT" label="isHighWeight" br="true">
+					<inputbox type="selectbox">
+						<option value="0" label="yes"/> 
+						<option value="1" label="no"/>
+					</inputbox>
+				</col>  
+				<col column="HIGHWEIGHTID" label="HighWeightId" displaytype="hidden" />
+				<col column="HIGHWEIGHTNAME" label="High Weight Name" updatecol="@{HIGHWEIGHTID}" valuestyleproperty="colspan='3'">
+					<inputbox type="selectbox" servervalidate="isNotEmpty(${invalid.isnotempty})">
+						<option label="select" value=""/>
+						<option source="@{select id,NAME from PT_HIGHWEIGHTBAND}" label="NAME" value="id"/>
+					</inputbox>
+				</col>
+				 -->
+			</display>
+			<sql>
+			  <select>
+				<value>
+					<![CDATA[SELECT prdouct.ID,PRODUCT,PRODUCTTYPE,prdouct.NAME,REMARK,ISAVAILABLE FROM PT_PRODUCT prdouct where {#condition#}]]>
+				</value>
+				<condition name="txtid" hidden="true">
+					<value>
+						<![CDATA[(prdouct.id = '#data#' )]]>
+					</value>
+				</condition>
+			  </select>
+			  <insert>
+			  	  <params>
+				  	 	<param name="id" value="sequence{SEQ_PRODUCT}"></param>
+				  </params>
+				  <value>
+			  	         insert into PT_PRODUCT(id=#{id},@{PRODUCT},@{PRODUCTTYPE},@{NAME},@{REMARK},@{ISAVAILABLE});
+			  	 </value>
+			  </insert>
+			  
+			  <update>
+			 	 update PT_PRODUCT(@{PRODUCT},@{PRODUCTTYPE},@{NAME},@{REMARK},@{ISAVAILABLE}) where id=@{id__old};
+			  </update>
+			</sql>
+			<format>
+			
+			</format>
+		</report>
+	</page>
+</applications>

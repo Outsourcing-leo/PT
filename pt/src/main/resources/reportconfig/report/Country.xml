@@ -7,16 +7,19 @@
 			<display>
 				<col column="id" label="id" displaytype="hidden"/>
 				<col column="{sequence:1}" label="sequence"/>
-				<col column="COUNTRYCODE" label="country Code" valuestyleproperty="style='mso-number-format:\@'"/>
-				<col column="COUNTRYNAME" label="country Name" />
-				<col column="DEPOTCODE" label="depot Code"/>
-				<col column="ISAVAILABLE" label="isAvailable" />   
-				<col column="ISHEAVY" label="isHeavy" />                                        
+				<col column="COUNTRYCODE" label="Country Code" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="COUNTRYNAME" label="Country Name" />
+				<col column="DEPOTCODE" label="Depot Code"/>
+				<col column="ISAVAILABLE" label="Is Available" />   
+				<col column="ISHEAVY" label="Is Heavy" />   
+				<col column="IS15DAvailable" label="Is 15D Available" /> 
+				<col column="IS15NAvailable" label="Is 15N Available" /> 
+				<col column="IS48NAvailable" label="Is 48N Available" />                                      
 			</display>
 			<sql>
 				<select>
 				<value>
-					<![CDATA[SELECT ID,COUNTRYCODE,COUNTRYNO,COUNTRYNAME,DEPOTCODE,ISAVAILABLE,ISHEAVY FROM PT_COUNTRY where {#condition#} order by id]]>
+					<![CDATA[SELECT ID,COUNTRYCODE,COUNTRYNO,COUNTRYNAME,DEPOTCODE,ISAVAILABLE,ISHEAVY,IS15DAvailable,IS15NAvailable,IS48NAvailable  FROM PT_COUNTRY where {#condition#} order by id]]>
 				</value>
 				<condition name="txtcountryCode" label="country Code" labelposition="left">
 					<value>
@@ -39,7 +42,19 @@
 			  <value>
 				    ISAVAILABLE=ISAVAILABLE==null?"1":ISAVAILABLE.trim();
 					if(ISAVAILABLE.equals("0")) ISAVAILABLE="yes";
-					else ISAVAILABLE="no";
+					else ISAVAILABLE="no"; 
+					
+					IS15DAvailable=IS15DAvailable==null?"1":IS15DAvailable.trim();
+					if(IS15DAvailable.equals("0")) IS15DAvailable="yes";
+					else IS15DAvailable="no";
+					
+					IS15NAvailable=IS15NAvailable==null?"1":IS15NAvailable.trim();
+					if(IS15NAvailable.equals("0")) IS15NAvailable="yes";
+					else IS15NAvailable="no";
+					
+					IS48NAvailable=IS48NAvailable==null?"1":IS48NAvailable.trim();
+					if(IS48NAvailable.equals("0")) IS48NAvailable="yes";
+					else IS48NAvailable="no";
 					
 					ISHEAVY=ISHEAVY==null?"1":ISHEAVY.trim();
 					if(ISHEAVY.equals("0")) ISHEAVY="yes";
@@ -64,7 +79,7 @@
 					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty})" afterdescription="*"/>
 				</col>
 				<col column="DEPOTCODE" label="depot Code" br="true">
-					<inputbox jsvalidate="isNotEmpty(${invalid.isnotempty})" afterdescription="*"/>
+					
 				</col>
 				<col column="ISAVAILABLE" label="isAvailable" >
 					<inputbox type="selectbox">
@@ -72,7 +87,25 @@
 						<option value="1" label="no"/>
 					</inputbox>
 				</col>  
-				<col column="ISHEAVY" label="isHeavy" >
+				<col column="ISHEAVY" label="isHeavy"  br="true">
+					<inputbox type="selectbox">
+						<option value="0" label="yes"/> 
+						<option value="1" label="no"/>
+					</inputbox>
+				</col>  
+				<col column="IS15DAvailable" label="Is 15D Available" >
+					<inputbox type="selectbox">
+						<option value="0" label="yes"/> 
+						<option value="1" label="no"/>
+					</inputbox>
+				</col>  
+				<col column="IS15NAvailable" label="Is 15N Available"   br="true">
+					<inputbox type="selectbox">
+						<option value="0" label="yes"/> 
+						<option value="1" label="no"/>
+					</inputbox>
+				</col>  
+				<col column="IS48NAvailable" label="Is 48N Available" >
 					<inputbox type="selectbox">
 						<option value="0" label="yes"/> 
 						<option value="1" label="no"/>
@@ -82,7 +115,7 @@
 			<sql>
 			  <select>
 				<value>
-					<![CDATA[SELECT ID,COUNTRYCODE,COUNTRYNO,COUNTRYNAME,DEPOTCODE,ISAVAILABLE,ISHEAVY FROM PT_COUNTRY where {#condition#}]]>
+					<![CDATA[SELECT ID,COUNTRYCODE,COUNTRYNO,COUNTRYNAME,DEPOTCODE,ISAVAILABLE,ISHEAVY,IS15DAvailable,IS15NAvailable,IS48NAvailable FROM PT_COUNTRY where {#condition#}]]>
 				</value>
 				<condition name="txtid" hidden="true">
 					<value>
@@ -95,11 +128,11 @@
 				  	 	<param name="id" value="sequence{SEQ_PRODUCT}"></param>
 				  </params>
 				  <value>
-			  	      insert into PT_COUNTRY(id=#{id},@{COUNTRYCODE},@{COUNTRYNO},@{COUNTRYNAME},@{DEPOTCODE},@{ISAVAILABLE},@{ISHEAVY});
+			  	      insert into PT_COUNTRY(id=#{id},@{COUNTRYCODE},@{COUNTRYNO},@{COUNTRYNAME},@{DEPOTCODE},@{ISAVAILABLE},@{ISHEAVY},@{IS15DAvailable},@{IS15NAvailable},@{IS48NAvailable});
 			  	 </value>
 			  </insert>
 			  <update>
-			 		  update PT_COUNTRY(@{COUNTRYCODE},@{COUNTRYNO},@{COUNTRYNAME},@{DEPOTCODE},@{ISAVAILABLE},@{ISHEAVY}) where id=@{id__old};
+			 		  update PT_COUNTRY(@{COUNTRYCODE},@{COUNTRYNO},@{COUNTRYNAME},@{DEPOTCODE},@{ISAVAILABLE},@{ISHEAVY},@{IS15DAvailable},@{IS15NAvailable},@{IS48NAvailable}) where id=@{id__old};
 			  </update>
 			</sql>
 			<format>

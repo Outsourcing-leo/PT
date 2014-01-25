@@ -20,12 +20,17 @@
 	</select>
 	
 	
-	<select id="getAllspecificConsignmentSetByBusId" parameterType="Long" resultType="SpecificConsignmentSet">
-		select * from pt_specificConsignmentSet where businessId=#{businessId}
+	<select id="getAllspecificConsignmentSetByBusId" parameterType="map" resultType="SpecificConsignmentSet">
+		select * from pt_specificConsignmentSet where businessId=#{businessId} and payment=#{payment}
 	</select>
 		
-	<select id="getALLCountryListinSpec" parameterType="Long" resultType="Country">
-		select distinct(countryid) ,b.*  from pt_specificconsignmentset a left join pt_country b on a.countryid =b.id where businessId=#{businessId} and productId = #{productId} and zonegroupId = #{zonegroupId}
+	<select id="getALLCountryListinSpec" parameterType="map" resultType="Country">
+		select distinct(countryid) ,b.*  from pt_specificconsignmentset a left join pt_country b on a.countryid =b.id where businessId=#{businessId} and productId = #{productId} and zonegroupId = #{zonegroupId} and payment = #{payment}
+	</select>
+	
+	
+	<select id="getCountrysInSpec" parameterType="map" resultType="Long">
+		select distinct(countryid) from pt_specificconsignmentset a left join pt_country b on a.countryid =b.id where businessId=#{businessId} and zonegroupId = #{zonegroupId} and weightbandId = #{weightbandId} and payment = #{payment}
 	</select>
 	
 	<insert id="batchInsert" parameterType="java.util.List">
@@ -41,6 +46,12 @@
 	     <where>
 			<if test="businessId != null">
 				businessId=#{businessId}
+			</if>
+			<if test="productId != null">
+				and productId=#{productId}
+			</if>
+			<if test="zoneGroupId != null">
+				and zoneGroupId=#{zoneGroupId}
 			</if>
 			<if test="payment != null">
 				and  payment=#{payment}

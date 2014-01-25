@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.BusinessDao">
+	<sql id="Example_Where_Clause">
+	where 1=1
+	<trim  suffixOverrides="," >
+		<if test="applicationReference != null and applicationReference !='' ">
+				and applicationReference = #{applicationReference}
+		</if>
+		<if test="account != null and account!='' ">
+				and account = #{account}
+		</if>
+		<if test="startDate != null and startDate != '' ">
+				and applicationDate &gt;= to_date(#{startDate},'yyyy-mm-dd')
+		</if>
+		<if test="endDate != null and endDate != '' ">
+				and applicationDate &lt;= to_date(#{endDate},'yyyy-mm-dd')
+		</if>
+		<if test="state != null and state != '' ">
+				and state =#{state}
+		</if>
+		<if test="depot != null and depot != '' ">
+				and depotcode =#{depot}
+		</if>
+	</trim>
+	</sql>
+	
+	<select id="get" parameterType="Long" resultType="Business">
+		select * from pt_business where id=#{id}
+	</select>
+	
+	<select id="selectByVOCount" resultType="java.lang.Integer"  parameterType="org.tnt.pt.vo.BusinessVO">
+	select count(1) from pt_business left join pt_customer on pt_customer.id=pt_business.customerid
+	<include refid="Example_Where_Clause"/>
+	</select>
+	
+	<select id="getMaxNum" parameterType="map" resultType="Integer">
+		select max(SUFFIX) from pt_business inner join pt_customer on   pt_business.CUSTOMERID = pt_customer.id
+		<where>
+			1=1
+			<if test="depotCode != null  and depotCode != '' ">
+				and DEPOTCODE=#{depotCode}
+			</if>
+			<if test="date != null  and date != '' ">
+				and to_char(APPLICATIONDATE,'yyyyMMdd') =  #{date}
+			</if>
+			<if test="channel != null  and channel != '' ">
+				and CHANNEL=#{channel}
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="findAll" parameterType="map" resultType="Business">
+		select * from pt_business
+	</select>
+	
+	<select id="getBusinessByBusiness" parameterType="org.tnt.pt.vo.BusinessVO" resultType="Business">
+		${navigate.oracleQueryPreCondition}
+		select pt_business.*,account,cusName,channel from pt_business left join pt_customer on pt_customer.id=pt_business.customerid 
+		<include refid="Example_Where_Clause"/>
+		order by pt_business.id desc
+		${navigate.oracleQuerySufCondition}
+	</select>
+	
+	<select id="getAnalysePT" parameterType="String" resultType="org.tnt.pt.entity.PTSLoad">
+		select bb.depotcode,bb.totalNum,aa.newsNum
+		from (select count(depotcode) as newsNum,depotcode from pt_business where 1=1
+		and state =#{state}
+		 group by depotcode) aa,
+  		(select count(depotcode) as totalNum,depotcode from pt_business group by depotcode) bb
+		where aa.depotcode=bb.depotcode
+	</select>
+	
+	
+	<insert id="insert" parameterType="Business" >
+		<selectKey  resultType="java.lang.Long" keyProperty="id"  order="BEFORE">  
+			<![CDATA[select SEQ_BUSINESS.NEXTVAL AS id FROM DUAL]]>  
+		</selectKey> 
+		insert into pt_business(id, customerId,reson,applicationDate,depotCode,isNewCus,territory,isDocumentSender,consStop,description,weightRange,applicationReference,ZONETYPE,STATE,SUFFIX,isFollow,TELPHONE,USERNAME)
+		values (#{id}, #{customerId},#{reson},#{applicationDate},#{depotCode},#{isNewCus},#{territory},#{isDocumentSender},#{consStop},#{description},#{weightRange},#{applicationReference}
+		,#{zoneType},#{state},#{suffix},#{isFollow,jdbcType=VARCHAR},#{telPhone},#{userName})
+	</insert>
+	 
+	<update id="update" parameterType="Business">
+		update pt_business set zoneType=#{zoneType} where id=#{id}
+	</update>
+	
+	<update id="updateBus" parameterType="Business">
+	update pt_business set reson=#{reson},isNewCus=#{isNewCus},territory=#{territory},
+	isDocumentSender=#{isDocumentSender},consStop=#{consStop},description=#{description},weightRange=#{weightRange},zoneType=#{zoneType},telPhone = #{telPhone}
+	 where id=#{id}
+	</update>
+ 
+	<update id="updateTotalRev_R" parameterType="map" >
+		update pt_business set TOTALREV_R=#{totalRev} where id=#{businessId}
+	</update>
+	
+	<update id="updateTotalRev_S" parameterType="map" >
+		update pt_business set TOTALREV_S=#{totalRev} where id=#{businessId}
+	</update>
+	
+	<update id="updateTotalRev" parameterType="map" >
+		update pt_business set TOTALREV=#{totalRev} where id=#{businessId}
+	</update>
+	
+	<delete id="delete" parameterType="Long">
+		delete from  pt_business where id=#{id}
+	</delete>
+	
+	
+	<update id="updateState" parameterType="Business">
+		update pt_business set state=#{state}
+		<if test="effectiveDate != null  and effectiveDate != '' ">
+				,effectiveDate = #{effectiveDate}
+		</if>
+		where id=#{id}
+	</update>
+	
+	<!--
+	<update id="updateState" parameterType="map">
+		update pt_business set state=#{state} where businessId=#{businessId}
+	</update>
+	-->
+</mapper> 

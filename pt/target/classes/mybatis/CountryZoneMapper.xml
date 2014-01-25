@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.CountryZoneDao">
+	<!--
+		获取用户: 输出直接映射到对象, login_name列要"as loginName"以方便映射 ,team_id as "team.id"创建team对象并赋值
+	-->
+	<select id="get" parameterType="int" resultType="CountryZone">
+		select * from pt_country_zone where id=#{id}
+	</select>
+	
+	
+	<select id="findAll" parameterType="map" resultType="CountryZone">
+		select * from pt_country_zone 
+	</select>
+	
+	<select id="findAllByCountryId" parameterType="Long" resultType="CountryZone">
+		select ID,COUNTRYID,ZONEGROUPID,RATIO from pt_country_zone where COUNTRYID = #{countryId}
+	</select>
+
+	<select id="getAllGEO" parameterType="map" resultType="String">
+		select distinct(GEOZONE) from pt_country_zone  where GEOZONE is not null
+	</select>
+	
+	<select id="getAllCountryByGeo" parameterType="String" resultType="Long">
+		select COUNTRYID from pt_country_zone  where GEOZONE = #{geo}
+	</select>
+	
+	<select id="getAllCountryByZoneGroup" parameterType="Long" resultType="Long">
+		select COUNTRYID from pt_country_zone  where ZONEGROUPID = #{zonegroupId} and DEFAULTCOUNTRY = 0
+	</select>
+	
+</mapper> 

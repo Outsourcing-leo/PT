@@ -7,9 +7,9 @@
 			<display>
 				<col column="id" label="id" displaytype="hidden"/>
 				<col column="{sequence:1}" label="sequence"/>
-				<col column="ZONETYPE" label="zoneType" valuestyleproperty="style='mso-number-format:\@'"/>
-				<col column="ZONE" label="zone" />
-				<col column="REMARK" label="remark"/>
+				<col column="ZONETYPE" label="ZoneType" valuestyleproperty="style='mso-number-format:\@'"/>
+				<col column="ZONE" label="Zone" />
+				<col column="REMARK" label="Remark"/>
 			</display>
 			<sql>
 				<select>

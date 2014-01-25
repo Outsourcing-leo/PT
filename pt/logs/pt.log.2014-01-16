@@ -1,0 +1,5 @@
+2014-01-16 22:14:35,872 [qtp20914447-23] DEBUG [java.sql.Connection] - ooo Using Connection [jdbc:oracle:thin:@164.39.68.43:1521:dms, UserName=DMS, Oracle JDBC driver]
+2014-01-16 22:14:35,879 [qtp20914447-23] DEBUG [java.sql.Connection] - ==>  Preparing: select * from dms.V_PT_USER_PRI where userName = ? and password =? and rownum = 1 
+2014-01-16 22:14:36,104 [qtp20914447-23] DEBUG [java.sql.PreparedStatement] - ==> Parameters: F706RNK(String), China123(String)
+2014-01-16 22:14:36,190 [qtp20914447-23] INFO  [jdbc.sqltiming] - select * from dms.V_PT_USER_PRI where userName = 'F706RNK' and password ='China123' and rownum 
+= 1  {executed in 85 msec}

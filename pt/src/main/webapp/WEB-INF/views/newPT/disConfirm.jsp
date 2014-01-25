@@ -7,6 +7,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<%
+response.setHeader("Pragma","No-cache");    
+response.setHeader("Cache-Control","no-cache");    
+response.setDateHeader("Expires", -10);   
+%> 
 <title>New PT-Discount Confirmed</title>
 <link href="${ctx}/static/styles/main.css" type="text/css" rel="stylesheet" />
 <script src="${ctx}/static/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
@@ -21,7 +26,7 @@
 	}
 </script>
 <body>
-<form action="#${ctx}/ptCreate/disConfirm" method="post" id="disConfirm">
+<form action="${ctx}/ptCreate/disConfirm/confirm" method="post" id="disConfirm">
 	<div style="padding:5px;">
   <h4 class="title">New PT-Discount Confirmed</h4>
 <table class="table_A">
@@ -39,7 +44,7 @@
       <th>PT Application Reference #: </th>
       <td>${business.applicationReference}<input type="hidden" value="${business.applicationReference}" name="business.applicationReference"></td>
       <th>Terms of payments:</th>
-      <td>${customer.payment}<input type="hidden" value="${customer.payment}" name="customer.payment"></td>
+      <td>${payment}<input type="hidden" value="${customer.payment}" name="customer.payment"></td>
       </tr><tr>
       <th>Zone type:</th>
       <td colspan="3">
@@ -92,6 +97,7 @@
 <script type="text/javascript">
 	$(function(){
 		$("#zoneType").change(function(){
+			alert( $("#disConfirm").attr('action'));
 			$("#disConfirm").submit();
 		});
 	});
@@ -123,7 +129,7 @@
                 success:function(data){
                 	if($('#isFollow').val()=='NO'&&$('#payment').val()=='<%=PTPARAMETERS.PAYMENT[0]%>'){
                 		$('#payment').val('<%=PTPARAMETERS.PAYMENT[1]%>');
-                		$("#disConfirm").attr('action',"${ctx}/ptCreate/disConfirm");
+                		$("#disConfirm").attr('action',"${ctx}/ptCreate/disConfirm/confirm");
                 		$("#disConfirm").submit();
                 	}else{
                 		$('#payment').val('');

@@ -18,12 +18,16 @@
 			//为inputForm注册validate函数
 			$("#busCus").validate();
 		});
-		window.confirm = function(str) {   
+		/*window.confirm = function(str) {   
 			str=str.replace(/\'/g,   "'&chr(39)&'").replace(/\r\n|\n|\r/g,   "'&VBCrLf&'");   
-			execScript("ret=msgbox('"+str+"',52)","vbscript");
+			execScript('ret=msgbox("'+str+'",52)','vbscript');
 			return (ret); 
-		}
-		
+		}*/
+		window.confirm = function(str)   
+		{   
+		      execScript("n = (msgbox('"+str+"',vbYesNo, '提示')=vbYes)", "vbscript");   
+		      return(n);   
+		}   
 </script>
 </head>
 <body>
@@ -49,27 +53,31 @@
     </tr>
     <tr>
       <th>Account #:</th>
-      <td><input type="text"  name="customer.account" class="required" maxlength="9"/></td>
-      <td colspan="2" style="color:#FF9900">("7777777"refer to new customer)</td>
+      <td><input type="text"  id="account" name="customer.account" class="required" maxlength="9"/><span style="background-color:yellow">("7777777"refer to new customer)</span></td>
+      <th>Telephone:</th>
+      <td><input type="text"  name="business.telPhone" class="required"/></td>
     </tr>
     <tr>
       <th>Customer Name</th>
-      <td><input type="text" name="customer.cusName" class="required"/></td>
+      <td><input type="text" id="cusName" name="customer.cusName" class="required"/></td>
       <th>Channel:</th>
-      <td><select name="customer.channel" >
-          <option value="TSM">TSM</option>
-        </select></td>
+      <td>
+      	  <select name="customer.channel" >
+          		<option value="TSM">TSM</option>
+          </select>
+      </td>
     </tr>
     <tr>
       <th>Industry</th>
       <td colspan="1">
       	<select name="customer.industry" >
-          <option value="ServiceIndustry(Advertising,Media,Agency,Laws)">ServiceIndustry(Advertising,Media,Agency,Laws)</option>
-        </select></td>
+          	<option value="ServiceIndustry(Advertising,Media,Agency,Laws)">ServiceIndustry(Advertising,Media,Agency,Laws)</option>
+        </select>
+      </td>
     </tr>
     <tr>
       <th>Current Service Provider</th>
-      <td colspan="3"><input type="text" size="100" name="customer.serviceProvider" class="required"/></td>
+      <td colspan="3"><input type="text" id="serviceProvider" size="100" name="customer.serviceProvider" class="required"/></td>
     </tr>
    
   </table>
@@ -83,7 +91,7 @@
         </select></td>
       <th>the Current fuel surcharge</th>
       <td>Per FS Index
-      <input type="hidden" name="customer.fuelSurcharge" value="Per FS Index"/>
+      <input type="hidden" name="customer.fuelSurcharge" value="Per FS Index" />
       <input type="hidden" name="customer.reqFuelSurcharge" value="Per FS Index"/>
       <input type="hidden" name="customer.isReq" value="NO"/></td>
     </tr>
@@ -100,9 +108,9 @@
       <th style="background-color:yellow"><span><B> Terms  of  Payments:</B></span></th>
       <td colspan="3">
 	  <select id="tp" name="customer.payment">
-           <option value="Sender Pay">Sender Pay</option>
-		   <option value="Receive Pay">Receive Pay</option>
-		   <option value="both">both</option>
+           <option value="SenderPay">SenderPay</option>
+		   <option value="ReceivePay">ReceivePay</option>
+		   <option value="Both">Both</option>
        </select></td>
     </tr>
     <tr>
@@ -116,17 +124,19 @@
     </tr>
      <tr>
       <th>Prdouct Description(eg:digital cameral)</th>
-      <td colspan="1"><input type="text" value="Test DC"  name="business.description" class="required"></td>
-      <th>Weight Range</th>
-      <td ><select name="business.weightRange">
+      <td colspan="1"><input type="text" name="business.description" class="required"></td>
+       
+      <th style="display:none">Weight Range</th>
+      <td style="display:none"><select name="business.weightRange">
       	<option value="1">0.5-5kg</option>
       	<option value="2">5-10kg</option>
       	</select></td>
+      <!---->
     </tr>
      <tr>
       <th>Reason for the PT:</th>
       <td colspan="3">
-      	<textarea style="width:700px; height:100px" name="business.reson" class="required">test only</textarea>
+      	<textarea style="width:700px; height:100px" name="business.reson" class="required"></textarea>
       </td>
     </tr>
   </table>
@@ -146,33 +156,37 @@
 <script type="text/javascript">
 
 function tothenext(obj){
-		if($('#tp').val()=='both'){
-			   var v = confirm("Term of Payment is BOTH ?");{
-			   if (v=='6') {
-				   var v = confirm("Is Receive Pay follow Sender Pay ?");
-				   if (v=='6') {
-					   $("#isFollow").val("YES");
-					   $("#busCus").attr('action','${ctx}/ptCreate/disConfirm');
-					   $("#busCus").submit();
-				   } else if(v=='7') {
-					   $("#isFollow").val("NO");
-					   $("#busCus").attr('action','${ctx}/ptCreate/disConfirm');
-					   $("#busCus").submit();
-				   }
-			   } else if(v=='7') {
-			   	 return;
-			   }
-			}
-		}else{
-			$("#busCus").attr('action','${ctx}/ptCreate/disConfirm');
-			$("#busCus").submit();
-		}
+		if($('#tp').val()=='Both'){
+						if(confirm("Term of Payment is Both?")){
+							if(confirm("is ReceivePay follow SenderPay?")){
+								   $("#isFollow").val("YES");
+								   $("#busCus").attr('action','${ctx}/ptCreate/disConfirm/add');
+								   $("#busCus").submit();
+							   } else{
+								   $("#isFollow").val("NO");
+								   $("#busCus").attr('action','${ctx}/ptCreate/disConfirm/add');
+								   $("#busCus").submit();
+							   }
+						   } else {
+						   	 return;
+						   }
+	   }else{
+	$("#busCus").attr('action','${ctx}/ptCreate/disConfirm/add');
+	$("#busCus").submit();	}
 }
-
 $(function(){
     $("#copy").click(function(){
-     	$("#busCus").attr('action',"${ctx}/ptQuery/copy");
- 		$("#busCus").submit();
+    	var cusstr = window.showModalDialog("${ctx}/ptQuery/copy","","dialogWidth=800px;dialogHeight=450px");
+    	if(cusstr ==null || cusstr ==undefined){
+	    	alert("pls check one customer on the dialog");
+	    	return;
+    	}
+    	cusstr = jQuery.parseJSON(cusstr);
+   		$("#account").val(cusstr.account);
+    	$("#cusName").val(cusstr.cusName);
+    	$("#serviceProvider").val(cusstr.serviceProvider);
+     	//$("#busCus").attr('action',"${ctx}/ptQuery/copy");
+ 		//$("#busCus").submit();
     });
 });
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.tnt.pt.repository.CustomerDao">
+
+	<select id="get" parameterType="Long" resultType="Customer">
+		select * from pt_customer
+		where id=#{id}
+	</select>
+	
+	
+	<select id="findAll" parameterType="map" resultType="Customer">
+		select * from pt_customer
+	</select>
+	
+	<insert id="insert" parameterType="Customer" >
+		<selectKey  resultType="java.lang.Long" keyProperty="id" order="BEFORE">    
+			<![CDATA[SELECT SEQ_CUSTOMER.NEXTVAL AS id FROM DUAL]]>  
+		</selectKey> 
+		insert into pt_customer(id, account,cusName,channel,industry,serviceProvider,isFuleDeduction,fuelSurcharge,isReq,reqFuelSurcharge,payment)
+		values (#{id}, #{account},#{cusName},#{channel},#{industry},#{serviceProvider},#{isFuleDeduction},#{fuelSurcharge},#{isReq},#{reqFuelSurcharge},#{payment})
+	</insert>
+
+	<update id="updateCus" parameterType="Business">
+	update pt_customer set account=#{account},cusName=#{cusName},channel=#{channel},industry=#{industry},serviceProvider=#{serviceProvider},
+	isFuleDeduction=#{isFuleDeduction},fuelSurcharge=#{fuelSurcharge},isReq=#{isReq},reqFuelSurcharge=#{reqFuelSurcharge},payment=#{payment}
+	where id=#{id}
+	</update>
+	
+	<update id="update" parameterType="Business">
+	update pt_customer set account=#{account}
+	where id=#{id}
+	</update>
+	
+</mapper> 

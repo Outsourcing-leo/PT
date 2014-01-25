@@ -7,7 +7,7 @@
 			<display>
 				<col column="id" label="id" displaytype="hidden"/>
 				<col column="{sequence:1}" label="sequence"/>
-				<col column="name" label="name"/>
+				<col column="name" label="Name"/>
 			</display>
 			<sql>
 				<select>
@@ -25,16 +25,6 @@
 				 <delete>
 				  	delete from PT_WEIGHTBANDGroup where id=@{id__old};
 				</delete>
-				<!-- <condition name="txtsex" label="性别">
-					<value>
-						<![CDATA[(sex =#data#)]]>
-					</value>
-					<inputbox type="selectbox">
-						<option value="" label="性别"/>
-						<option value="1" label="男"/> 
-						<option value="0" label="女" />
-					</inputbox>
-				</condition> -->
 			</sql>
 			<format>
 			  <value>
