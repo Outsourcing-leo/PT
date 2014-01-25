@@ -4,6 +4,43 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="org.tnt.pt.repository.ExamDao">
 	
+	<sql id="Example_Where_Clause">
+	where 1=1
+	<trim  suffixOverrides="," >
+		<if test="applicationReference != null and applicationReference !='' ">
+				and applicationReference = #{applicationReference}
+		</if>
+		<if test="account != null and account!='' ">
+				and account = #{account}
+		</if>
+		<if test="startDate != null and startDate != '' ">
+				and applicationDate &gt;= to_date(#{startDate},'yyyy-mm-dd')
+		</if>
+		<if test="endDate != null and endDate != '' ">
+				and applicationDate &lt;= to_date(#{endDate},'yyyy-mm-dd')
+		</if>
+		<if test="state != null and state != '' ">
+				and state in('created','creating')
+		</if>
+		<if test="depot != null and depot != '' ">
+				and depotcode =#{depot}
+		</if>
+	</trim>
+	</sql>
+	
+	<select id="getBusinessByBusiness" parameterType="org.tnt.pt.vo.BusinessVO" resultType="Business">
+		${navigate.oracleQueryPreCondition}
+		select pt_business.*,account,cusName,channel from pt_business left join pt_customer on pt_customer.id=pt_business.customerid 
+		<include refid="Example_Where_Clause"/>
+		order by pt_business.id desc
+		${navigate.oracleQuerySufCondition}
+	</select>
+	
+	<select id="selectByVOCount" resultType="java.lang.Integer"  parameterType="org.tnt.pt.vo.BusinessVO">
+	select count(1) from pt_business left join pt_customer on pt_customer.id=pt_business.customerid
+	<include refid="Example_Where_Clause"/>
+	</select>
+	
 	<insert id="insert" parameterType="Exam" >
 		<selectKey  resultType="java.lang.Long" keyProperty="id"  order="BEFORE">  
 			<![CDATA[select SEQ_BUSINESS.NEXTVAL AS id FROM DUAL]]>  
@@ -41,4 +78,42 @@
 		</where>
 	</select>
 	
+	<select id="getTariff" parameterType="map" resultType="org.tnt.pt.entity.Tariff">
+		select t.tariffgroupid as tariffGroupId,t.zonegroupid as zoneGroupId,tariff*(1-d.discount/100) as tariff,weight from PT_TARIFF t 
+		left join pt_tariffgroup f on t.tariffgroupid=f.id 
+		left join pt_discount d on f.weightbandid = d.weightbandid and t.zonegroupid=d.zonegroupid
+		<where>
+			1=1
+			<if test="businessid != null  and businessid != '' ">
+				and businessid=#{businessid}
+			</if>
+			<if test="productid != null  and productid != '' ">
+				and productid =  #{productid}
+			</if>
+			<if test="type != null  and type != '' ">
+				and type =  #{type}
+			</if>
+		</where>
+		order by f.weightbandid
+	</select>
+	
+	<select id="getHWRateVO" parameterType="map" resultType="org.tnt.pt.vo.HWRateVO">
+		select businessId,rate,weightBandId,payment,countryId,c.countryname countryName,t.productid as productId,
+		h.name weightBandName from PT_HWRATE t 
+		left join pt_country c on c.id=t.countryid
+		left join PT_WEIGHTBAND h on h.id=t.weightbandid
+		<where>
+			1=1
+			<if test="businessid != null  and businessid != '' ">
+				and businessid=#{businessid}
+			</if>
+			<if test="productid != null  and productid != '' ">
+				and t.productid =  #{productid}
+			</if>
+			<if test="type != null  and type != '' ">
+				and payment =  #{type}
+			</if>
+		</where>
+		order by t.weightbandid
+	</select>
 </mapper> 

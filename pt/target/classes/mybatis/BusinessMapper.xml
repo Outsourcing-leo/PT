@@ -119,6 +119,10 @@
 		where id=#{id}
 	</update>
 	
+	<update id="modifyEffectiveDate" parameterType="Business">
+		update pt_business set effectiveDate = #{effectiveDate}
+		where id=#{id}
+	</update>
 	<!--
 	<update id="updateState" parameterType="map">
 		update pt_business set state=#{state} where businessId=#{businessId}

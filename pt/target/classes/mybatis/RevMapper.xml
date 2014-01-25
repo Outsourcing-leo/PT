@@ -10,10 +10,10 @@
 				,zoneGroupId,zone
 			</if>
 			<if test="countryId != null and countryId != '' ">
-				,countryId,COUNTRYNAME
+				,countryId,COUNTRYNAME,depotCode,countryCode
 			</if>
 			<if test="weightBandId != null and weightBandId != '' ">
-				,weightBandId,PT_WEIGHTBAND.NAME WEIGHTNAME
+				,weightBandId,PT_WEIGHTBAND.NAME WEIGHTNAME,chargeableWeight
 			</if>
 			<if test="productId != null and productId != '' ">
 				,t.productId,PT_PRODUCT.NAME PRODUCTNAME
@@ -45,10 +45,10 @@
 				 ,zoneGroupId,zone
 			</if>
 			<if test="countryId != null and countryId != '' ">
-				 ,countryId,COUNTRYNAME
+				 ,countryId,COUNTRYNAME,depotCode,countryCode
 			</if>
 			<if test="weightBandId != null and weightBandId != '' ">
-				,weightBandId,PT_WEIGHTBAND.NAME
+				,weightBandId,PT_WEIGHTBAND.NAME,chargeableWeight
 			</if>
 			<if test="productId != null and productId != ''">
 				,t.productId,PT_PRODUCT.NAME
