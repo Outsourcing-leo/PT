@@ -2,7 +2,7 @@ package org.tnt.pt.util;
 
 public class PTPARAMETERS {
 
-public static String PROCESS_SATE[] = {"Created","rsmWaiting","commercialWaiting","confirmRates","billingWaiting","validate"};
+public static String PROCESS_SATE[] = {"created","rsmWaiting","commercialWaiting","confirmRates","billingWaiting","loading finished"};
 	
 	public static String PROCESS_SATE_FAIL[] = {"bsmFail","rsmFail",
 												"commercialFail","confirmRatesFail","billingFail"};

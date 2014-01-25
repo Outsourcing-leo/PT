@@ -124,14 +124,12 @@
 			<li id="liOne4">Country</li>
 			<li id="liOne5">GEO Zone</li>
 			<li id="liOne6">TOP</li>
-				<li id="liOne7">Product Type</li>
+			<li id="liOne7">Product Type</li>
 			<!-- <li id="liOne7">TOP</li> -->
 			<!-- <li id="liOne3">Product Type</li>-->
 			</ul>
 			</div>
 		<br /><br />
-		<input type="radio" />M(%)-HW(excl Fuel)&nbsp;&nbsp;&nbsp;
- 	<input type="radio" />GM(%)-HW(incl Fuel)
 		</div>
 		<div style="float:left;width:15%;text-align:left;">
 		<br /><br />
@@ -146,12 +144,12 @@
 				<li id="liTwo3" style="display:none;">WeightBand</li>
 				<li id="liTwo4" style="display:none;">Country</li>
 				<li id="liTwo5" style="display:none;">GEO Zone</li>
+				<li id="liTwo6" style="display:none;">TOP</li>
+				<li id="liTwo7" style="display:none;">Product Type</li>
 				<!-- <li id="liOne7">TOP</li> -->
 				<!-- <li id="liOne3">Product Type</li>-->
 			</div>
 		<br /><br />
-		<input type="radio" />GM(%)(excl Fuel)&nbsp;&nbsp;&nbsp;
-	<input type="radio" />GM(%)(incl Fuel)
 		</div>
 		<div style="float:right;width:20%;text-align:left;">
 		<br />
@@ -162,14 +160,14 @@
 		</div>
 	</div>
  </div>
- <br />
- <BR />
+ <br /><BR />
+ <%--<BR />
  <div style="padding:0 5px 5px 5px;">
  	
 	<BR />
 	include subtotal &nbsp;&nbsp;<input type="checkbox" checked="checked"/>
  </div>
- <br />
+ --%><br />
 <div style="padding:0 5px 5px 5px;">
 <div class="clearboth"> </div>
 <div id="hide" style="OVERFLOW-Y:auto;PADDING-LEFT:0px;SCROLLBAR-FACE-COLOR:#ecf7ff;PADDING-BOTTOM:0px;SCROLLBAR-HIGHLIGHT-COLOR:#919192;
@@ -227,16 +225,6 @@ $(function() {
     
 	$("#Reject").click(function(){
         var examOppion = document.getElementById("examOppion").value;
-        if(examOppion==""){
-    		if(confirm("Are you sure reject without oppinon?"))
-    		{ 
-    			return true;
-    			document.getElementById("examOppion").focus();
-    		}else{
-    			
-    		}
-    		
-    	}
         $.ajax({
             type:"POST",
             url:"${ctx}/ptApprove/reject",
@@ -254,7 +242,7 @@ $(function() {
     var removeIndex=1;
     
     $("#addLi").click(function(){
-    	if(addIndex>5) return;
+    	if(addIndex>7) return;
         var addId = "liOne" + addIndex;
         var removeId = "liTwo" + addIndex;
     	document.getElementById(addId).style.cssText="display:none;";
@@ -264,7 +252,7 @@ $(function() {
     });
     
     $("#removeLi").click(function(){
-    	if(removeIndex>5) return;
+    	if(removeIndex>7) return;
     	var addId = "liOne" + removeIndex;
         var removeId = "liTwo" + removeIndex;
     	document.getElementById(addId).style.cssText="display:block;";

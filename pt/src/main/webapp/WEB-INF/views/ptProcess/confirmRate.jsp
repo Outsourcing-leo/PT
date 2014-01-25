@@ -35,9 +35,9 @@ $(document).ready(function(){
 <table class="table_A">
         <thead>
              <tr>
-		      <td>Account #:</td>
+		      <td>Account :</td>
 		      <td><input type="text" name="account" value="${model.account}"></td>
-		      <td>PT Application Reference #: </td>
+		      <td>PT Application Reference : </td>
 		      <td><input type="text" name="applicationReference" value="${model.applicationReference}"></td>
 		     </tr>
 		     <tr>
@@ -62,12 +62,12 @@ $(document).ready(function(){
 <table class="table_B" width="100%">
         <thead>
 			<tr>
-                <th>PT Application Reference#</th>
-                <th>Application date</th>
-                <th>Account #</th>
+                <th>PT Application Reference</th>
+                <th>Application Date</th>
+                <th>Account</th>
                 <th>Customer Name</th>
                 <th>Channel</th>
-                <th>Terrotory</th>
+                <th>Territory</th>
             </tr>
         </thead>
         <tbody>
@@ -80,7 +80,7 @@ $(document).ready(function(){
 					<td>${business.account}</td>
 					<td>${business.cusName}</td>
 					<td>${business.channel}</td>
-					<td>${business.description}</td>
+					<td>${business.territory}</td>
 			   </tr>
 			</c:forEach>
         </tbody>
@@ -101,6 +101,7 @@ $(document).ready(function(){
 		window.location.href="${ctx}/ptApprove/tariffPTApprove/"+val;
 	}
      
+	
 </script>
 </body>
 </html>

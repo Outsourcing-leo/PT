@@ -13,7 +13,7 @@
 <script type="text/javascript" src="${ctx}/static/js/calendar.js"></script>
 </head>
 <body>
-<form action="${ctx}/ptQuery/ptModify" method="post" id="ptQueryForm">
+<form action="${ctx}/ptQuery/modifyInitCommercial" method="post" id="ptQueryForm">
 	<div style="padding:5px;">
 	<h4 class="title">Modify a PT</h4>
 <table class="table_A">

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tnt.pt.dmsentity.User;
 import org.tnt.pt.service.account.AccountService;
+import org.tnt.pt.util.PTPARAMETERS;
 import org.tnt.pt.vo.LoginVO;
 
 /**
@@ -37,16 +38,44 @@ public class LoginController {
 	@RequestMapping(value="/loginin",method = RequestMethod.POST)
 	public String loginin(Model model,@ModelAttribute LoginVO loginVO,HttpServletRequest request ) {
 		User user = new User();
-		user = accountService.findUserByLoginName(loginVO);
-//		if(user!=null){
+//		user = accountService.findUserByLoginName(loginVO);
+		if(loginVO.getUserName().equals("test1")){
+			user.setRole_name(PTPARAMETERS.ROLE_NAME[0]);
+			user.setUserName("test1");
+		}else if(loginVO.getUserName().equals("test2")){
+			user.setRole_name(PTPARAMETERS.ROLE_NAME[1]);
+			user.setUserName("test2");
+		}else if(loginVO.getUserName().equals("test3")){
+			user.setRole_name(PTPARAMETERS.ROLE_NAME[2]);
+			user.setUserName("test3");
+		}else if(loginVO.getUserName().equals("test4")){
+			user.setRole_name(PTPARAMETERS.ROLE_NAME[3]);
+			user.setUserName("test4");
+		}else if(loginVO.getUserName().equals("test5")){
+			user.setRole_name(PTPARAMETERS.ROLE_NAME[4]);
+			user.setUserName("test5");
+		}
+		if(user!=null){
 			request.getSession().setAttribute("user", user);
 			return "index/default";
-//		}else{
-//			request.setAttribute("error", "登陆失败 请重试");
-//			model.addAttribute("model", loginVO);
-//			return "index/login";
-//		}
+		}else{
+			request.setAttribute("error", "登陆失败 请重试");
+			model.addAttribute("model", loginVO);
+			return "index/login";
+		}
 		
+	}
+	
+	@RequestMapping(value="logout",method = RequestMethod.GET)
+	public String logout(Model model,@ModelAttribute LoginVO loginVO,HttpServletRequest request ) {
+		User user = (User) request.getSession().getAttribute("user");
+		if(user!=null){
+			loginVO.setUserName(user.getUserName());
+			model.addAttribute("model", loginVO);
+			return "index/login";
+		}else{
+			return "index/login";
+		}
 	}
 	
 	@RequestMapping(value="/{path}",method = RequestMethod.GET)

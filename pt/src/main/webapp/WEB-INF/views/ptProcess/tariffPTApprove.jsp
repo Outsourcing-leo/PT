@@ -30,7 +30,7 @@
   <table class="table_A">
   <tr>
   <td width="20%" align="left"><b>PT Approval Ref NO. &nbsp; :</b></td>
-  <td align="left"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;PT-SHA-20081027-TSM-001</td>
+  <td align="left"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;${business.applicationReference}</td>
   </tr>
   <tr></tr>
   <tr> <td colspan="2"><b>Customer & Shipping Profile</b></td></tr>
@@ -93,11 +93,11 @@
     </tr>
   </div>
  <br />
- <c:if test="${flag=='both'}">
+ <c:if test="${flag=='Both'}">
 	<table class="tabTitlesContainer">
 		<tr id="tabTitles">
-			<td class="tabTitleSelected" onclick="tabPageControl(0)">SenderPay</td>
-			<td class="tabTitleUnSelected" onclick="tabPageControl(1)">Recieve Pay</td>
+			<td class="tabTitleSelected" onclick="tabPageControl(0)" style="cursor:pointer">Sender Pay</td>
+			<td class="tabTitleUnSelected" onclick="tabPageControl(1)" style="cursor:pointer">Recieve Pay</td>
 		</tr>
 	</table>
 </c:if>
@@ -113,38 +113,21 @@
 <br/>
 <table class="table_B" width="100%">
         <thead>
-						<tr align="center">
-                <th colspan="15" style="text-align:left;">Discounts Profile-48N</th>
+			<tr align="center">
+                <th colspan="25" style="text-align:left;">Discounts Profile-15D/12D/10D/09D</th>
             </tr>
             <tr>
-                <th>Weightband</th>
-                <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-						<th ondblclick="setSpecificCountry();">${zoneGroup.zone}</th>
+                <th rowspan="2">Weightband</th>
+                <th rowspan="2">Inc</th>
+                <th rowspan="2">Add On</th>
+               <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+						<th colspan="2">${zoneGroup.zone}</th>
 				</c:forEach>
             </tr>
-        </thead>
-        <tbody>
-           <c:forEach items="${economyList}" var="weightBand">
-				<tr>
-					<td>${weightBand.name}</td>
-					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td>${discountMap[key]}</td>	
-				   </c:forEach>
-			   </tr>
-			</c:forEach>
-        </tbody>
-    </table>
-	<br />
-<table class="table_B" width="100%">
-        <thead>
-			<tr align="center">
-                <th colspan="15" style="text-align:left;">Discounts Profile-15D/12D/10D/09D</th>
-            </tr>
             <tr>
-                <th>Weightband</th>
                <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-						<th ondblclick="setSpecificCountry();">${zoneGroup.zone}</th>
+						<th>Base</th>
+						<th>Int</th>
 				</c:forEach>
             </tr>
         </thead>
@@ -152,9 +135,22 @@
             <c:forEach items="${documentList}" var="weightBand">
 				<tr>
 					<td>${weightBand.name}</td>
+					<td>${weightBand.addOnWeightInt}kg</td>
+					<c:if test="${weightBand.type=='base'}">
+						<td>N</td>
+					</c:if>
+					<c:if test="${weightBand.type=='add'}">
+						<td>Y</td>
+					</c:if>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td>${discountMap[key]}</td>	
+						<c:if test="${weightBand.type=='base'}">
+							<td>${discountMap[key]}%</td>
+						</c:if>
+						<c:if test="${weightBand.type=='add'}">
+							<td></td>
+						</c:if>
+						<td>${discountMap[key]}%</td>	
 				   </c:forEach>
 			   </tr>
 			</c:forEach>
@@ -164,12 +160,20 @@
 <table class="table_B" width="100%">
         <thead>
 			<tr align="center">
-                <th colspan="15" style="text-align:left;">Discounts Profile-15N/12N/10N/09N</th>
+                <th colspan="25" style="text-align:left;">Discounts Profile-15N/12N/10N/09N</th>
             </tr>
             <tr>
-                <th>Weightband</th>
-                <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-						<th ondblclick="setSpecificCountry();">${zoneGroup.zone}</th>
+                <th rowspan="2">Weightband</th>
+                <th rowspan="2">Inc</th>
+                <th rowspan="2">Add On</th>
+               <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+						<th colspan="2">${zoneGroup.zone}</th>
+				</c:forEach>
+            </tr>
+            <tr>
+               <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+						<th>Base</th>
+						<th>Int</th>
 				</c:forEach>
             </tr>
         </thead>
@@ -177,9 +181,22 @@
             <c:forEach items="${ndocumentList}" var="weightBand">
 				<tr>
 					<td>${weightBand.name}</td>
+					<td>${weightBand.addOnWeightInt}kg</td>
+					<c:if test="${weightBand.type=='base'}">
+						<td>N</td>
+					</c:if>
+					<c:if test="${weightBand.type=='add'}">
+						<td>Y</td>
+					</c:if>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td>${discountMap[key]}</td>	
+						<c:if test="${weightBand.type=='base'}">
+							<td>${discountMap[key]}%</td>
+						</c:if>
+						<c:if test="${weightBand.type=='add'}">
+							<td></td>
+						</c:if>
+						<td>${discountMap[key]}%</td>	
 				   </c:forEach>
 			   </tr>
 			</c:forEach>
@@ -189,78 +206,49 @@
 <table class="table_B" width="100%">
         <thead>
 			<tr align="center">
-                <th colspan="15" style="text-align:left;">Global Express-Documents</th>
+                <th colspan="25" style="text-align:left;">Discounts Profile-48N</th>
             </tr>
             <tr>
-                <th>Weightband</th>
-                <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-						<th ondblclick="setSpecificCountry();">${zoneGroup.zone}</th>
+                <th rowspan="2">Weightband</th>
+                <th rowspan="2">Inc</th>
+                <th rowspan="2">Add On</th>
+               <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+						<th colspan="2">${zoneGroup.zone}</th>
+				</c:forEach>
+            </tr>
+            <tr>
+               <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+						<th>Base</th>
+						<th>Int</th>
 				</c:forEach>
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${documentList}" var="weightBand">
+           <c:forEach items="${economyList}" var="weightBand">
 				<tr>
 					<td>${weightBand.name}</td>
+					<td>${weightBand.addOnWeightInt}kg</td>
+					<c:if test="${weightBand.type=='base'}">
+						<td>N</td>
+					</c:if>
+					<c:if test="${weightBand.type=='add'}">
+						<td>Y</td>
+					</c:if>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td>${rateMap[key]}</td>	
+						<c:if test="${weightBand.type=='base'}">
+							<td>${discountMap[key]}%</td>
+						</c:if>
+						<c:if test="${weightBand.type=='add'}">
+							<td></td>
+						</c:if>
+						<td>${discountMap[key]}%</td>	
 				   </c:forEach>
 			   </tr>
 			</c:forEach>
-          </tbody>
-</table>
-<br />
-<table class="table_B" width="100%">
-        <thead>
-			<tr align="center">
-                <th colspan="15" style="text-align:left;">Global Express-Non-Documents</th>
-            </tr>
-            <tr>
-                <th>Weightband</th>
-                <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-						<th ondblclick="setSpecificCountry();">${zoneGroup.zone}</th>
-				</c:forEach>
-            </tr>
-        </thead>
-        <tbody>
-             <c:forEach items="${ndocumentList}" var="weightBand">
-				<tr>
-					<td>${weightBand.name}</td>
-					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td>${rateMap[key]}</td>	
-				   </c:forEach>
-			   </tr>
-			</c:forEach>
-          </tbody>
-</table>
-<br>
-<table class="table_B" width="100%">
-        <thead>
-			<tr align="center">
-                <th colspan="15" style="text-align:left;">Economy Express-Non-Documents</th>
-            </tr>
-            <tr>
-                <th>Weightband</th>
-                <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-						<th ondblclick="setSpecificCountry();">${zoneGroup.zone}</th>
-				</c:forEach>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${economyList}" var="weightBand">
-				<tr>
-					<td>${weightBand.name}</td>
-					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td>${rateMap[key]}</td>	
-				   </c:forEach>
-			   </tr>
-			</c:forEach>
-          </tbody>
-</table>
-<br>
+        </tbody>
+    </table>
+	<br />
 <table class="table_B" width="50%" align="left">
         <thead>
 			<tr align="center">
@@ -283,7 +271,7 @@
 </div>
 
 <div class="tabPageUnSelected" id="recDIV">
-<table>
+ <table>
  <tr>
  <td style="background-color:#F5C07B">Summary </td><td style="background-color:#EFEFEF">Rev(CNY)</td><td>${recZoneSummary.revM}/M</td>
  <td>${recZoneSummary.revY}/Y</td><td style="background-color:#EFEFEF">Cons</td><td>${recZoneSummary.consM}/M</td><td>${recZoneSummary.consY}/Y</td>
@@ -293,38 +281,21 @@
 <br/>
 <table class="table_B" width="100%">
         <thead>
-						<tr align="center">
-                <th colspan="15" style="text-align:left;">Discounts Profile-48N</th>
+			<tr align="center">
+                <th colspan="25" style="text-align:left;">Discounts Profile-15D/12D/10D/09D</th>
             </tr>
             <tr>
-                <th>Weightband</th>
-                <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-						<th ondblclick="setSpecificCountry();">${zoneGroup.zone}</th>
+                <th rowspan="2">Weightband</th>
+                <th rowspan="2">Inc</th>
+                <th rowspan="2">Add On</th>
+               <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+						<th colspan="2">${zoneGroup.zone}</th>
 				</c:forEach>
             </tr>
-        </thead>
-        <tbody>
-           <c:forEach items="${economyList}" var="weightBand">
-				<tr>
-					<td>${weightBand.name}</td>
-					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td>${recDiscountMap[key]}</td>	
-				   </c:forEach>
-			   </tr>
-			</c:forEach>
-        </tbody>
-    </table>
-	<br />
-<table class="table_B" width="100%">
-        <thead>
-			<tr align="center">
-                <th colspan="15" style="text-align:left;">Discounts Profile-15D/12D/10D/09D</th>
-            </tr>
             <tr>
-                <th>Weightband</th>
                <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-						<th ondblclick="setSpecificCountry();">${zoneGroup.zone}</th>
+						<th>Base</th>
+						<th>Int</th>
 				</c:forEach>
             </tr>
         </thead>
@@ -332,9 +303,22 @@
             <c:forEach items="${documentList}" var="weightBand">
 				<tr>
 					<td>${weightBand.name}</td>
+					<td>${weightBand.addOnWeightInt}kg</td>
+					<c:if test="${weightBand.type=='base'}">
+						<td>N</td>
+					</c:if>
+					<c:if test="${weightBand.type=='add'}">
+						<td>Y</td>
+					</c:if>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td>${recDiscountMap[key]}</td>	
+						<c:if test="${weightBand.type=='base'}">
+							<td>${recDiscountMap[key]}%</td>
+						</c:if>
+						<c:if test="${weightBand.type=='add'}">
+							<td></td>
+						</c:if>
+						<td>${recDiscountMap[key]}%</td>	
 				   </c:forEach>
 			   </tr>
 			</c:forEach>
@@ -344,12 +328,20 @@
 <table class="table_B" width="100%">
         <thead>
 			<tr align="center">
-                <th colspan="15" style="text-align:left;">Discounts Profile-15N/12N/10N/09N</th>
+                <th colspan="25" style="text-align:left;">Discounts Profile-15N/12N/10N/09N</th>
             </tr>
             <tr>
-                <th>Weightband</th>
-                <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-						<th ondblclick="setSpecificCountry();">${zoneGroup.zone}</th>
+                <th rowspan="2">Weightband</th>
+                <th rowspan="2">Inc</th>
+                <th rowspan="2">Add On</th>
+               <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+						<th colspan="2">${zoneGroup.zone}</th>
+				</c:forEach>
+            </tr>
+            <tr>
+               <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+						<th>Base</th>
+						<th>Int</th>
 				</c:forEach>
             </tr>
         </thead>
@@ -357,9 +349,22 @@
             <c:forEach items="${ndocumentList}" var="weightBand">
 				<tr>
 					<td>${weightBand.name}</td>
+					<td>${weightBand.addOnWeightInt}kg</td>
+					<c:if test="${weightBand.type=='base'}">
+						<td>N</td>
+					</c:if>
+					<c:if test="${weightBand.type=='add'}">
+						<td>Y</td>
+					</c:if>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td>${recDiscountMap[key]}</td>	
+						<c:if test="${weightBand.type=='base'}">
+							<td>${recDiscountMap[key]}%</td>
+						</c:if>
+						<c:if test="${weightBand.type=='add'}">
+							<td></td>
+						</c:if>
+						<td>${recDiscountMap[key]}%</td>	
 				   </c:forEach>
 			   </tr>
 			</c:forEach>
@@ -369,77 +374,48 @@
 <table class="table_B" width="100%">
         <thead>
 			<tr align="center">
-                <th colspan="15" style="text-align:left;">Global Express-Documents</th>
+                <th colspan="25" style="text-align:left;">Discounts Profile-48N</th>
             </tr>
             <tr>
-                <th>Weightband</th>
-                <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-						<th ondblclick="setSpecificCountry();">${zoneGroup.zone}</th>
+                <th rowspan="2">Weightband</th>
+                <th rowspan="2">Inc</th>
+                <th rowspan="2">Add On</th>
+               <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+						<th colspan="2">${zoneGroup.zone}</th>
+				</c:forEach>
+            </tr>
+            <tr>
+               <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+						<th>Base</th>
+						<th>Int</th>
 				</c:forEach>
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${documentList}" var="weightBand">
+           <c:forEach items="${economyList}" var="weightBand">
 				<tr>
 					<td>${weightBand.name}</td>
+					<td>${weightBand.addOnWeightInt}kg</td>
+					<c:if test="${weightBand.type=='base'}">
+						<td>N</td>
+					</c:if>
+					<c:if test="${weightBand.type=='add'}">
+						<td>Y</td>
+					</c:if>
 					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td>${rateMap[key]}</td>	
+						<c:if test="${weightBand.type=='base'}">
+							<td>${recDiscountMap[key]}%</td>
+						</c:if>
+						<c:if test="${weightBand.type=='add'}">
+							<td></td>
+						</c:if>
+						<td>${recDiscountMap[key]}%</td>	
 				   </c:forEach>
 			   </tr>
 			</c:forEach>
-          </tbody>
-</table>
-<br />
-<table class="table_B" width="100%">
-        <thead>
-			<tr align="center">
-                <th colspan="15" style="text-align:left;">Global Express-Non-Documents</th>
-            </tr>
-            <tr>
-                <th>Weightband</th>
-                <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-						<th ondblclick="setSpecificCountry();">${zoneGroup.zone}</th>
-				</c:forEach>
-            </tr>
-        </thead>
-        <tbody>
-             <c:forEach items="${ndocumentList}" var="weightBand">
-				<tr>
-					<td>${weightBand.name}</td>
-					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td>${rateMap[key]}</td>	
-				   </c:forEach>
-			   </tr>
-			</c:forEach>
-          </tbody>
-</table>
-<br>
-<table class="table_B" width="100%">
-        <thead>
-			<tr align="center">
-                <th colspan="15" style="text-align:left;">Economy Express-Non-Documents</th>
-            </tr>
-            <tr>
-                <th>Weightband</th>
-                <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-						<th ondblclick="setSpecificCountry();">${zoneGroup.zone}</th>
-				</c:forEach>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${economyList}" var="weightBand">
-				<tr>
-					<td>${weightBand.name}</td>
-					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
-					    <c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
-						<td>${rateMap[key]}</td>	
-				   </c:forEach>
-			   </tr>
-			</c:forEach>
-          </tbody>
-</table>
+        </tbody>
+    </table>
 <br>
 <table class="table_B" width="50%" align="left">
         <thead>
@@ -466,18 +442,17 @@
 <span style="background-color:#EEEEEE">Supporting Documents for a PT Loading Request &nbsp;</span>  <span><input type="text" id="fileName" size="25"/></span>
 </div>
 <br />
-<div>
+<br />
 <div align="left">
-
 	<input type="file" name="Browser" id="file_upload" />
 	<a href="javascript:$('#file_upload').uploadify('upload','*')">upload</a>&nbsp;   
         <a href="javascript:$('#file_upload').uploadify('cancel', '*')">uploadCancel</a> 
 </div>
-</div>
   <div style="text-align:center">
   <input type="button" id="toBilling" value="To Billing" class="cls-button" /> 
-   	&nbsp;&nbsp;&nbsp;<input type="button" value="Return" class="cls-button" onclick="javascript:history.go(-1)" />
-   	 &nbsp;&nbsp;&nbsp;<input type="button" value="Close" class="cls-button" onclick="javascript:history.go(-1)"/>
+  &nbsp;&nbsp;&nbsp;<input type="button" value="Export TariffCard" class="cls-button" onclick="downLoadTariffPdf();"/> 
+  &nbsp;&nbsp;&nbsp;<input type="button" value="Export Contract-Chinese" class="cls-button" />
+  &nbsp;&nbsp;&nbsp;<input type="button" value="Return" class="cls-button" onclick="javascript:history.go(-1)" />
    </div>
    <br />
    <input type="hidden" id="hiddenID" value="${business.id}" name="business.id">
@@ -530,6 +505,12 @@
             });
         });
 	});
+    
+    function downLoadTariffPdf(){
+    	var id = document.getElementById("hiddenID").value;
+        document.forms[0].action="${ctx}/documentDown/downDocument/"+id;
+		document.forms[0].submit();
+    }
 </script>
 <script type="text/javascript">
     

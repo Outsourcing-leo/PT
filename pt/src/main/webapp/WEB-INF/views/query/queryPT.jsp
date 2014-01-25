@@ -34,7 +34,7 @@ $(document).ready(function(){
 <table class="table_A">
         <thead>
              <tr>
-		      <td>Account #:</td>
+		      <td>Account :</td>
 		      <td><input type="text" name="account" value="${model.account}"></td>
 		      <td>depot:</td>
 		      <td>CHINA</td>
@@ -43,7 +43,7 @@ $(document).ready(function(){
 		      <td>Application Date:</td>
 		      <td>From： <input type="text" name="startDate" value="${model.startDate}" onclick="new Calendar().show(this,this)" >&nbsp;&nbsp; 
 		      To：<input type="text" name="endDate" value="${model.endDate}" onclick="new Calendar().show(this,this)" ></td>
-		      <td>PT Application Reference #: </td>
+		      <td>PT Application Reference : </td>
 		      <td><input type="text" name="applicationReference" value="${model.applicationReference}"></td>
 		     </tr>
 		     <tr>
@@ -63,14 +63,14 @@ $(document).ready(function(){
 <table class="table_B" width="100%">
         <thead>
 			<tr>
-                <th>PT Application Reference#</th>
-                <th>Application date</th>
-                <th>Account #</th>
+                <th>PT Application Reference</th>
+                <th>Application Date</th>
+                <th>Account</th>
                 <th>Customer Name</th>
                 <th>Depot</th>
                 <th>Channel</th>
-                <th>ToP</th>
-                <th>Terrotory</th>
+                <th>Top</th>
+                <th>Territory</th>
                 <th>Status</th>
                 <th>Operation</th>
             </tr>
@@ -86,8 +86,8 @@ $(document).ready(function(){
 					<td>${business.cusName}</td>
 					<td>${business.depotCode}</td>
 					<td>${business.channel}</td>
-					<td>SP</td>
-					<td>${business.description}</td>
+					<td>${business.consStop}</td>
+					<td>${business.territory}</td>
 					<td>${business.state}</td>
 	                <td><a id="appeal" href="#" onclick="appeal('${business.applicationReference}')">appeal</a></td>
 			   </tr>

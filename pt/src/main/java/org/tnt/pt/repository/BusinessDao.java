@@ -24,6 +24,8 @@ public interface BusinessDao extends BaseDao<Business> {
 	
 	List<Business> findAll();
 	
+	void modifyEffectiveDate(Business business);
+	
 	void updateTotalRev_R(Map<String,Object> parameter);
 	
 	void updateTotalRev_S(Map<String,Object> parameter);

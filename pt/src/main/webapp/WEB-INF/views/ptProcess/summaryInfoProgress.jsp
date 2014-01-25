@@ -111,11 +111,11 @@
   </div>
  <br />
  <div style="padding:5px;">
-  <c:if test="${flag=='both'}">
+  <c:if test="${flag=='Both'}">
 	<table class="tabTitlesContainer">
 		<tr id="tabTitles">
-			<td class="tabTitleSelected" onclick="tabPageControl(0)">SenderPay</td>
-			<td class="tabTitleUnSelected" onclick="tabPageControl(1)">Recieve Pay</td>
+			<td class="tabTitleSelected" onclick="tabPageControl(0)" style="cursor:pointer">Sender Pay</td>
+			<td class="tabTitleUnSelected" onclick="tabPageControl(1)" style="cursor:pointer">Recieve Pay</td>
 		</tr>
 	</table>
 </c:if>
@@ -465,10 +465,6 @@
   <br>
 <table>
 	<tr>
-		<td style="background-color:#EFEFEF;width:20%">Attach Supporting Documents for Approval or Rejection</td>
-		<td width="10%" rowspan="2" align="center" id="fileName"></td>
-		<td style="background-color:#EFEFEF;width:15%; text-align:center;">Operation</td>
-		<td width="10%" rowspan="2"></td>
 		<td rowspan="2"style="background-color:#EFEFEF;width:10%">Reason for Approval or Rejection</td>
 		<td rowspan="2" width="35%">
 		<div>
@@ -476,18 +472,7 @@
 		</div>
 		</td>
 	</tr>
-	<tr>
-		<td align="center"> </td>
-
-		<td align="center"><a href="#" id="deleteFile">Delete</a></td>
-	</tr>
 </table>
-<br />
-<div align="left">
-	<input type="file" name="Browser" id="file_upload" />
-	<a href="javascript:$('#file_upload').uploadify('upload','*')">upload</a>&nbsp;   
-        <a href="javascript:$('#file_upload').uploadify('cancel', '*')">uploadCancel</a> 
-</div>
 <br />
   <div style="text-align: center">
   <input type="button" value="Approve" class="cls-button" id="Approve"  /> 
@@ -541,9 +526,7 @@
 	        //'fileTypeExts'  : '*.xls',
 	        'formData'      : {'userName':'','qq':''},
 	        'onUploadSuccess': function(file, data)
-	        {		
-	        	document.getElementById("fileName").innerText=file.name;
-	        }
+	        { }
 	    });
 	});
     
