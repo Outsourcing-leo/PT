@@ -1,6 +1,9 @@
 package org.tnt.pt.repository.dms;
 
 
+import java.util.List;
+import java.util.Map;
+
 import org.tnt.pt.dmsentity.User;
 import org.tnt.pt.repository.BaseDao;
 import org.tnt.pt.vo.LoginVO;
@@ -17,4 +20,8 @@ import org.tnt.pt.vo.LoginVO;
 public interface UserDao extends BaseDao<User> {
 
 	User findByLoginName(LoginVO loginVO);
+	
+	User findByRoleName(Map map);
+	
+	List<String> getRolesByName(String userName);
 }

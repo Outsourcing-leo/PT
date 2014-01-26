@@ -51,9 +51,9 @@
 			<!-- <property name="url">jdbc:oracle:thin:@164.39.68.43:1521:dms</property>
 			<property name="user">pt</property>
 			<property name="password">{3DES}q2mosAwlKqQ=</property> -->
-			<property name="url">jdbc:oracle:thin:@127.0.0.1:1521:orcl</property>
+			<property name="url">jdbc:oracle:thin:@164.39.68.43:1521:dms</property>
 			<property name="user">pt</property>
-			<property name="password">newPT</property>
+			<property name="password">newpt</property>
 			
 			<property name="max_size">20</property>   
   			<property name="min_size">5</property>   

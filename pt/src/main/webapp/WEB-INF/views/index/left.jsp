@@ -62,7 +62,7 @@ $(function(){
                 <dd><a href="${ctx}/traiff/init" target="main" >Full Tariff</a></dd>
             </dl>
            <dl>
-            	<dt onclick="addMenuSub(this);">PT Process</dt><%--
+            	<dt onclick="addMenuSub(this);">PT Process</dt>
                 <%if(user.getRole_name()!=null&&user.getRole_name().equals(PTPARAMETERS.ROLE_NAME[4])){//sales%>
                 	<dd><a href="${ctx}/ptCreate/addCustomer" target="main">Apply a New PT</a></dd>
                     <dd><a href="${ctx}/ptQuery/ptModifyInit" target="main">Modify a PT</a></dd>
@@ -72,22 +72,21 @@ $(function(){
         			<dd><a href="${ctx}/ptQuery/ptApprove" target="main">Approve a PT</a></dd>
         		<%}else if(user.getRole_name()!=null&&user.getRole_name().equals(PTPARAMETERS.ROLE_NAME[2])){//Commercial %>
         			<dd><a href="${ctx}/ptQuery/analysePT" target="main">Analyse a PT</a></dd>
-        			<dd><a href="${ctx}/ptQuery/ptModifyInit" target="main">Modify a PT</a></dd>
+        			<dd><a href="${ctx}/ptQuery/modifyInitCommercial" target="main">Modify a PT</a></dd>
         		<%}else if(user.getRole_name()!=null&&user.getRole_name().equals(PTPARAMETERS.ROLE_NAME[1])){//Commercial %>
-        			<dd><a href="${ctx}/ptQuery/analysePT" target="main">Analyse a PT</a></dd>
-        			<dd><a href="${ctx}/ptQuery/ptModifyInit" target="main">Modify a PT</a></dd>
-        		<}else if(user.getRole_name()!=null&&user.getRole_name().equals(PTPARAMETERS.ROLE_NAME[3])){//Billing %>
+        			<dd><a href="${ctx}/ptQuery/ptApprove" target="main">Approve a PT</a></dd>
+        		<%}else if(user.getRole_name()!=null&&user.getRole_name().equals(PTPARAMETERS.ROLE_NAME[3])){//Billing %>
         			<dd><a href="${ctx}/ptQuery/PTSLoadInit" target="main">New PTs Load application</a></dd>
         		<%} %>
-				--%><!-- <dd><a href="${ctx}/ptQuery/confirmToBillingInit" target="main">Confirm  a  PT ( to  Billing )</a></dd> -->
+				<!-- <dd><a href="${ctx}/ptQuery/confirmToBillingInit" target="main">Confirm  a  PT ( to  Billing )</a></dd> -->
                 
-                <dd><a href="${ctx}/ptCreate/addCustomer" target="main">Apply a New PT</a></dd>
+                <%--<dd><a href="${ctx}/ptCreate/addCustomer" target="main">Apply a New PT</a></dd>
                 <dd><a href="${ctx}/ptQuery/ptModifyInit" target="main">Modify a PT</a></dd>
                 <dd><a href="${ctx}/ptQuery/ptApprove" target="main">Approve a PT</a></dd>
                 <dd><a href="${ctx}/ptQuery/confirmRateInit" target="main">Confirm Rates</a></dd>
                 <dd><a href="${ctx}/ptQuery/analysePT" target="main">Analyse a PT</a></dd>
                 <dd><a href="${ctx}/ptQuery/PTSLoadInit" target="main">New PTs Load application</a></dd>
-                <dd><a href="${ctx}/ptQuery/queryPTInit" target="main">PT Query</a></dd>
+                --%><dd><a href="${ctx}/ptQuery/queryPTInit" target="main">PT Query</a></dd>
 				<dd><a href="${ctx}/ptQuery/hisPTQueryInit" target="main">History PT Query</a></dd>
 				<dd><a href="${ctx}/ptQuery/getZoneTableInit" target="main">Zone Table</a></dd>
 				<!--<dd><a id="content/Query/filePlace.html" href="#" onclick="addContent_bc(this)">File Place</a></dd>-->

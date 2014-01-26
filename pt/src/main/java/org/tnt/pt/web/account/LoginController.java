@@ -1,5 +1,10 @@
 package org.tnt.pt.web.account;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.tnt.pt.dmsentity.User;
 import org.tnt.pt.service.account.AccountService;
 import org.tnt.pt.util.PTPARAMETERS;
+import org.tnt.pt.vo.BusinessVO;
 import org.tnt.pt.vo.LoginVO;
 
 /**
@@ -38,8 +44,8 @@ public class LoginController {
 	@RequestMapping(value="/loginin",method = RequestMethod.POST)
 	public String loginin(Model model,@ModelAttribute LoginVO loginVO,HttpServletRequest request ) {
 		User user = new User();
-//		user = accountService.findUserByLoginName(loginVO);
-		if(loginVO.getUserName().equals("test1")){
+		user = accountService.findUserByLoginName(loginVO);
+		/*if(loginVO.getUserName().equals("test1")){
 			user.setRole_name(PTPARAMETERS.ROLE_NAME[0]);
 			user.setUserName("test1");
 		}else if(loginVO.getUserName().equals("test2")){
@@ -54,7 +60,7 @@ public class LoginController {
 		}else if(loginVO.getUserName().equals("test5")){
 			user.setRole_name(PTPARAMETERS.ROLE_NAME[4]);
 			user.setUserName("test5");
-		}
+		}*/
 		if(user!=null){
 			request.getSession().setAttribute("user", user);
 			return "index/default";
@@ -76,6 +82,27 @@ public class LoginController {
 		}else{
 			return "index/login";
 		}
+	}
+	
+	@RequestMapping(value="roleChange/{userName}",method = RequestMethod.GET)
+	public String roleChange(Model model,@PathVariable("userName") String userName) {
+		List<String> roleList = new ArrayList<String>();
+		roleList = accountService.getRolesByName(userName);
+		roleList.add(PTPARAMETERS.ROLE_NAME[0]);
+		model.addAttribute("roleList", roleList);
+		return "index/roleList";
+	}
+	
+	@RequestMapping(value="changeConfirm",method = RequestMethod.GET)
+	public String roleChange(Model model,HttpServletRequest request ) {
+		User user = (User)request.getSession().getAttribute("user");
+		String roleName = request.getParameter("roleName");
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("userName", user.getUserName());map.put("roleName", roleName);
+		User newUser = accountService.findByRoleName(map);
+		request.getSession().removeAttribute("user");
+		request.getSession().setAttribute("user", newUser);
+		return "index/default";
 	}
 	
 	@RequestMapping(value="/{path}",method = RequestMethod.GET)

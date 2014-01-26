@@ -1,5 +1,8 @@
 package org.tnt.pt.service.account;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +37,15 @@ public class AccountService {
 		return userDao.findByLoginName(loginVO);
 	}
 
-
+	//切换角色
+	public User findByRoleName(Map map) {
+		return userDao.findByRoleName(map);
+	}
+	
+	public List<String> getRolesByName(String userName) {
+		return userDao.getRolesByName(userName);
+	}
+	
 	@Autowired
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
