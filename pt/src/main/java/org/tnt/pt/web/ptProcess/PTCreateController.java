@@ -1,6 +1,5 @@
 package org.tnt.pt.web.ptProcess;
 
-import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,15 +10,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +35,6 @@ import org.tnt.pt.entity.Discount;
 import org.tnt.pt.entity.DiscountDefault;
 import org.tnt.pt.entity.GEOSummary;
 import org.tnt.pt.entity.HWRate;
-import org.tnt.pt.entity.HighWeightBand;
 import org.tnt.pt.entity.Product;
 import org.tnt.pt.entity.Rate;
 import org.tnt.pt.entity.Rev;
@@ -60,7 +57,6 @@ import org.tnt.pt.service.baseInfo.WeightBandService;
 import org.tnt.pt.service.baseInfo.ZoneGroupService;
 import org.tnt.pt.service.baseInfo.ZoneTypeService;
 import org.tnt.pt.service.dms.FsiService;
-import org.tnt.pt.service.downPDF.PDFGenerater;
 import org.tnt.pt.service.ptProcess.BusinessService;
 import org.tnt.pt.service.ptProcess.ConsignmentService;
 import org.tnt.pt.service.ptProcess.CustomerService;
@@ -76,11 +72,8 @@ import org.tnt.pt.util.DateUtil;
 import org.tnt.pt.util.DoubleUtil;
 import org.tnt.pt.util.PTPARAMETERS;
 import org.tnt.pt.vo.BusCusVO;
-import org.tnt.pt.vo.BusinessVO;
 import org.tnt.pt.vo.JsonData;
 import org.tnt.pt.vo.RevVO;
-
-import com.itextpdf.text.pdf.qrcode.Version.ECB;
 
 /**
  * ProductController负责产品的请求，
@@ -1241,6 +1234,38 @@ public class PTCreateController {
 		zoneSummary.setKiloY(DoubleUtil.get2Double(revVO.getKilo()*12));
 		zoneSummary.setRevM(revVO.getRev());
 		zoneSummary.setRevY(DoubleUtil.get2Double(revVO.getRev()*12));
+		
+		
+		/**
+		 * highweight
+		 */
+		Map<String,Double> hwRateMap = new HashMap<String,Double>();//形成折扣map 方便查询
+		List<Country> ndocountrys = new ArrayList<Country>();
+		List<Country> ecocountrys = new ArrayList<Country>();
+		List<WeightBand> ndocumentList_ = new ArrayList<WeightBand>();
+		List<WeightBand> eonomyList_ = new ArrayList<WeightBand>();
+		List<HWRate> hwRateList = new ArrayList<HWRate>();
+		ndocumentList_ = weightBandService.getAllHighWeightBandByProductId(zoneType.getNonDocument());//获取重货
+		eonomyList_ = weightBandService.getAllHighWeightBandByProductId(zoneType.getEconomy());//获取重货
+		
+		ndocountrys = hwRateService.getCountry(business.getId(), zoneType.getNonDocument());
+		ecocountrys = hwRateService.getCountry(business.getId(), zoneType.getEconomy());
+
+		hwRateList = hwRateService.getAllHWRateByBusId(business.getId(),payment);
+		for (HWRate hwRate:hwRateList) {
+			hwRateMap.put(hwRate.getBusinessId()+"_"+hwRate.getProductId()+"_"+hwRate.getWeightBandId()+"_"+hwRate.getCountryId(), hwRate.getRate());
+		}
+
+		model.addAttribute("ndocumentCountrys", ndocountrys);
+		model.addAttribute("eonomyCountrys", ecocountrys);
+		model.addAttribute("hwRateMap", hwRateMap);
+		model.addAttribute("ndocumentList_", ndocumentList_);
+		model.addAttribute("eonomyList_", eonomyList_);
+		model.addAttribute("eonomy", zoneType.getEconomy());
+		model.addAttribute("ndocument", zoneType.getNonDocument());
+		/**
+		 * highweight
+		 */
 		
 		model.addAttribute("business", business);
 		model.addAttribute("customer", customer);

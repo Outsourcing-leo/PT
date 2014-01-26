@@ -207,8 +207,8 @@ response.setDateHeader("Expires", -10);
             </tr>
             <tr>
                 <th>PRODUCT</th>
-				<th width="8%"> Chargeable Weight(kg)</th>
-                <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+				<%--<th width="8%"> Chargeable Weight(kg)</th>
+                --%><c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 						<th>${zoneGroup.zone}</th>
 				</c:forEach>
             </tr>
@@ -217,8 +217,8 @@ response.setDateHeader("Expires", -10);
             <c:forEach items="${documentList}" var="weightBand">
 				<tr>
 					<td>${weightBand.name}</td>
-					<td>${weightBand.chargeableWeight}</td>
-					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+					<%--<td>${weightBand.chargeableWeight}</td>
+					--%><c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 						<c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
 						<td>${discountMap[key]}</td>
 				   </c:forEach>
@@ -234,8 +234,8 @@ response.setDateHeader("Expires", -10);
             </tr>
             <tr>
                 <th>Weightband</th>
-				<th  width="8%"> Chargeable Weight(kg)</th>
-                 <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+				<%--<th  width="8%"> Chargeable Weight(kg)</th>
+                 --%><c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 						<th>${zoneGroup.zone}</th>
 				</c:forEach>
             </tr>
@@ -244,8 +244,8 @@ response.setDateHeader("Expires", -10);
             <c:forEach items="${ndocumentList}" var="weightBand">
 				<tr>
 					<td>${weightBand.name}</td>
-					<td>${weightBand.chargeableWeight}</td>
-					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+					<%--<td>${weightBand.chargeableWeight}</td>
+					--%><c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 						<c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
 						<td>${discountMap[key]}</td>
 				   </c:forEach>
@@ -261,8 +261,8 @@ response.setDateHeader("Expires", -10);
             </tr>
             <tr>
                 <th>Weightband</th>
-				<th  width="8%"> Chargeable Weight(kg)</th>
-                <c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+				<%--<th  width="8%"> Chargeable Weight(kg)</th>
+                --%><c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 						<th>${zoneGroup.zone}</th>
 				</c:forEach>
             </tr>
@@ -271,8 +271,8 @@ response.setDateHeader("Expires", -10);
             <c:forEach items="${eonomyList}" var="weightBand">
 				<tr>
 					<td>${weightBand.name}</td>
-					<td>${weightBand.chargeableWeight}</td>
-					<c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
+					<%--<td>${weightBand.chargeableWeight}</td>
+					--%><c:forEach items="${zoneGroupList}" var="zoneGroup" begin="0">
 						<c:set var="key">${weightBand.id}_${zoneGroup.id}</c:set>
 						<td>${discountMap[key]}</td>
 				   </c:forEach>
@@ -280,7 +280,62 @@ response.setDateHeader("Expires", -10);
 			  </c:forEach>
           </tbody>
 </table>
-<br>
+
+<div style="padding:0 5px 5px 5px;">
+<div class="clearboth"> </div>
+<table class="table_B" width="100%">
+        <thead>
+			<tr align="center">
+                <th colspan="14" style="text-align:left;">New PT-HW rate Profile-15N(RMB per kilo)</th>
+            </tr>
+            <tr>
+                <th >Country-Depot</th>
+                 <c:forEach items="${ndocumentList_}" var="weightBand">
+					<th>${weightBand.name}</th>
+			     </c:forEach>
+            </tr>
+        </thead>
+        <tbody id="tb1">
+        	<c:forEach items="${ndocumentCountrys}" var="country" varStatus="co">
+				<tr id='tb1_${co.index}' align="center">
+					<td>
+					${country.countryCode}
+					</td>
+					<c:forEach items="${ndocumentList_}" var="weightBand" begin="0">
+							<c:set var="key">${business.id}_${ndocument}_${weightBand.id}_${country.id}</c:set>
+						    <td>${hwRateMap[key]}</td>
+				   </c:forEach>
+			   </tr>
+			</c:forEach>
+        </tbody>
+</table>
+<table class="table_B" width="100%">
+        <thead>
+			<tr align="center">
+                <th colspan="14" style="text-align:left;">New PT-HW rate Profile-48N(RMB per kilo)</th>
+            </tr>
+            <tr>
+                <th >Country-Depot</th>
+                 <c:forEach items="${eonomyList_}" var="weightBand">
+					<th>${weightBand.name}</th>
+			     </c:forEach>
+            </tr>
+        </thead>
+        <tbody id="tb2">
+        	<c:forEach items="${eonomyCountrys}" var="country" varStatus="co">
+				<tr id='tb2_${co.index}' align="center">
+					<td>
+					${country.countryCode}
+					</td>
+					<c:forEach items="${eonomyList_}" var="weightBand" begin="0">
+							<c:set var="key">${business.id}_${eonomy}_${weightBand.id}_${country.id}</c:set>
+						    <td>${hwRateMap[key]}</td>
+				   </c:forEach>
+			   </tr>
+			</c:forEach>
+        </tbody>
+</table>
+<br />
 <table class="table_B" width="100%">
         <thead>
 			<tr align="center">
@@ -295,7 +350,6 @@ response.setDateHeader("Expires", -10);
             </tr>
           </tbody>
 </table>
-<br />
   <div style="text-align: center">
   <input type="button" value="Previous" class="cls-button" id="Previous" /> 
    	&nbsp;&nbsp;&nbsp;<input type="button" value="Submit" class="cls-button" id="Submit"/>
