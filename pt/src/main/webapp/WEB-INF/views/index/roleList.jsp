@@ -65,6 +65,7 @@ $(document).ready(function(){
         $("#Confirm").click(function(){
         	var checkValue = $('input[name=radio]:checked').val();
          	window.parent.location.href='${ctx}/login/changeConfirm?roleName='+checkValue;
+         	//parent.location.reload();
          	window.close();
         });
     });

@@ -252,24 +252,57 @@
         </tbody>
     </table>
 	<br />
-<table class="table_B" width="50%" align="left">
+<table class="table_B" width="100%">
         <thead>
 			<tr align="center">
-                <th colspan="6" style="text-align:left;">Global Express - Non Documents (rate per kg) SenderPays</th>
+                <th colspan="14" style="text-align:left;">New PT-HW rate Profile-15N(RMB per kilo)</th>
             </tr>
-			<tr align="center">
-                <th>Country</th><th>21-30kg</th><th>31-50kg</th>
-				<th>51-100kg</th><th>101-300kg</th><th>300kg+</th>
+            <tr>
+                <th >Country-Depot</th>
+                 <c:forEach items="${ndocumentList_}" var="weightBand">
+					<th>${weightBand.name}</th>
+			     </c:forEach>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>BE(Zone)</td>
-                <td>50</td><td>51</td><td>52</td>
-				<td>53</td><td>54</td>
+        <tbody id="tb1">
+        	<c:forEach items="${ndocumentCountrys}" var="country" varStatus="co">
+				<tr id='tb1_${co.index}' align="center">
+					<td>
+					${country.countryCode}
+					</td>
+					<c:forEach items="${ndocumentList_}" var="weightBand" begin="0">
+							<c:set var="key">${business.id}_${ndocument}_${weightBand.id}_${country.id}</c:set>
+						    <td>${hwRateMap[key]}</td>
+				   </c:forEach>
+			   </tr>
+			</c:forEach>
+        </tbody>
+</table>
+<table class="table_B" width="100%">
+        <thead>
+			<tr align="center">
+                <th colspan="14" style="text-align:left;">New PT-HW rate Profile-48N(RMB per kilo)</th>
             </tr>
-			<tr style="border-left-style:none; border-right-style:none; border-bottom-style:none;"><td colspan="6"></td></tr>
-          </tbody>
+            <tr>
+                <th >Country-Depot</th>
+                 <c:forEach items="${eonomyList_}" var="weightBand">
+					<th>${weightBand.name}</th>
+			     </c:forEach>
+            </tr>
+        </thead>
+        <tbody id="tb2">
+        	<c:forEach items="${eonomyCountrys}" var="country" varStatus="co">
+				<tr id='tb2_${co.index}' align="center">
+					<td>
+					${country.countryCode}
+					</td>
+					<c:forEach items="${eonomyList_}" var="weightBand" begin="0">
+							<c:set var="key">${business.id}_${eonomy}_${weightBand.id}_${country.id}</c:set>
+						    <td>${hwRateMap[key]}</td>
+				   </c:forEach>
+			   </tr>
+			</c:forEach>
+        </tbody>
 </table>
 </div>
 
@@ -420,24 +453,57 @@
         </tbody>
     </table>
 	<br />
-<table class="table_B" width="50%" align="left">
+<table class="table_B" width="100%">
         <thead>
 			<tr align="center">
-                <th colspan="6" style="text-align:left;">Global Express - Non Documents (rate per kg) SenderPays</th>
+                <th colspan="14" style="text-align:left;">New PT-HW rate Profile-15N(RMB per kilo)</th>
             </tr>
-			<tr align="center">
-                <th>Country</th><th>21-30kg</th><th>31-50kg</th>
-				<th>51-100kg</th><th>101-300kg</th><th>300kg+</th>
+            <tr>
+                <th >Country-Depot</th>
+                 <c:forEach items="${ndocumentList_}" var="weightBand">
+					<th>${weightBand.name}</th>
+			     </c:forEach>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>BE(Zone)</td>
-                <td>50</td><td>51</td><td>52</td>
-				<td>53</td><td>54</td>
+        <tbody id="tb1">
+        	<c:forEach items="${ndocumentCountrys}" var="country" varStatus="co">
+				<tr id='tb1_${co.index}' align="center">
+					<td>
+					${country.countryCode}
+					</td>
+					<c:forEach items="${ndocumentList_}" var="weightBand" begin="0">
+							<c:set var="key">${business.id}_${ndocument}_${weightBand.id}_${country.id}</c:set>
+						    <td>${recHwRateMap[key]}</td>
+				   </c:forEach>
+			   </tr>
+			</c:forEach>
+        </tbody>
+</table>
+<table class="table_B" width="100%">
+        <thead>
+			<tr align="center">
+                <th colspan="14" style="text-align:left;">New PT-HW rate Profile-48N(RMB per kilo)</th>
             </tr>
-			<tr style="border-left-style:none; border-right-style:none; border-bottom-style:none;"><td colspan="6"></td></tr>
-          </tbody>
+            <tr>
+                <th >Country-Depot</th>
+                 <c:forEach items="${eonomyList_}" var="weightBand">
+					<th>${weightBand.name}</th>
+			     </c:forEach>
+            </tr>
+        </thead>
+        <tbody id="tb2">
+        	<c:forEach items="${eonomyCountrys}" var="country" varStatus="co">
+				<tr id='tb2_${co.index}' align="center">
+					<td>
+					${country.countryCode}
+					</td>
+					<c:forEach items="${eonomyList_}" var="weightBand" begin="0">
+							<c:set var="key">${business.id}_${eonomy}_${weightBand.id}_${country.id}</c:set>
+						    <td>${recHwRateMap[key]}</td>
+				   </c:forEach>
+			   </tr>
+			</c:forEach>
+        </tbody>
 </table>
 </div>
 <br /><br />

@@ -280,6 +280,59 @@
 			  </c:forEach>
           </tbody>
 </table>
+<br />
+<table class="table_B" width="100%">
+        <thead>
+			<tr align="center">
+                <th colspan="14" style="text-align:left;">New PT-HW rate Profile-15N(RMB per kilo)</th>
+            </tr>
+            <tr>
+                <th >Country-Depot</th>
+                 <c:forEach items="${ndocumentList_}" var="weightBand">
+					<th>${weightBand.name}</th>
+			     </c:forEach>
+            </tr>
+        </thead>
+        <tbody id="tb1">
+        	<c:forEach items="${ndocumentCountrys}" var="country" varStatus="co">
+				<tr id='tb1_${co.index}' align="center">
+					<td>
+					${country.countryCode}
+					</td>
+					<c:forEach items="${ndocumentList_}" var="weightBand" begin="0">
+							<c:set var="key">${business.id}_${ndocument}_${weightBand.id}_${country.id}</c:set>
+						    <td>${hwRateMap[key]}</td>
+				   </c:forEach>
+			   </tr>
+			</c:forEach>
+        </tbody>
+</table>
+<table class="table_B" width="100%">
+        <thead>
+			<tr align="center">
+                <th colspan="14" style="text-align:left;">New PT-HW rate Profile-48N(RMB per kilo)</th>
+            </tr>
+            <tr>
+                <th >Country-Depot</th>
+                 <c:forEach items="${eonomyList_}" var="weightBand">
+					<th>${weightBand.name}</th>
+			     </c:forEach>
+            </tr>
+        </thead>
+        <tbody id="tb2">
+        	<c:forEach items="${eonomyCountrys}" var="country" varStatus="co">
+				<tr id='tb2_${co.index}' align="center">
+					<td>
+					${country.countryCode}
+					</td>
+					<c:forEach items="${eonomyList_}" var="weightBand" begin="0">
+							<c:set var="key">${business.id}_${eonomy}_${weightBand.id}_${country.id}</c:set>
+						    <td>${hwRateMap[key]}</td>
+				   </c:forEach>
+			   </tr>
+			</c:forEach>
+        </tbody>
+</table>
 </div>
 </div>
 <div class="tabPageUnSelected" id="recDIV">
@@ -442,6 +495,59 @@
 			   </tr>
 			  </c:forEach>
           </tbody>
+</table>
+<br />
+<table class="table_B" width="100%">
+        <thead>
+			<tr align="center">
+                <th colspan="14" style="text-align:left;">New PT-HW rate Profile-15N(RMB per kilo)</th>
+            </tr>
+            <tr>
+                <th >Country-Depot</th>
+                 <c:forEach items="${ndocumentList_}" var="weightBand">
+					<th>${weightBand.name}</th>
+			     </c:forEach>
+            </tr>
+        </thead>
+        <tbody id="tb1">
+        	<c:forEach items="${ndocumentCountrys}" var="country" varStatus="co">
+				<tr id='tb1_${co.index}' align="center">
+					<td>
+					${country.countryCode}
+					</td>
+					<c:forEach items="${ndocumentList_}" var="weightBand" begin="0">
+							<c:set var="key">${business.id}_${ndocument}_${weightBand.id}_${country.id}</c:set>
+						    <td>${recHwRateMap[key]}</td>
+				   </c:forEach>
+			   </tr>
+			</c:forEach>
+        </tbody>
+</table>
+<table class="table_B" width="100%">
+        <thead>
+			<tr align="center">
+                <th colspan="14" style="text-align:left;">New PT-HW rate Profile-48N(RMB per kilo)</th>
+            </tr>
+            <tr>
+                <th >Country-Depot</th>
+                 <c:forEach items="${eonomyList_}" var="weightBand">
+					<th>${weightBand.name}</th>
+			     </c:forEach>
+            </tr>
+        </thead>
+        <tbody id="tb2">
+        	<c:forEach items="${eonomyCountrys}" var="country" varStatus="co">
+				<tr id='tb2_${co.index}' align="center">
+					<td>
+					${country.countryCode}
+					</td>
+					<c:forEach items="${eonomyList_}" var="weightBand" begin="0">
+							<c:set var="key">${business.id}_${eonomy}_${weightBand.id}_${country.id}</c:set>
+						    <td>${recHwRateMap[key]}</td>
+				   </c:forEach>
+			   </tr>
+			</c:forEach>
+        </tbody>
 </table>
 </div>
 </div>

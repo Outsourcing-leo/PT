@@ -24,9 +24,9 @@ public class DoubleUtil {
 			weightBand = "100-250";
 		}else if(weight==251){
 			if(type.equals("15N")){
-				weightBand = "250+";
-			}else{
 				weightBand = "251-500";
+			}else{
+				weightBand = "250+";
 			}
 		}else if(weight==501){
 			weightBand = "500+";
