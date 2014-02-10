@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tnt.pt.dmsentity.User;
 import org.tnt.pt.entity.Business;
+import org.tnt.pt.entity.Country;
 import org.tnt.pt.entity.Customer;
 import org.tnt.pt.entity.Discount;
 import org.tnt.pt.entity.GEOSummary;
+import org.tnt.pt.entity.HWRate;
 import org.tnt.pt.entity.PTSLoad;
 import org.tnt.pt.entity.Rate;
 import org.tnt.pt.entity.Tariff;
@@ -43,6 +45,7 @@ import org.tnt.pt.service.ptProcess.CustomerService;
 import org.tnt.pt.service.ptProcess.DiscountService;
 import org.tnt.pt.service.ptProcess.ExamService;
 import org.tnt.pt.service.ptProcess.GeoSummaryService;
+import org.tnt.pt.service.ptProcess.HWRateService;
 import org.tnt.pt.service.ptProcess.RateService;
 import org.tnt.pt.service.ptProcess.RevService;
 import org.tnt.pt.service.ptProcess.SpecificConsignmentSetService;
@@ -98,60 +101,9 @@ public class PTQueryController{
     RevService revService;
     @Autowired
     ExamService examService;
-	/**
-	 * 公斤_时区_折扣  详细页
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="tariffPT", method = RequestMethod.GET)
-	public String rateDetail(Model model) {
-		/**
-		 * 该处为保存该pt下折扣信息代码
-		 */
-		//List<WeightBand> weightBandList = new ArrayList<WeightBand>();
-		List<Rate> rateList = new ArrayList<Rate>();
-		List<ZoneGroup> zoneGroupList = new ArrayList<ZoneGroup>();
-		List<WeightBand> documentList = new ArrayList<WeightBand>();
-		List<WeightBand> ndocumentList = new ArrayList<WeightBand>();
-		List<WeightBand> economyList = new ArrayList<WeightBand>();
-		List<Discount> discountList = new ArrayList<Discount>();
-		Map<String,Double> rateMap = new HashMap<String,Double>();//形成价格map 方便查询
-		Map<String,Double> discountMap = new HashMap<String,Double>();//形成折扣map 方便查询
-		Business business = new Business();
-		ZoneType zoneType = new ZoneType();
-		Customer customer = new Customer();
-		
-		business = businessService.getBusiness(0L);//1L为保存后获得的PT业务主表id
-		zoneType = zoneTypeService.getZoneTypeByZoneType(business.getZoneType());//zonetype类型
-		customer = customerService.getCustomer(business.getCustomerId());//客户信息
-		zoneGroupList =  zonegroupService.getAllZoneGroupByZoneType(zoneType.getZoneType());
-		documentList = weightBandService.getAllWeightBandByProductId(zoneType.getDocument());
-		ndocumentList = weightBandService.getAllWeightBandByProductId(zoneType.getNonDocument());
-		economyList = weightBandService.getAllWeightBandByProductId(zoneType.getEconomy());
-		
-		Long businessId = business.getId();
-		discountList = discountService.getAllDiscountByBusId(businessId,customer.getPayment());
-		for (Discount discount:discountList) {
-			discountMap.put(discount.getWeightBandId()+"_"+discount.getZoneGroupId(), discount.getDiscount());
-		}
-		
-		rateList = rateService.getAllRateByBusId(businessId,customer.getPayment());
-		for (Rate rate:rateList) {
-			rateMap.put(rate.getTariffGroupId()+"_"+rate.getZoneGroupId(), rate.getRate());
-		}
-		
-		model.addAttribute("business", business);
-		model.addAttribute("customer", customer);
-		model.addAttribute("zoneType", zoneType);
-		model.addAttribute("zoneGroupList", zoneGroupList);
-		model.addAttribute("documentList", documentList);
-		model.addAttribute("ndocumentList", ndocumentList);
-		model.addAttribute("economyList", economyList);
-		model.addAttribute("rateMap", rateMap);
-		model.addAttribute("discountMap", discountMap);
-		
-		return "ptProcess/tariffPT";
-	}
+    @Autowired
+    HWRateService hwRateService;
+	
 
 	/**
 	 * 公斤_时区_折扣  详细页 新增
@@ -278,6 +230,54 @@ public class PTQueryController{
 		model.addAttribute("recDiscountMap", recDiscountMap);
 		model.addAttribute("zoneSummary", zoneSummary);
 		model.addAttribute("recZoneSummary", recZoneSummary);
+		
+		/*
+		 * HW 记录 开始
+		 */
+		Map<String,Double> hwRateMap = new HashMap<String,Double>();//形成折扣map 方便查询
+		Map<String,Double> recHwRateMap = new HashMap<String,Double>();//形成折扣map 方便查询
+		List<Country> ndocountrys = new ArrayList<Country>();
+		List<Country> ecocountrys = new ArrayList<Country>();
+		List<WeightBand> ndocumentList_ = new ArrayList<WeightBand>();
+		List<WeightBand> eonomyList_ = new ArrayList<WeightBand>();
+		List<HWRate> hwRateList = new ArrayList<HWRate>();
+		List<HWRate> recHwRateList = new ArrayList<HWRate>();
+		ndocumentList_ = weightBandService.getAllHighWeightBandByProductId(zoneType.getNonDocument());//获取重货
+		eonomyList_ = weightBandService.getAllHighWeightBandByProductId(zoneType.getEconomy());//获取重货
+		
+		ndocountrys = hwRateService.getCountry(business.getId(), zoneType.getNonDocument());
+		ecocountrys = hwRateService.getCountry(business.getId(), zoneType.getEconomy());
+
+		if(customer.getPayment().equals(PTPARAMETERS.PAYMENT[2])&&business.getIsFollow().equals("NO")){//如果选择的是both 并且 isfollow为no  此时需要展示两个tab页
+			hwRateList = hwRateService.getAllHWRateByBusId(business.getId(),PTPARAMETERS.PAYMENT[0]);
+			recHwRateList = hwRateService.getAllHWRateByBusId(business.getId(),PTPARAMETERS.PAYMENT[1]);
+			for (HWRate hwRate:recHwRateList) {
+				recHwRateMap.put(hwRate.getBusinessId()+"_"+hwRate.getProductId()+"_"+hwRate.getWeightBandId()+"_"+hwRate.getCountryId(), hwRate.getRate());
+			}
+		}else if(customer.getPayment().equals(PTPARAMETERS.PAYMENT[2])&&business.getIsFollow().equals("YES")){//如果选择的是both 并且 isfollow为YES  此时需要展示两个同样的tab页
+			hwRateList = hwRateService.getAllHWRateByBusId(business.getId(),PTPARAMETERS.PAYMENT[2]);
+			recHwRateList = hwRateService.getAllHWRateByBusId(business.getId(),PTPARAMETERS.PAYMENT[2]);
+			for (HWRate hwRate:recHwRateList) {
+				recHwRateMap.put(hwRate.getBusinessId()+"_"+hwRate.getProductId()+"_"+hwRate.getWeightBandId()+"_"+hwRate.getCountryId(), hwRate.getRate());
+			}
+		}else{
+			hwRateList = hwRateService.getAllHWRateByBusId(business.getId(),customer.getPayment());
+		}
+		for (HWRate hwRate:hwRateList) {
+			hwRateMap.put(hwRate.getBusinessId()+"_"+hwRate.getProductId()+"_"+hwRate.getWeightBandId()+"_"+hwRate.getCountryId(), hwRate.getRate());
+		}
+		/*
+		 * HW 记录 结束
+		 */
+		model.addAttribute("ndocumentCountrys", ndocountrys);
+		model.addAttribute("eonomyCountrys", ecocountrys);
+		model.addAttribute("hwRateMap", hwRateMap);
+		model.addAttribute("recHwRateMap", recHwRateMap);
+		model.addAttribute("ndocumentList_", ndocumentList_);
+		model.addAttribute("eonomyList_", eonomyList_);
+		model.addAttribute("eonomy", zoneType.getEconomy());
+		model.addAttribute("ndocument", zoneType.getNonDocument());
+		
 		return "ptProcess/tariffPT";
 	}
 	
@@ -822,6 +822,53 @@ public class PTQueryController{
 		}
 		model.addAttribute("recDiscountMap", recDiscountMap);
 		model.addAttribute("discountMap", discountMap);
+		
+		/*
+		 * HW 记录 开始
+		 */
+		Map<String,Double> hwRateMap = new HashMap<String,Double>();//形成折扣map 方便查询
+		Map<String,Double> recHwRateMap = new HashMap<String,Double>();//形成折扣map 方便查询
+		List<Country> ndocountrys = new ArrayList<Country>();
+		List<Country> ecocountrys = new ArrayList<Country>();
+		List<WeightBand> ndocumentList_ = new ArrayList<WeightBand>();
+		List<WeightBand> eonomyList_ = new ArrayList<WeightBand>();
+		List<HWRate> hwRateList = new ArrayList<HWRate>();
+		List<HWRate> recHwRateList = new ArrayList<HWRate>();
+		ndocumentList_ = weightBandService.getAllHighWeightBandByProductId(zoneType.getNonDocument());//获取重货
+		eonomyList_ = weightBandService.getAllHighWeightBandByProductId(zoneType.getEconomy());//获取重货
+		
+		ndocountrys = hwRateService.getCountry(business.getId(), zoneType.getNonDocument());
+		ecocountrys = hwRateService.getCountry(business.getId(), zoneType.getEconomy());
+
+		if(customer.getPayment().equals(PTPARAMETERS.PAYMENT[2])&&business.getIsFollow().equals("NO")){//如果选择的是both 并且 isfollow为no  此时需要展示两个tab页
+			hwRateList = hwRateService.getAllHWRateByBusId(business.getId(),PTPARAMETERS.PAYMENT[0]);
+			recHwRateList = hwRateService.getAllHWRateByBusId(business.getId(),PTPARAMETERS.PAYMENT[1]);
+			for (HWRate hwRate:recHwRateList) {
+				recHwRateMap.put(hwRate.getBusinessId()+"_"+hwRate.getProductId()+"_"+hwRate.getWeightBandId()+"_"+hwRate.getCountryId(), hwRate.getRate());
+			}
+		}else if(customer.getPayment().equals(PTPARAMETERS.PAYMENT[2])&&business.getIsFollow().equals("YES")){//如果选择的是both 并且 isfollow为YES  此时需要展示两个同样的tab页
+			hwRateList = hwRateService.getAllHWRateByBusId(business.getId(),PTPARAMETERS.PAYMENT[2]);
+			recHwRateList = hwRateService.getAllHWRateByBusId(business.getId(),PTPARAMETERS.PAYMENT[2]);
+			for (HWRate hwRate:recHwRateList) {
+				recHwRateMap.put(hwRate.getBusinessId()+"_"+hwRate.getProductId()+"_"+hwRate.getWeightBandId()+"_"+hwRate.getCountryId(), hwRate.getRate());
+			}
+		}else{
+			hwRateList = hwRateService.getAllHWRateByBusId(business.getId(),customer.getPayment());
+		}
+		for (HWRate hwRate:hwRateList) {
+			hwRateMap.put(hwRate.getBusinessId()+"_"+hwRate.getProductId()+"_"+hwRate.getWeightBandId()+"_"+hwRate.getCountryId(), hwRate.getRate());
+		}
+		/*
+		 * HW 记录 结束
+		 */
+		model.addAttribute("ndocumentCountrys", ndocountrys);
+		model.addAttribute("eonomyCountrys", ecocountrys);
+		model.addAttribute("hwRateMap", hwRateMap);
+		model.addAttribute("recHwRateMap", recHwRateMap);
+		model.addAttribute("ndocumentList_", ndocumentList_);
+		model.addAttribute("eonomyList_", eonomyList_);
+		model.addAttribute("eonomy", zoneType.getEconomy());
+		model.addAttribute("ndocument", zoneType.getNonDocument());
 		
 		return "ptProcess/summaryInfoProgress";
 	}

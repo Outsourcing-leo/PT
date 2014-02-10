@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -358,10 +357,10 @@ public class DocumentDownController {
 		response.setHeader("Content-Disposition", "attachment;filename="
 				+ new String(("RateCard-"+business.getApplicationReference()+".pdf").getBytes(), "ISO8859-1"));
 		OutputStream out = response.getOutputStream();//返回ServletOutputStream
-		ByteArrayOutputStream baos = new PDFGenerater().generatePDF_C(zoneGroupList,documentList,ndocumentList,eonomyList,discountMap,recDiscountMap,productList,
-        			business,customer,pdfPathString,HWtraiffMapSP,HWtraiffMapRP,list1,list2,list3,list4,GdocumentListSP,GndocumentListSP,GeonomyListSP,GdocumentListRP,GndocumentListRP,GeonomyListRP);
-		response.setContentLength(baos.size());
-		baos.writeTo(out);
+//		ByteArrayOutputStream baos = new PDFGenerater().generatePDF_C(zoneGroupList,documentList,ndocumentList,eonomyList,discountMap,recDiscountMap,productList,
+//        			business,customer,pdfPathString,HWtraiffMapSP,HWtraiffMapRP,list1,list2,list3,list4,GdocumentListSP,GndocumentListSP,GeonomyListSP,GdocumentListRP,GndocumentListRP,GeonomyListRP);
+//		response.setContentLength(baos.size());
+//		baos.writeTo(out);
 		out.flush();
         fos.close();
         out.close();

@@ -208,7 +208,7 @@ public class PDFGenerater{
         table1.addCell(createCell("• 可选高额责任保障服务和优先服务", keyfont4,Element.ALIGN_LEFT,12,false));
         table1.addCell(createCell("", keyfont,Element.ALIGN_LEFT,15,false));
         
-        table1.addCell(createCell("重量(公斤)", keyfont,Element.ALIGN_CENTER,1,false,rowColor));
+        table1.addCell(createCell("重量/公斤", keyfont,Element.ALIGN_CENTER,1,false,rowColor));
         for(ZoneGroup zoneGroup:zoneGroupList){
         	table1.addCell(createCell(zoneGroup.getZone(), keyfont,Element.ALIGN_CENTER,1,false,rowColor));  
         }
@@ -253,7 +253,7 @@ public class PDFGenerater{
         table2.addCell(createCell("• 适用于500公斤以下的文件", keyfont4,Element.ALIGN_LEFT,12,false));
         table2.addCell(createCell("• 可选高额责任保障服务和优先服务", keyfont4,Element.ALIGN_LEFT,12,false));
         table2.addCell(createCell("", keyfont,Element.ALIGN_LEFT,15,false));
-        table2.addCell(createCell("重量(公斤)", keyfont,Element.ALIGN_CENTER,1,false,rowColor));
+        table2.addCell(createCell("重量/公斤", keyfont,Element.ALIGN_CENTER,1,false,rowColor));
         for(ZoneGroup zoneGroup:zoneGroupList){
         	table2.addCell(createCell(zoneGroup.getZone(), keyfont,Element.ALIGN_CENTER,1,false,rowColor));  
         }
@@ -297,7 +297,7 @@ public class PDFGenerater{
         table3.addCell(createCell("• 可选高额责任保障服务和优先服务", keyfont4,Element.ALIGN_LEFT,12,false));
         table3.addCell(createCell("", keyfont,Element.ALIGN_LEFT,15,false));
         
-        table3.addCell(createCell("重量(公斤)", keyfont,Element.ALIGN_CENTER,1,false,rowColor));
+        table3.addCell(createCell("重量/公斤", keyfont,Element.ALIGN_CENTER,1,false,rowColor));
         for(ZoneGroup zoneGroup:zoneGroupList){
         	table3.addCell(createCell(zoneGroup.getZone(), keyfont,Element.ALIGN_CENTER,1,false,rowColor));  
         }
@@ -334,14 +334,14 @@ public class PDFGenerater{
         table4.addCell(createCell("2014国际快递费率及服务指南 | 中国大陆地区", textfont,Element.ALIGN_LEFT,11,false));
         table4.addCell(createCell("page 5", keyfont,Element.ALIGN_RIGHT,1,false));
         
-        table4.addCell(createCell("经济快递 - 进口", keyfont2,Element.ALIGN_LEFT,9,false));
+        table4.addCell(createCell("全球快递 - 进口", keyfont2,Element.ALIGN_LEFT,9,false));
         table4.addCell(createCell("更多详情  800-820-9868     www.tnt.com/express/zh_cn", keyfont4,Element.ALIGN_RIGHT,3,false));
         table4.addCell(createCell("在下一个或者最近一个可能的工作日结束前派送 ", keyfont3,Element.ALIGN_LEFT,12,false));
         table4.addCell(createCell("• 工作日当日取件", keyfont4,Element.ALIGN_LEFT,12,false));
         table4.addCell(createCell("• 适用于500公斤以下的文件", keyfont4,Element.ALIGN_LEFT,12,false));
         table4.addCell(createCell("• 可选高额责任保障服务和优先服务", keyfont4,Element.ALIGN_LEFT,12,false));
         table4.addCell(createCell("", keyfont,Element.ALIGN_LEFT,15,false));
-        table4.addCell(createCell("重量(公斤)", keyfont,Element.ALIGN_CENTER,1,false,rowColor));
+        table4.addCell(createCell("重量/公斤", keyfont,Element.ALIGN_CENTER,1,false,rowColor));
         for(ZoneGroup zoneGroup:zoneGroupList){
         	table4.addCell(createCell(zoneGroup.getZone(), keyfont,Element.ALIGN_CENTER,1,false,rowColor));  
         }
@@ -378,7 +378,7 @@ public class PDFGenerater{
         table5.addCell(createCell("2014国际快递费率及服务指南 | 中国大陆地区", textfont,Element.ALIGN_LEFT,11,false));
         table5.addCell(createCell("page 6", keyfont,Element.ALIGN_RIGHT,1,false));
        
-        table5.addCell(createCell("经济快递 - 进口", keyfont2,Element.ALIGN_LEFT,8,false));
+        table5.addCell(createCell("全球快递 - 进口", keyfont2,Element.ALIGN_LEFT,8,false));
         table5.addCell(createCell("更多详情  800-820-9868    www.tnt.com/express/zh_cn", keyfont4,Element.ALIGN_RIGHT,4,false));
         table5.addCell(createCell("在下一个或者最近一个可能的工作日结束前派送 ", keyfont3,Element.ALIGN_LEFT,12,false));
         table5.addCell(createCell("• 工作日当日取件", keyfont4,Element.ALIGN_LEFT,12,false));
@@ -386,7 +386,7 @@ public class PDFGenerater{
         table5.addCell(createCell("• 可选高额责任保障服务和优先服务", keyfont4,Element.ALIGN_LEFT,12,false));
         table5.addCell(createCell("", keyfont,Element.ALIGN_LEFT,15,false));
         
-        table5.addCell(createCell("重量(公斤)", keyfont,Element.ALIGN_CENTER,1,false,rowColor));
+        table5.addCell(createCell("重量/公斤", keyfont,Element.ALIGN_CENTER,1,false,rowColor));
         for(ZoneGroup zoneGroup:zoneGroupList){
         	table5.addCell(createCell(zoneGroup.getZone(), keyfont,Element.ALIGN_CENTER,1,false,rowColor));  
         }
@@ -431,7 +431,7 @@ public class PDFGenerater{
         table6.addCell(createCell("• 可选高额责任保障服务和优先服务", keyfont4,Element.ALIGN_LEFT,12,false));
         table6.addCell(createCell("", keyfont,Element.ALIGN_LEFT,15,false));
         
-        table6.addCell(createCell("重量(公斤)", keyfont,Element.ALIGN_CENTER,1,false,rowColor));
+        table6.addCell(createCell("重量/公斤", keyfont,Element.ALIGN_CENTER,1,false,rowColor));
         for(ZoneGroup zoneGroup:zoneGroupList){
         	table6.addCell(createCell(zoneGroup.getZone(), keyfont,Element.ALIGN_CENTER,1,false,rowColor));  
         }
@@ -473,7 +473,7 @@ public class PDFGenerater{
         	table7.addCell(createCell("更多详情  800-820-9868     www.tnt.com/express/zh_cn", keyfont4,Element.ALIGN_RIGHT,3,false));
         	table7.addCell(createCell("", keyfont,Element.ALIGN_LEFT,15,false));
             if(list1.size()>0){
-            	table7.addCell(createCell("重量(公斤)", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
+            	table7.addCell(createCell("重量/公斤", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
             	for(String country:list1){
             		table7.addCell(createCell(country, keyfont,Element.ALIGN_LEFT,1,false,rowColor));
             	}
@@ -485,9 +485,9 @@ public class PDFGenerater{
                 	TariffGroup tg = GndocumentListRP.get(i);
                 	if(tg.getWeight()>20){
                 		if(i%2==0){
-                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"15N")+"", textfont,Element.ALIGN_LEFT,1,false,rowColor));
+                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"")+"", textfont,Element.ALIGN_LEFT,1,false,rowColor));
                 		}else{
-                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"15N")+"", textfont,Element.ALIGN_LEFT,1,false));
+                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"")+"", textfont,Element.ALIGN_LEFT,1,false));
                 		}
                 		for(String country:list1){
                 			String keyString = country+"2_"+DoubleUtil.getWeightBand(tg.getWeight(), "");
@@ -511,7 +511,7 @@ public class PDFGenerater{
             }
         	
         	if(list2.size()>0){
-        		table7.addCell(createCell("重量(公斤)", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
+        		table7.addCell(createCell("重量/公斤", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
         		for(String country:list2){
             		table7.addCell(createCell(country, keyfont,Element.ALIGN_LEFT,1,false,rowColor));
             	}
@@ -523,12 +523,12 @@ public class PDFGenerater{
                 	TariffGroup tg = GeonomyListRP.get(i);
                 	if(tg.getWeight()>20){
                 		if(i%2==0){
-                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"")+"", textfont,Element.ALIGN_LEFT,1,false,rowColor));
+                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"15N")+"", textfont,Element.ALIGN_LEFT,1,false,rowColor));
                 		}else{
-                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"")+"", textfont,Element.ALIGN_LEFT,1,false));
+                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"15N")+"", textfont,Element.ALIGN_LEFT,1,false));
                 		}
                 		for(String country:list2){
-                			String keyString = country+"3_"+DoubleUtil.getWeightBand(tg.getWeight(), "");
+                			String keyString = country+"3_"+DoubleUtil.getWeightBand(tg.getWeight(), "15N");
                 			String rate = HWtraiffMapSP.get(keyString)==null?"0.0":HWtraiffMapSP.get(keyString)+"";
                 			if(i%2==0){
             	        		if(tg.getWeight()>20){
@@ -551,7 +551,7 @@ public class PDFGenerater{
         	table7.addCell(createCell("重货特价-进口", keyfont2,Element.ALIGN_LEFT,9,false));
         	table7.addCell(createCell("", keyfont,Element.ALIGN_LEFT,15,false));
             if(list3.size()>0){
-            	table7.addCell(createCell("重量(公斤)", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
+            	table7.addCell(createCell("重量/公斤", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
             	for(String country:list3){
             		table7.addCell(createCell(country, keyfont,Element.ALIGN_LEFT,1,false,rowColor));
             	}
@@ -563,9 +563,9 @@ public class PDFGenerater{
                 	TariffGroup tg = GndocumentListRP.get(i);
                 	if(tg.getWeight()>20){
                 		if(i%2==0){
-                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"15N")+"", textfont,Element.ALIGN_LEFT,1,false,rowColor));
+                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"")+"", textfont,Element.ALIGN_LEFT,1,false,rowColor));
                 		}else{
-                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"15N")+"", textfont,Element.ALIGN_LEFT,1,false));
+                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"")+"", textfont,Element.ALIGN_LEFT,1,false));
                 		}
                 		for(String country:list3){
                 			String keyString = country+"2_"+DoubleUtil.getWeightBand(tg.getWeight(), "");
@@ -588,7 +588,7 @@ public class PDFGenerater{
             	table7.addCell(createCell("", keyfont,Element.ALIGN_LEFT,15,false));
             }
         	if(list4.size()>0){
-        		table7.addCell(createCell("重量(公斤)", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
+        		table7.addCell(createCell("重量/公斤", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
         		for(String country:list4){
             		table7.addCell(createCell(country, keyfont,Element.ALIGN_LEFT,1,false,rowColor));
             	}
@@ -600,12 +600,12 @@ public class PDFGenerater{
                 	TariffGroup tg = GeonomyListRP.get(i);
                 	if(tg.getWeight()>20){
                 		if(i%2==0){
-                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"")+"", textfont,Element.ALIGN_LEFT,1,false,rowColor));
+                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"15N")+"", textfont,Element.ALIGN_LEFT,1,false,rowColor));
                 		}else{
-                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"")+"", textfont,Element.ALIGN_LEFT,1,false));
+                			table7.addCell(createCell(DoubleUtil.getWeightBand(tg.getWeight(),"15N")+"", textfont,Element.ALIGN_LEFT,1,false));
                 		}
                 		for(String country:list4){
-                			String keyString = country+"3_"+DoubleUtil.getWeightBand(tg.getWeight(), "");
+                			String keyString = country+"3_"+DoubleUtil.getWeightBand(tg.getWeight(), "15N");
                 			String rate = HWtraiffMapRP.get(keyString)==null?"0.0":HWtraiffMapRP.get(keyString)+"";
                 			if(i%2==0){
             	        		if(tg.getWeight()>20){
@@ -932,7 +932,7 @@ public class PDFGenerater{
         	table7.addCell(createCell("更多详情  800-820-9868     www.tnt.com/express/zh_cn", keyfont4,Element.ALIGN_RIGHT,3,false));
         	table7.addCell(createCell("", keyfont,Element.ALIGN_LEFT,15,false));
             if(list1.size()>0){
-            	table7.addCell(createCell("重量(公斤)", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
+            	table7.addCell(createCell("重量/公斤", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
             	for(String country:list1){
             		table7.addCell(createCell(country, keyfont,Element.ALIGN_LEFT,1,false,rowColor));
             	}
@@ -970,7 +970,7 @@ public class PDFGenerater{
             }
         	
         	if(list2.size()>0){
-        		table7.addCell(createCell("重量(公斤)", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
+        		table7.addCell(createCell("重量/公斤", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
         		for(String country:list2){
             		table7.addCell(createCell(country, keyfont,Element.ALIGN_LEFT,1,false,rowColor));
             	}
@@ -1010,7 +1010,7 @@ public class PDFGenerater{
         	table7.addCell(createCell("重货特价-进口", keyfont2,Element.ALIGN_LEFT,9,false));
         	table7.addCell(createCell("", keyfont,Element.ALIGN_LEFT,15,false));
             if(list3.size()>0){
-            	table7.addCell(createCell("重量(公斤)", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
+            	table7.addCell(createCell("重量/公斤", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
             	for(String country:list3){
             		table7.addCell(createCell(country, keyfont,Element.ALIGN_LEFT,1,false,rowColor));
             	}
@@ -1047,7 +1047,7 @@ public class PDFGenerater{
             	table7.addCell(createCell("", keyfont,Element.ALIGN_LEFT,15,false));
             }
         	if(list4.size()>0){
-        		table7.addCell(createCell("重量(公斤)", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
+        		table7.addCell(createCell("重量/公斤", keyfont,Element.ALIGN_LEFT,1,false,rowColor));
         		for(String country:list4){
             		table7.addCell(createCell(country, keyfont,Element.ALIGN_LEFT,1,false,rowColor));
             	}
